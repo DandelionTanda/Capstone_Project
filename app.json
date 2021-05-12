@@ -1,0 +1,12 @@
+{
+  "name": "Tanda",
+  "displayName": "Tanda",
+  "expo": {
+    "name": "Tanda",
+    "slug": "Tanda",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
