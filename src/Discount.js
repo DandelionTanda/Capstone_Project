@@ -1,6 +1,10 @@
 import React, { useState } from "react";
-import { FlatList, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity,View,Icon,Image } from "react-native";
-import { Header } from "react-native/Libraries/NewAppScreen";
+import { Button, FlatList, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity,View,Icon,Image } from "react-native";
+import 'react-native-gesture-handler';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const DATA = [
   {    
@@ -35,7 +39,11 @@ const Item = ({ item, onPress, backgroundColor, textColor }) => (
   </TouchableOpacity>
 );
 
-const Discount = () => {
+const HomeStack = createStackNavigator();
+const MeStack = createStackNavigator();
+const Tab = createBottomTabNavigator();
+
+const Home = () => {
   const [selectedId, setSelectedId] = useState(null);
 
   const renderItem = ({ item, index }) => {
@@ -54,14 +62,14 @@ const Discount = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-        <View style={styles.header}>
-            <View style={styles.clock}>
-                <Text style={{fontSize: 20, color: 'white', fontWeight: 'bold'}}>
-                    Clocked In
-                </Text>
-            </View>
+        
+      <View style={styles.clock}>
+          <Text style={{fontSize: 20, color: 'white', fontWeight: 'bold'}}>
+              Clocked In
+          </Text>
+      </View>
             
-        </View>
+       
 
       <FlatList
         data={DATA}
@@ -69,39 +77,106 @@ const Discount = () => {
         keyExtractor={(item, index) => index.toString()}        
         extraData={selectedId}
         style={{marginVertical: 25,}}
-      />
-      <View style={styles.footer}>
-            <TouchableOpacity  style={styles.leftFooter}>
-                <Image
-                    source={require('E:/First_React_Native_App/AwesomeProject/discount.png')} 
-                    style={{ width: 20, height: 20, marginLeft: 20,}}
-                    tintColor='#45B8DB'
-                />
-                <Text style={{fontSize: 15, color: '#45B8DB', fontWeight: "bold"}}>
-                    Discount
-                </Text>       
-            </TouchableOpacity>
-            <TouchableOpacity  style={styles.rightFooter}>
-                <Image
-                    source={require('E:/First_React_Native_App/AwesomeProject/user_icon_004.png')} 
-                    style={{ width: 20, height: 20,}}
-                    tintColor='#45B8DB'
-                />
-                <Text style={{fontSize: 15, color: '#45B8DB', fontWeight: "bold",}}>
-                    Me
-                </Text>            
-            </TouchableOpacity>
-        </View>
-
+      />    
     </SafeAreaView>
     
   );
 };
 
+function Me() {
+  return (
+    <View style={{ flex: 1, justifyContent: 'center',  width:'50%', alignSelf:'center' }}>
+      <Button        
+        title="Log out"
+        color="#E3310E"          
+      />
+    </View>
+  );
+}
+function HomeStackScreen() {
+  return (
+    <HomeStack.Navigator>
+      <HomeStack.Screen
+        name="Home"
+        component={Home}
+        options={{ 
+          tabBarLabel: 'Home!' ,
+          headerStyle: {
+            backgroundColor: '#45B8DB',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+          headerTitleAlign: 'center'
+        }}
+        
+      />
+    </HomeStack.Navigator>
+  );
+}
+
+function MeStackScreen() {
+  return (
+    <MeStack.Navigator>
+      <MeStack.Screen
+        name="Me"
+        component={Me}
+        options={{ 
+          tabBarLabel: 'Me!' ,
+          headerStyle: {
+            backgroundColor: '#45B8DB',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+          headerTitleAlign: 'center'
+        }}
+      />
+    </MeStack.Navigator>
+  );
+}
+
+
+function MyTabs() {
+  return (
+    <Tab.Navigator
+      initialRouteName="HomeStackScreen"
+      tabBarOptions={{
+        activeTintColor: '#45B8DB',
+      }}
+    >
+      <Tab.Screen
+        name="Home"
+        component={HomeStackScreen}
+        options={{
+          title: 'Home',
+          tabBarLabel: 'Home',
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="home" color={color} size={size} />
+          ),
+        }}
+      />
+      
+      <Tab.Screen
+        name="Me"
+        component={MeStackScreen}
+        options={{
+          tabBarLabel: 'Me',
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="account" color={color} size={size} />
+          ),
+        }}
+      />
+    </Tab.Navigator>
+  );
+}
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,    
-    backgroundColor: 'lightgrey',
+    backgroundColor: '#F5F3F3',
     
   },
   item: {
@@ -117,16 +192,11 @@ const styles = StyleSheet.create({
     fontSize: 30,
    
   },
-  header: {      
-    backgroundColor: "#45B8DB",
-    height: 60, 
-    width: "100%", 
-    
-  },
+  
   clock: {
-    marginTop: 8,
+    marginTop: 18,
     padding: 6,
-    alignSelf:  "center",
+    alignSelf:  "flex-start",
     backgroundColor: "green",
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
@@ -154,4 +224,10 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Discount;
+export default function Discount() {
+  return (
+    <NavigationContainer>
+      <MyTabs />
+    </NavigationContainer>
+  );
+}
