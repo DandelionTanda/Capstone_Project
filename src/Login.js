@@ -1,10 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { Component, useState } from 'react';
-import { StyleSheet, Text, View, Button, TextInput, state } from 'react-native';
-import {FloatingLabelInput} from 'react-native-floating-label-input';
+import { StyleSheet, Text, View, Button, TextInput, state, Input } from 'react-native';
 
 
-export default function Login() {
+
+export default function Login( {navigation} ) {
 
   const [Username, setUsername] = useState("")
   const [Password, setPassword] = useState("")
@@ -20,13 +20,13 @@ export default function Login() {
         <View style={styles.footer}>
         <Text></Text>
         <Text></Text>
-        <FloatingLabelInput style={styles.Username}
+        <TextInput style={styles.Username}
         label="Username"
         value={Username}
         />
         <Text></Text>
         <Text></Text>
-       <FloatingLabelInput
+       <TextInput
        label="Password"
        isPassword={true}
        value={Password}
@@ -35,7 +35,7 @@ export default function Login() {
         <Text></Text>
         <StatusBar style="auto" />
         <View style={styles.button}>
-        <Button title = "Log in" onPress = {() => console.log("1")} />
+        <Button title = "Log in" onPress = {() => navigation.navigate("Discount")} />
         </View>
         </View>
     </View>

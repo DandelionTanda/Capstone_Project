@@ -88,13 +88,13 @@ const Home = ( {navigation} ) => {
   );
 };
 
-function Me() {
+function Me( { navigation } ) {
   return (
     <View style={{ flex: 1, justifyContent: 'center',  width:'50%', alignSelf:'center' }}>
       
       <TouchableOpacity
         style={styles.logoutButton}
-        
+        onPress={()=> navigation.navigate('Login')}
       > 
         <Ionicons name="log-out" size={35} color="white" />     
         <Text style={{fontSize: 20, fontWeight: "bold", color: 'white',marginLeft:40}}>Log out</Text>
@@ -201,9 +201,8 @@ const styles = StyleSheet.create({
 const Stack = createStackNavigator();
 
 export default function Discount() {
-  return (
-    <NavigationContainer>
-      <Stack.Navigator>
+  return (  
+      <Stack.Navigator initialRouteName="Home" >
         <Stack.Screen 
           name="Home" 
           component={MyTabs} 
@@ -216,13 +215,13 @@ export default function Discount() {
           headerTitleStyle: {
             fontWeight: 'bold',
           },
-          headerTitleAlign: 'center'
+          headerTitleAlign: 'center',
+          headerLeft: null
         }}/>
         <Stack.Screen 
           name="Discount Details" 
           component={Details} 
-          options={{ 
-          tabBarLabel: 'Home!' ,
+          options={{           
           headerStyle: {
             backgroundColor: '#45B8DB',
           },
@@ -233,6 +232,6 @@ export default function Discount() {
           headerTitleAlign: 'center'
         }}/>
       </Stack.Navigator>     
-    </NavigationContainer>
+    
   );
 }

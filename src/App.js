@@ -1,40 +1,28 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import Login from './Login';
+import Discount from './Discount';
 
-export default function App() {
 
+const Stack = createStackNavigator();
+
+function App() {
   return (
-    <View style={styles.container}>
-      <Text>Tanda discount</Text>
-      <TextInput
-        style={{
-          height: 40,
-          borderColor: 'gray',
-          borderWidth: 1
-        }}
-        defaultValue="You can type in me"
-      />
-            <TextInput
-        style={{
-          height: 40,
-          borderColor: 'gray',
-          borderWidth: 1
-        }}
-        defaultValue="You can type in me"
-      />
-      <Button title = "Login" onPress = {() => console.log("1")} />
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Login" screenOptions={{
+    headerShown: false 
+  }}>
+        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="Discount" component={Discount} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
+export default App;
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#45B8DB',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+
+
