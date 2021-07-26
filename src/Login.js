@@ -1,19 +1,57 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { Component, useState } from 'react';
-import { StyleSheet, Text, View, Button, TextInput, Input } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, Text, View, Button} from 'react-native';
 import {FloatingLabelInput} from "react-native-floating-label-input";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
-export default function Login( {navigation} ) {
 
+
+function Login({navigation}) {
 
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [token, setToken] = useState('')
 
+  async function DoLogin(){
+     
+    await fetch(`https://my.tanda.co/api/oauth/token`,{
+     method: "POST",
+     headers: {
+       'Content-Type': 'application/json'
+     },
+     body: JSON.stringify({
+       username:"leo727268082@gmail.com",
+       password:"123456789",
+       scope:"",
+       grant_type:"password"
+     })
+   })
+   .then(res=>res.json())
+   .then(data=>{  
+        try{
+          console.log(JSON.stringify(data))
+          setToken(AsyncStorage.setItem('token', JSON.stringify(data)))
+          const value = AsyncStorage.getItem('token')
+          console.log(value)
+          console.log(token)
+          if(value!==null)
+          {
+            navigation.navigate("Discount")
+          }
+          else{
+            alert("user does not exsit")
+          }
+        }
+        catch(err)
+        {
+          console.log(err)
+        }
+   })
   
+  }
 
   return (
-    
     <View style={styles.container}>
         <StatusBar style="auto" />
         <View style={styles.header}>
@@ -57,13 +95,14 @@ export default function Login( {navigation} ) {
           <Text></Text>
           <Text></Text>
           <View style={styles.button}>
-          <Button title = "Login" onPress = {() => navigation.navigate('Discount')}/>
+          <Button title = "Login" onPress = {DoLogin}/>
           </View>
         </View>
     </View>
   ); 
 }
 
+export default Login;
 
 const styles = StyleSheet.create({
   container: {
