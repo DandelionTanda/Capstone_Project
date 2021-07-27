@@ -30,24 +30,25 @@ function Login({navigation}) {
    .then(res=>res.json())
    .then(data=>{  
         try{
-          console.log(JSON.stringify(data))
-          setToken(AsyncStorage.setItem('token', JSON.stringify(data)))
-          const value = AsyncStorage.getItem('token')
-          console.log(value)
-          console.log(token)
-          if(value!==null)
-          {
-            navigation.navigate("Discount")
-          }
-          else{
-            alert("user does not exsit")
-          }
+          console.log(data.access_token)
+          AsyncStorage.setItem('token', data.access_token)
+          setTimeout(() => {
+            const value = AsyncStorage.getItem('token')
+            console.log(value)
+            if(value!==null)
+            {
+              navigation.navigate("Discount")
+            }
+            else{
+              alert("user does not exsit")
+            }   
+          },5000);
         }
         catch(err)
         {
-          console.log(err)
+          console.log("111")
         }
-   })
+      })
   
   }
 
