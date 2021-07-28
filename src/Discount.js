@@ -6,6 +6,7 @@ import { NavigationContainer, getFocusedRouteNameFromRoute, } from '@react-navig
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 function getHeaderTitle(route) {
   const routeName = getFocusedRouteNameFromRoute(route) ?? 'Home';
@@ -89,12 +90,18 @@ const Home = ( {navigation} ) => {
 };
 
 function Me( { navigation } ) {
+
+  function clear(){
+    navigation.navigate('Login')
+    AsyncStorage.clear()
+    
+  }
   return (
     <View style={{ flex: 1, justifyContent: 'center',  width:'50%', alignSelf:'center' }}>
       
       <TouchableOpacity
         style={styles.logoutButton}
-        onPress={()=> navigation.navigate('Login')}
+        onPress={clear}
       > 
         <Ionicons name="log-out" size={35} color="white" />     
         <Text style={{fontSize: 20, fontWeight: "bold", color: 'white',marginLeft:40}}>Log out</Text>

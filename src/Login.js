@@ -5,17 +5,15 @@ import {FloatingLabelInput} from "react-native-floating-label-input";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
-
-
 function Login({navigation}) {
 
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  const [token, setToken] = useState('')
+  const [token, setToken] = useState(false)
 
-  async function DoLogin(){
+  function DoLogin(){
      
-    await fetch(`https://my.tanda.co/api/oauth/token`,{
+    fetch(`https://my.tanda.co/api/oauth/token`,{
      method: "POST",
      headers: {
        'Content-Type': 'application/json'
@@ -30,26 +28,33 @@ function Login({navigation}) {
    .then(res=>res.json())
    .then(data=>{  
         try{
-          console.log(data.access_token)
+          console.log(data)
           AsyncStorage.setItem('token', data.access_token)
-          setTimeout(() => {
-            const value = AsyncStorage.getItem('token')
-            console.log(value)
-            if(value!==null)
-            {
-              navigation.navigate("Discount")
-            }
-            else{
-              alert("user does not exsit")
-            }   
-          },5000);
+          retriveData()
         }
         catch(err)
         {
           console.log("111")
         }
       })
-  
+  }
+
+  const retriveData = async ()=>{
+    try{
+      const value = await AsyncStorage.getItem('token')
+      console.log(value)
+      if(value!==null)
+      {
+        navigation.navigate("Discount")
+      }
+      else{
+        alert("user does not exsit")
+      }   
+    }
+    catch(err)
+    {
+      console.log(err)
+    }
   }
 
   return (
