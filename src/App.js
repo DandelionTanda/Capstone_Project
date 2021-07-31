@@ -5,7 +5,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import Login from './Login';
 import Discount from './Discount';
 import { Button, View } from 'react-native';
-
+import 'localstorage-polyfill';
 
 const Stack = createStackNavigator();
 const auth = createStackNavigator();
