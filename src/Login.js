@@ -29,10 +29,9 @@ function Login({navigation}) {
    .then(data=>{  
         try{
           console.log(data)
-          AsyncStorage.setItem('token', data.access_token)
-          AsyncStorage.setItem('tokenType', data.token_type)
-          localStorage.setItem('token', data.access_token)
-          localStorage.setItem('tokenType', data.token_type)
+          await AsyncStorage.setItem('token', data.access_token)
+          await AsyncStorage.setItem('tokenType', data.token_type)
+          
           retriveData()
         }
         catch(err)

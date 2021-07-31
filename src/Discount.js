@@ -92,13 +92,13 @@ const Home = ( {navigation} ) => {
 function Me( { navigation } ) {
 
   //get token
-  const token =  localStorage.getItem('token')
+  const token =  await AsyncStorage.getItem('token')
   //get type of token
-  const tokenType =  localStorage.getItem('tokenType')
+  const tokenType =  await AsyncStorage.getItem('tokenType')
   //data header
   const config = {
     method: "GET",
-    headers: {Authorization: localStorage.getItem('tokenType')+ ' ' +localStorage.getItem('token')}};
+    headers: {Authorization: tokenType + ' ' + token}};
   const [userName, setUserName] = useState('')
   const [photo, setPhoto] = useState('')
   function clear(){
