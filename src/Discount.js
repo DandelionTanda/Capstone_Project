@@ -100,17 +100,19 @@ function Me( { navigation } ) {
   
   
   return (
-    <View style={{ flex: 1, justifyContent: 'center',  width:'50%', alignSelf:'center' }}>
-      <Image style={{ width: '100%', height: '40%', justifyContent: 'center',alignItems: 'center', marginBottom: 30 }} 
+    <View style={{ flex: 1,  width:'70%', alignSelf:'center' }}>
+      <View style={{flexDirection: "row", marginTop:40}}>
+      <Image style={{ width: '20%', height: '80%', marginBottom: 30 }} 
       source={{
           uri: localStorage.getItem('photo'),
        }} alt = "Avatar"></Image>
-      <Text style={{fontSize: 35, fontWeight: "bold", color: 'black',marginLeft:40,marginBottom:40}}>Welcome {localStorage.getItem('name')}</Text>
+      <Text style={{ fontSize: 35, fontWeight: "bold", color: 'black',marginLeft:40,marginBottom:40}}>{localStorage.getItem('name')}</Text>
+      </View>
       <TouchableOpacity
         style={styles.logoutButton}
         onPress={clear}
       >
-        <Ionicons name="log-out" size={35} color="white" />     
+        <Ionicons name="log-out" size={35} color="white" />
         <Text style={{fontSize: 20, fontWeight: "bold", color: 'white',marginLeft:40}}>Log out</Text>
       </TouchableOpacity>
     </View>
@@ -202,6 +204,7 @@ const styles = StyleSheet.create({
   },
   
   logoutButton: {
+    marginTop: 200,
     alignItems: "center",
     backgroundColor: "#E3310E",
     padding: 10,   
