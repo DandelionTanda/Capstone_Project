@@ -9,7 +9,7 @@ function Login({navigation}) {
 
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  const [token, setToken] = useState(false)
+  const [error, setError] = useState(false)
 
   function DoLogin(){
      
@@ -19,25 +19,32 @@ function Login({navigation}) {
        'Content-Type': 'application/json'
      },
      body: JSON.stringify({
-       username:"leo727268082@gmail.com",
-       password:"123456789",
+       username:username,
+       password:password,
        scope:"me",
        grant_type:"password"
      })
    })
    .then(res=>res.json())
    .then(data=>{  
-        try{
-          console.log(data)
+        try{     
+          console.log(data) 
+          if (data.error){
+            setError(data.error)
+          }   
+          else { 
           AsyncStorage.setItem('token', data.access_token)
           AsyncStorage.setItem('tokenType', data.token_type)
           localStorage.setItem('token', data.access_token)
-          localStorage.setItem('tokenType', data.token_type)    
-          navigation.navigate("Discount")     
+          localStorage.setItem('tokenType', data.token_type) 
+          setError(false)      
+          navigation.navigate("Discount") 
+          }               
         }
         catch(err)
         {
           console.log(err)
+          
         }
       })
     
@@ -50,7 +57,7 @@ function Login({navigation}) {
       console.log(value)
       if(value!==null)
       {
-        navigation.navigate("Discount")
+        
       }
       else{
         alert("user does not exsit")
@@ -68,12 +75,16 @@ function Login({navigation}) {
         <View style={styles.header}>
         <Text style={styles.Text1}>TANDA</Text>
         <Text style={styles.Text2}>Discount</Text>
-        <Text style={styles.Text3}>Discovery</Text>
-        </View>
-          <View style={styles.footer}>
+        <Text style={styles.Text3}>Discovery</Text>      
+        </View >
+        {error?
+        <Text style={{fontSize: 20, fontWeight: "bold", color: 'red', textAlign: 'center'}}>
+          username or password is incorrect
+          </Text>:null}
+          <View style={styles.footer}>          
           <Text></Text>
           <Text></Text>
-          <View style={styles.username}>         
+          <View >         
             <FloatingLabelInput 
             label= "Username"
             value={username}
@@ -88,7 +99,7 @@ function Login({navigation}) {
           /></View>
           <Text></Text>
           <Text></Text>
-          <View style={styles.password}>
+          <View >
           <FloatingLabelInput
             label="Password"
             isPassword={true}
@@ -105,7 +116,7 @@ function Login({navigation}) {
           </View>
           <Text></Text>
           <Text></Text>
-          <View style={styles.button}>
+          <View>
           <Button title = "Login" onPress = {DoLogin}/>
           </View>
         </View>
@@ -121,6 +132,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#45B8DB',   
   },
   header:{
+    marginTop: 60,
     flex:1, 
   },
   Text1:{
