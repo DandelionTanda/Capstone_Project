@@ -21,7 +21,7 @@ function Login({navigation}) {
      body: JSON.stringify({
        username:"leo727268082@gmail.com",
        password:"123456789",
-       scope:"",
+       scope:"me",
        grant_type:"password"
      })
    })
@@ -30,11 +30,14 @@ function Login({navigation}) {
         try{
           console.log(data)
           AsyncStorage.setItem('token', data.access_token)
+          AsyncStorage.setItem('tokenType', data.token_type)
+          localStorage.setItem('token', data.access_token)
+          localStorage.setItem('tokenType', data.token_type)
           retriveData()
         }
         catch(err)
         {
-          console.log("111")
+          console.log(err)
         }
       })
   }
