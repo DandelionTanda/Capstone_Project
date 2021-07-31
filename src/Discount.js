@@ -91,42 +91,21 @@ const Home = ( {navigation} ) => {
 
 function Me( { navigation } ) {
 
-  //get token
-  const token =  await AsyncStorage.getItem('token')
-  //get type of token
-  const tokenType =  await AsyncStorage.getItem('tokenType')
-  //data header
-  const config = {
-    method: "GET",
-    headers: {Authorization: tokenType + ' ' + token}};
-  const [userName, setUserName] = useState('')
-  const [photo, setPhoto] = useState('')
+  
   function clear(){
     navigation.navigate('Login')
     AsyncStorage.clear()
     localStorage.clear()
   }
-  const url = `https://my.tanda.co/api/v2/users/me`
-  fetch(url,config)
-  .then(res=>res.json())
-   .then((res)=>{
-    try{
-      setUserName(res.name)
-      setPhoto(res.photo)
-    }
-    catch(err)
-    {
-      console.log("err")
-    }
-   });
+  
   
   return (
     <View style={{ flex: 1, justifyContent: 'center',  width:'50%', alignSelf:'center' }}>
       <Image style={{ width: '100%', height: '40%', justifyContent: 'center',alignItems: 'center', marginBottom: 30 }} 
       source={{
-          uri: photo,
+          uri: localStorage.getItem('photo'),
        }} alt = "Avatar"></Image>
-      <Text style={{fontSize: 35, fontWeight: "bold", color: 'black',marginLeft:40,marginBottom:40}}>Welcome {userName}</Text>
+      <Text style={{fontSize: 35, fontWeight: "bold", color: 'black',marginLeft:40,marginBottom:40}}>Welcome {localStorage.getItem('name')}</Text>
       <TouchableOpacity
         style={styles.logoutButton}
         onPress={clear}
@@ -236,6 +215,22 @@ const styles = StyleSheet.create({
 const Stack = createStackNavigator();
 
 export default function Discount() {
+  
+  fetch(`https://my.tanda.co/api/v2/users/me`,{
+      method: "GET",
+      headers: {Authorization: localStorage.getItem('tokenType')+ ' ' +localStorage.getItem('token')}})
+  .then(res=>res.json())
+  .then((res)=>{
+  try{    
+      localStorage.setItem('name', res.name)
+      localStorage.setItem('photo', res.photo)     
+  }
+  catch(err)
+  {
+      console.log("err")
+  }
+  })
+
   return (  
       <Stack.Navigator initialRouteName="Home" >
         <Stack.Screen 
