@@ -11,7 +11,6 @@ const Stack = createStackNavigator();
 const auth = createStackNavigator();
 
 function App() {
-  
 
   return (
     
