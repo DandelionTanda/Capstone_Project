@@ -32,9 +32,7 @@ function Login({navigation}) {
           if (data.error){
             setError(data.error)
           }   
-          else { 
-          AsyncStorage.setItem('token', data.access_token)
-          AsyncStorage.setItem('tokenType', data.token_type)
+          else {          
           localStorage.setItem('token', data.access_token)
           localStorage.setItem('tokenType', data.token_type) 
           setError(false)      
@@ -49,24 +47,6 @@ function Login({navigation}) {
       })
     
    
-  }
-
-  const retriveData = async ()=>{
-    try{
-      const value = await AsyncStorage.getItem('token')
-      console.log(value)
-      if(value!==null)
-      {
-        
-      }
-      else{
-        alert("user does not exsit")
-      }   
-    }
-    catch(err)
-    {
-      console.log(err)
-    }
   }
 
   return (
@@ -143,6 +123,7 @@ const styles = StyleSheet.create({
     left:280,
     fontSize:30,
     fontFamily:"sans-serif",
+    fontWeight: "bold"
   },
   Text2:{
     flex:1,
@@ -152,6 +133,7 @@ const styles = StyleSheet.create({
     left:20,
     fontSize:50,
     fontFamily:"sans-serif",
+    fontWeight: "bold"
   },
   Text3:{
     flex:1,
@@ -161,6 +143,7 @@ const styles = StyleSheet.create({
     left:120,
     fontSize:50,
     fontFamily:"sans-serif",
+    fontWeight: "bold"
   },
   footer:{
     flex:1,
