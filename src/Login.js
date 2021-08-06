@@ -21,85 +21,85 @@ function Login({navigation}) {
      body: JSON.stringify({
        username:username,
        password:password,
-       scope:"me",
+       scope:"me user device platform",
        grant_type:"password"
      })
    })
    .then(res=>res.json())
    .then(data=>{  
-        try{     
-          console.log(data) 
-          if (data.error){
-            setError(data.error)
-          }   
-          else {          
-          localStorage.setItem('token', data.access_token)
-          localStorage.setItem('tokenType', data.token_type) 
-          setError(false)      
-          navigation.navigate("Discount") 
-          }               
-        }
-        catch(err)
-        {
-          console.log(err)
-          
-        }
-      })
+      try{     
+        console.log(data) 
+        if (data.error){
+          setError(data.error)
+        }   
+        else {          
+        localStorage.setItem('token', data.access_token)
+        localStorage.setItem('tokenType', data.token_type) 
+        setError(false)      
+        navigation.navigate("Discount") 
+        }               
+      }
+      catch(err)
+      {
+        console.log(err)
+        
+      }
+    })
     
    
   }
 
   return (
     <View style={styles.container}>
-        <StatusBar style="auto" />
-        <View style={styles.header}>
-        <Text style={styles.Text1}>TANDA</Text>
-        <Text style={styles.Text2}>Discount</Text>
-        <Text style={styles.Text3}>Discovery</Text>      
-        </View >
-        {error?
-        <Text style={{fontSize: 20, fontWeight: "bold", color: 'red', textAlign: 'center'}}>
-          username or password is incorrect
-          </Text>:null}
-          <View style={styles.footer}>          
-          <Text></Text>
-          <Text></Text>
-          <View >         
-            <FloatingLabelInput 
-            label= "Username"
-            value={username}
-            containerStyles={{
-            borderWidth:2,
-            borderColor:"white",
-            borderRadius: 10,
-            width:40,
-            height:40,
-            }}
-            onChangeText={value => setUsername(value)}
-          /></View>
-          <Text></Text>
-          <Text></Text>
-          <View >
-          <FloatingLabelInput
-            label="Password"
-            isPassword={true}
-            value={password}
-            containerStyles={{
-            borderWidth:2,
-            borderColor:"white",
-            borderRadius: 10,
-            width:40,
-            height:40,
-            }}
-            onChangeText={value => setPassword(value)}
-          />
-          </View>
-          <Text></Text>
-          <Text></Text>
-          <View>
-          <Button title = "Login" onPress = {DoLogin}/>
-          </View>
+      <StatusBar style="auto" />
+      <View style={styles.header}>
+      <Text style={styles.Text1}>TANDA</Text>
+      <Text style={styles.Text2}>Discount</Text>
+      <Text style={styles.Text3}>Discovery</Text>      
+      </View >
+      {error?
+      <Text style={{fontSize: 20, fontWeight: "bold", color: 'red', textAlign: 'center'}}>
+        username or password is incorrect
+        </Text>:null}
+        <View style={styles.footer}>          
+        <Text></Text>
+        <Text></Text>
+        <View >         
+          <FloatingLabelInput 
+          label= "Username"
+          value={username}
+          containerStyles={{
+          borderWidth:2,
+          borderColor:"white",
+          borderRadius: 10,
+          width:40,
+          height:40,
+          }}
+          onChangeText={value => setUsername(value)}
+        /></View>
+        <Text></Text>
+        <Text></Text>
+        <View >
+        <FloatingLabelInput
+          label="Password"
+          isPassword={true}
+          value={password}
+          containerStyles={{
+          borderWidth:2,
+          borderColor:"white",
+          borderRadius: 10,
+          width:40,
+          height:40,
+          }}
+          onChangeText={value => setPassword(value)}
+        />
         </View>
+        <Text></Text>
+        <Text></Text>
+        <View>
+        <Button title = "Login" onPress = {DoLogin}/>
+        </View>
+      </View>
     </View>
   ); 
 }

@@ -95,7 +95,6 @@ function Me( { navigation } ) {
   function clear(){
     navigation.navigate('Login')
     localStorage.clear()
-    console.log(localStorage.getItem('name'))
   }
   
   return (
@@ -123,16 +122,16 @@ function Me( { navigation } ) {
 
 
 function Details( {route, navigation} ) {
-    return (
-      <View style={{ flex: 1, justifyContent: 'center',  alignSelf:'center'}}>
-        <Text style={{fontSize: 30, fontWeight: "bold"}}>
-          Name: {route.params.name}         
-        </Text>
-        <Text style={{fontSize: 30, fontWeight: "bold"}}> 
-          Value: {route.params.value}
-        </Text>
-      </View>
-    );
+  return (
+    <View style={{ flex: 1, justifyContent: 'center',  alignSelf:'center'}}>
+      <Text style={{fontSize: 30, fontWeight: "bold"}}>
+        Name: {route.params.name}         
+      </Text>
+      <Text style={{fontSize: 30, fontWeight: "bold"}}> 
+        Value: {route.params.value}
+      </Text>
+    </View>
+  );
   }
 
 function MyTabs({ navigation, route }) {
@@ -237,36 +236,36 @@ export default function Discount() {
   })
 
   return (  
-      <Stack.Navigator initialRouteName="Home" >
-        <Stack.Screen 
-          name="Home" 
-          component={MyTabs} 
-          options={{ 
-          tabBarLabel: 'Home!' ,
-          headerStyle: {
-            backgroundColor: '#45B8DB',
-          },
-          headerTintColor: '#fff',
-          headerTitleStyle: {
-            fontWeight: 'bold',
-          },
-          headerTitleAlign: 'center',
-          headerLeft: null
-        }}/>
-        <Stack.Screen 
-          name="Discount Details" 
-          component={Details} 
-          options={{           
-          headerStyle: {
-            backgroundColor: '#45B8DB',
-          },
-          headerTintColor: '#fff',
-          headerTitleStyle: {
-            fontWeight: 'bold',
-          },
-          headerTitleAlign: 'center'
-        }}/>
-      </Stack.Navigator>     
+    <Stack.Navigator initialRouteName="Home" >
+      <Stack.Screen 
+        name="Home" 
+        component={MyTabs} 
+        options={{ 
+        tabBarLabel: 'Home!' ,
+        headerStyle: {
+          backgroundColor: '#45B8DB',
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+          fontWeight: 'bold',
+        },
+        headerTitleAlign: 'center',
+        headerLeft: null
+      }}/>
+      <Stack.Screen 
+        name="Discount Details" 
+        component={Details} 
+        options={{           
+        headerStyle: {
+          backgroundColor: '#45B8DB',
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+          fontWeight: 'bold',
+        },
+        headerTitleAlign: 'center'
+      }}/>
+    </Stack.Navigator>     
     
   );
 }
