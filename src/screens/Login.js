@@ -36,7 +36,7 @@ function Login({navigation}) {
         localStorage.setItem('token', data.access_token)
         localStorage.setItem('tokenType', data.token_type) 
         setError(false)      
-        navigation.navigate("Discount") 
+        navigation.navigate("MyStack") 
         }               
       }
       catch(err)
