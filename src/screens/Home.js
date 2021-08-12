@@ -2,13 +2,13 @@ import { useState, useEffect }  from "react";
 import * as React from 'react';
 import { Button, FlatList, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity,View,Icon,Image } from "react-native";
 import 'react-native-gesture-handler';
-import { set } from "react-native-reanimated";
 
 export default function Home ( {navigation} ) {
 
   const [DATA, setDATA] = useState([])
   const [load, setload] = useState(false)
   const [refeshing, setRefeshing] = useState(false)
+  const [shift, setShift] = useState(true)
 
  
   async function waitfecth(){
@@ -55,9 +55,14 @@ export default function Home ( {navigation} ) {
     <SafeAreaView style={styles.container}>
         
       <View style={styles.clock}>
-          <Text style={{fontSize: 20, color: 'white', fontWeight: 'bold'}}>
-              Clocked In
-          </Text>
+        <TouchableOpacity>
+        {shift?
+          <Text title="clocked in" style={{fontSize: 20, color: 'white', fontWeight: 'bold'}} onPress={()=> setShift(false)}>
+              clocked in
+          </Text>:<Text title="clocked in" style={{fontSize: 20, color: 'white', fontWeight: 'bold'}} onPress={()=> setShift(true)}>
+              clocked out
+          </Text>}
+        </TouchableOpacity>  
       </View>                 
       <FlatList
         data={DATA}
@@ -96,6 +101,7 @@ const styles = StyleSheet.create({
     marginTop: 18,
     marginLeft: 15,
     padding: 6,
+    color: "white",
     alignSelf:  "flex-start",
     backgroundColor: "green",
     borderTopLeftRadius: 10,
