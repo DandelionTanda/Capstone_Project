@@ -2,12 +2,15 @@ import { useState, useEffect }  from "react";
 import * as React from 'react';
 import { Button, FlatList, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity,View,Icon,Image } from "react-native";
 import 'react-native-gesture-handler';
+import { set } from "react-native-reanimated";
 
 export default function Home ( {navigation} ) {
 
   const [DATA, setDATA] = useState([])
   const [load, setload] = useState(false)
-  
+  const [refeshing, setRefeshing] = useState(false)
+
+ 
   async function waitfecth(){
 
     const response = await fetch(`https://my.tanda.co/api/v2/platform/discounts` ,{
@@ -15,15 +18,16 @@ export default function Home ( {navigation} ) {
       headers: {Authorization: localStorage.getItem('tokenType')+ ' ' +localStorage.getItem('token')}})
       const data = await response.json()
       const mapData = await setDATA(data)
-      setload(true)
-      console.log(mapData)
       return mapData
   }
 
   useEffect(()=>{
     waitfecth()
-  },[load])
+  },[])
 
+  const handRefresh = () =>{
+    setRefeshing(true)
+  }
 
   const Item = ({ item, onPress, backgroundColor, textColor }) => (
     <TouchableOpacity onPress={() => navigation.navigate('Discount Details', item)} style={[styles.item, backgroundColor]}>
@@ -61,6 +65,8 @@ export default function Home ( {navigation} ) {
         keyExtractor={(item, index) => index.toString()}        
         // extraData={selectedId}
         style={{marginVertical: 25,}}
+        // refeshing={refeshing}
+        // onRefresh={handRefresh}
       />    
     </SafeAreaView>
     
