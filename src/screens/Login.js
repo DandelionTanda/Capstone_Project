@@ -19,8 +19,8 @@ function Login({navigation}) {
        'Content-Type': 'application/json'
      },
      body: JSON.stringify({
-       username:username,
-       password:password,
+       username:"leo727268082@gmail.com",
+       password:"123456789",
        scope:"me user device platform",
        grant_type:"password"
      })
@@ -97,7 +97,7 @@ function Login({navigation}) {
         <Text></Text>
         <Text></Text>
         <View>
-        <Button title = "Login" onPress = {DoLogin}/>
+        <Button title='login' class="Button" onPress = {DoLogin} />
         </View>
       </View>
     </View>
@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
     color:"royalblue",
     left:280,
     fontSize:30,
-    fontFamily:"sans-serif",
+    fontFamily:"Arial",
     fontWeight: "bold"
   },
   Text2:{
@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
     bottom:40,
     left:20,
     fontSize:50,
-    fontFamily:"sans-serif",
+    fontFamily:"Arial",
     fontWeight: "bold"
   },
   Text3:{
@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
     bottom:60,
     left:120,
     fontSize:50,
-    fontFamily:"sans-serif",
+    fontFamily:"Arial",
     fontWeight: "bold"
   },
   footer:{
@@ -159,7 +159,7 @@ const styles = StyleSheet.create({
     position:"relative",
     bottom:60,
   },
-  button:{
+  Button:{
     padding:15,
     position:"relative",
     bottom:60,
