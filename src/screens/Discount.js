@@ -19,6 +19,15 @@ export default function Discount( {route, navigation} ) {
       <Text style={{fontSize: 30, fontWeight: "bold"}}> 
         Value: {route.params.value}
       </Text>
+      <Text style={{fontSize: 30, fontWeight: "bold"}}> 
+        username: {localStorage.getItem('name')}
+      </Text>
+      <Text style={{fontSize: 30, fontWeight: "bold"}}> 
+        id: {localStorage.getItem('id')}
+      </Text>
+      <Text style={{fontSize: 30, fontWeight: "bold"}}> 
+        organisation: {localStorage.getItem('organisation')}
+      </Text>
     </View>
   );
   }
