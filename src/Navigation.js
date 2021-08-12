@@ -73,6 +73,9 @@ export default function MyStack() {
   .then(res=>res.json())
   .then((res)=>{
   try{    
+      console.log(res)
+      localStorage.setItem('id', res.id)
+      localStorage.setItem('organisation', res.organisation)
       localStorage.setItem('name', res.name)
       localStorage.setItem('photo', res.photo)     
   }
