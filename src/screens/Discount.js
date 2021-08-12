@@ -11,19 +11,8 @@ import { get } from "react-native/Libraries/Utilities/PixelRatio";
 
 export default function Discount( {route, navigation} ) {
 
-
-  const DiscountDetail = () => {
-    fetch(`https://my.tanda.co/api/v2/platform/discounts` ,{
-      method: "GET",
-      headers: {Authorization: localStorage.getItem('tokenType')+ ' ' +localStorage.getItem('token')}})
-      .then(res=>res.json())
-      .then(res=>{
-        console.log(res)
-      })
-  }
   return ( 
     <View style={{ flex: 1, justifyContent: 'center',  alignSelf:'center'}}>
-      <Button title="check" onPress={DiscountDetail} />
       <Text style={{fontSize: 30, fontWeight: "bold"}}>
         Name: {route.params.name}         
       </Text>

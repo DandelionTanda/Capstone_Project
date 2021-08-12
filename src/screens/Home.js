@@ -1,45 +1,36 @@
-import { useState }  from "react";
+import { useState, useEffect }  from "react";
 import * as React from 'react';
 import { Button, FlatList, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity,View,Icon,Image } from "react-native";
 import 'react-native-gesture-handler';
-import { NavigationContainer, getFocusedRouteNameFromRoute, } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createStackNavigator } from '@react-navigation/stack';
-import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
 
 export default function Home ( {navigation} ) {
-  const DATA = [
-    {    
-      name: "On-shift discount",
-      value: "30%",
-    },
-    {   
-      name: "On-shift discount",
-      value: "40%",
-    },
-    {   
-      name: "On-shift discount",
-      value: "50%",
-    },
-    {    
-      name: "On-shift discount",
-      value: "60%",
-    },
-    {   
-      name: "On-shift discount",
-      value: "70%",
-    },
-    {   
-      name: "On-shift discount",
-      value: "80%",
-    },
-  ];
+
+  const [DATA, setDATA] = useState([])
+  const [load, setload] = useState(false)
   
+  async function waitfecth(){
+
+    const response = await fetch(`https://my.tanda.co/api/v2/platform/discounts` ,{
+      method: "GET",
+      headers: {Authorization: localStorage.getItem('tokenType')+ ' ' +localStorage.getItem('token')}})
+      const data = await response.json()
+      const mapData = await setDATA(data)
+      setload(true)
+      console.log(mapData)
+      return mapData
+  }
+
+  useEffect(()=>{
+    waitfecth()
+  },[load])
+
+
   const Item = ({ item, onPress, backgroundColor, textColor }) => (
     <TouchableOpacity onPress={() => navigation.navigate('Discount Details', item)} style={[styles.item, backgroundColor]}>
       <Text style={[styles.title, textColor]}>{item.name} {item.value} </Text>
     </TouchableOpacity>
   );
+
   const [selectedId, setSelectedId] = useState(null);
 
   const renderItem = ({ item, index }) => {
@@ -68,7 +59,7 @@ export default function Home ( {navigation} ) {
         data={DATA}
         renderItem={renderItem}
         keyExtractor={(item, index) => index.toString()}        
-        extraData={selectedId}
+        // extraData={selectedId}
         style={{marginVertical: 25,}}
       />    
     </SafeAreaView>
