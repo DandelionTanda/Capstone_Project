@@ -75,9 +75,11 @@ export default function MyStack() {
   try{    
       console.log(res)
       localStorage.setItem('id', res.id)
+      localStorage.setItem('permissions', res.permissions)
       localStorage.setItem('organisation', res.organisation)
       localStorage.setItem('name', res.name)
-      localStorage.setItem('photo', res.photo)     
+      localStorage.setItem('photo', res.photo)
+      localStorage.setItem('email',res.email)    
   }
   catch(err)
   {
