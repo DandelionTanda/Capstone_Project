@@ -1,4 +1,4 @@
-import { useState }  from "react";
+import { useState, useEffect }  from "react";
 import * as React from 'react';
 import { Button, FlatList, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity,View,Icon,Image, ScrollView } from "react-native";
 import 'react-native-gesture-handler';
@@ -8,7 +8,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
 
 export default function Me( { navigation } ) {
-
+  
   function clear(){
     navigation.navigate('Login')
     localStorage.clear()
