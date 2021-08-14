@@ -33,10 +33,10 @@ function Login({navigation}) {
           setError(data.error)
         }   
         else {          
-        localStorage.setItem('token', data.access_token)
-        localStorage.setItem('tokenType', data.token_type) 
-        setError(false)      
-        navigation.navigate("MyStack") 
+          localStorage.setItem('token', data.access_token)
+          localStorage.setItem('tokenType', data.token_type) 
+          setError(false)      
+          navigation.navigate("HomeTabs") 
         }               
       }
       catch(err)

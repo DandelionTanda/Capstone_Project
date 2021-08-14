@@ -10,7 +10,7 @@ import Home from "./screens/Home";
 import Me from "./screens/Me";
 import Discount from "./screens/Discount";
 import Login from "./screens/Login";
-
+import 'localstorage-polyfill';
 
 function getHeaderTitle(route) {
   const routeName = getFocusedRouteNameFromRoute(route) ?? 'Home';
@@ -24,7 +24,7 @@ function getHeaderTitle(route) {
 
 const Tab = createBottomTabNavigator();
 
-function MyTabs({ navigation, route }) {
+function HomeTabs({ navigation, route }) {
   React.useLayoutEffect(() => {
     navigation.setOptions({ headerTitle: getHeaderTitle(route) });
   }, [navigation, route]);
@@ -44,7 +44,7 @@ function MyTabs({ navigation, route }) {
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="home" color={color} size={size} />
           ),
-        }}
+        }}        
       />
       
       <Tab.Screen
@@ -65,60 +65,42 @@ function MyTabs({ navigation, route }) {
 
 const Stack = createStackNavigator();
 
-export default function MyStack() {
-  
-  fetch(`https://my.tanda.co/api/v2/users/me`,{
-      method: "GET",
-      headers: {Authorization: localStorage.getItem('tokenType')+ ' ' +localStorage.getItem('token')}})
-  .then(res=>res.json())
-  .then((res)=>{
-  try{    
-      console.log(res)
-      localStorage.setItem('id', res.id)
-      localStorage.setItem('permissions', res.permissions)
-      localStorage.setItem('organisation', res.organisation)
-      localStorage.setItem('name', res.name)
-      localStorage.setItem('photo', res.photo)
-      localStorage.setItem('email',res.email)    
-  }
-  catch(err)
-  {
-      console.log("err")
-  }
-  })
+export default function App() {
 
   return (  
-    <Stack.Navigator initialRouteName="Home" >
-      <Stack.Screen 
-        name="Home" 
-        component={MyTabs} 
-        options={{ 
-        tabBarLabel: 'Home!' ,
-        headerStyle: {
-          backgroundColor: '#45B8DB',
-        },
-        headerTintColor: '#fff',
-        headerTitleStyle: {
-          fontWeight: 'bold',
-        },
-        headerTitleAlign: 'center',
-        headerLeft: null
-      }}/>
-      <Stack.Screen 
-        name="Discount Details" 
-        component={Discount} 
-        options={{           
-        headerStyle: {
-          backgroundColor: '#45B8DB',
-        },
-        headerTintColor: '#fff',
-        headerTitleStyle: {
-          fontWeight: 'bold',
-        },
-        headerTitleAlign: 'center'
-      }}/>
-    </Stack.Navigator>     
-    
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Login" >
+        <Stack.Screen name="Login" component={Login} options={{headerShown: false }}/>
+        <Stack.Screen 
+          name="HomeTabs" 
+          component={HomeTabs} 
+          options={{ 
+          tabBarLabel: 'Home!' ,
+          headerStyle: {
+            backgroundColor: '#45B8DB',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+          headerTitleAlign: 'center',
+          headerLeft: null
+        }}/>
+        <Stack.Screen 
+          name="Discount Details" 
+          component={Discount} 
+          options={{           
+          headerStyle: {
+            backgroundColor: '#45B8DB',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+          headerTitleAlign: 'center'
+        }}/>
+      </Stack.Navigator>     
+    </NavigationContainer>
   );
 }
 

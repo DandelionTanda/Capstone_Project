@@ -10,8 +10,24 @@ export default function Home ( {navigation} ) {
   const [refeshing, setRefeshing] = useState(false)
   const [shift, setShift] = useState(true)
 
+  async function fetchUser(){
+    const response = await fetch(`https://my.tanda.co/api/v2/users/me`,{
+      method: "GET",
+      headers: {Authorization: localStorage.getItem('tokenType')+ ' ' +localStorage.getItem('token')}})
+    const user = await response.json()   
+    localStorage.setItem('user', JSON.stringify(user))  
+  }
  
-  async function waitfecth(){
+  async function fecthDiscount(){
+
+    const response = await fetch(`https://my.tanda.co/api/v2/platform/discounts` ,{
+      method: "GET",
+      headers: {Authorization: localStorage.getItem('tokenType')+ ' ' +localStorage.getItem('token')}})
+      const data = await response.json()
+      const mapData = await setDATA(data)
+      return mapData
+  }
+  async function fecthClock(){
 
     const response = await fetch(`https://my.tanda.co/api/v2/platform/discounts` ,{
       method: "GET",
@@ -21,8 +37,10 @@ export default function Home ( {navigation} ) {
       return mapData
   }
 
-  useEffect(()=>{
-    waitfecth()
+  useEffect(()=>{  
+    fetchUser()
+    fecthDiscount()
+
   },[])
 
   const handRefresh = () =>{
@@ -57,9 +75,9 @@ export default function Home ( {navigation} ) {
       <View style={styles.clock}>
         <TouchableOpacity>
         {shift?
-          <Text title="clocked in" style={{fontSize: 20, color: 'white', fontWeight: 'bold'}} onPress={()=> setShift(false)}>
+          <Text title="clocked in" style={{fontSize: 20, color: 'white', fontWeight: 'bold'}} >
               clocked in
-          </Text>:<Text title="clocked in" style={{fontSize: 20, color: 'white', fontWeight: 'bold'}} onPress={()=> setShift(true)}>
+          </Text>:<Text title="clocked in" style={{fontSize: 20, color: 'white', fontWeight: 'bold'}}>
               clocked out
           </Text>}
         </TouchableOpacity>  

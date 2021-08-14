@@ -13,7 +13,7 @@ export default function Me( { navigation } ) {
     navigation.navigate('Login')
     localStorage.clear()
   }
-  
+  const user = JSON.parse(localStorage.getItem('user'))
   return (
     <ScrollView style={{ flex: 1, alignSelf:'center' }}>
       {/* View for image */}
@@ -21,22 +21,22 @@ export default function Me( { navigation } ) {
       {localStorage.getItem('photo')!=='null'?
       <Image style={{ width: 150, height: 150, borderRadius: 130/2 }} 
       source={{
-          uri: localStorage.getItem('photo'),
+          uri: user.photo,
        }} alt = "Avatar"></Image>:
        <MaterialCommunityIcons name="account-circle"  size={100}/>}
       </View>
       {/* View for information: Name, Email, ID, Role, Company*/}
       <View style= {{alignSelf : 'auto', marginTop: 30}}>
       <Text style={styles.label}>Name:</Text>
-      <Text style={styles.infor}>{localStorage.getItem('name')}</Text>
+      <Text style={styles.infor}>{user.name}</Text>
       <Text style={styles.label}>Email:</Text>
-      <Text style={styles.infor}>{localStorage.getItem('email')}</Text>
+      <Text style={styles.infor}>{user.email}</Text>
       <Text style={styles.label}>Company:</Text>
-      <Text style={styles.infor}>{localStorage.getItem('name')}</Text>
+      <Text style={styles.infor}>{user.organisation}</Text>
       <Text style={styles.label}>Role:</Text>
-      <Text style={styles.infor}>{localStorage.getItem('permissions')}</Text>
+      <Text style={styles.infor}>{user.permissions}</Text>
       <Text style={styles.label}>ID:</Text>
-      <Text style={styles.infor}>{localStorage.getItem('id')}</Text>
+      <Text style={styles.infor}>{user.id}</Text>
       </View>
       {/* logout button */}
       <TouchableOpacity
