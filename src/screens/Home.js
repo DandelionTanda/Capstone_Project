@@ -24,7 +24,7 @@ export default function Home ( {navigation} ) {
   const [DATA, setDATA] = useState([])
   const [load, setload] = useState(false)
   const [refreshing, setRefreshing] = useState(false)
-  const [shift, setShift] = useState(true)
+  const [shift, setShift] = useState()
   const [loading, setLoading] = useState(true)
 
   async function setUp(){
@@ -52,13 +52,14 @@ export default function Home ( {navigation} ) {
       },
       
     })
+      var shift = localStorage.getItem('shift')
       const data = await response.json()
       const mapData = await setDATA(data)
       return mapData
   }
 
   async function fecthClock(){
-    const user = JSON.parse(localStorage.getItem('user'))
+    const user = JSON.parse(localStorage.getItem('user'))   
     const past = getDate()[0]
     const today = getDate()[1]
     const responseClock = await fetch(`https://my.tanda.co/api/v2/clockins` + 
@@ -66,17 +67,19 @@ export default function Home ( {navigation} ) {
       method: "GET",
       headers: {Authorization: localStorage.getItem('tokenType')+ ' ' +localStorage.getItem('token')}})
     const clock = await responseClock.json()
-    
-    console.log(clock)
+       
     if (clock.length > 0) {
       const t = clock[clock.length - 1].type
       if (t !== 'finish') {
         setShift(true)
+        localStorage.setItem('shift', true)  
       } else {
         setShift(false)
+        localStorage.setItem('shift', false) 
       }
     } else {
       setShift(false)
+      localStorage.setItem('shift', false) 
     }
   }
 
