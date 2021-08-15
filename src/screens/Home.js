@@ -2,6 +2,7 @@ import { useState, useEffect }  from "react";
 import * as React from 'react';
 import { ActivityIndicator, RefreshControl, Button, FlatList, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity,View,Icon,Image } from "react-native";
 import 'react-native-gesture-handler';
+import { set } from "react-native-reanimated";
 
 function getDate() {
   var today = new Date();
@@ -22,7 +23,7 @@ function getDate() {
 export default function Home ( {navigation} ) {
 
   const [DATA, setDATA] = useState([])
-  const [load, setload] = useState(false)
+  const [final, setfinal] = useState([])
   const [refreshing, setRefreshing] = useState(false)
   const [shift, setShift] = useState()
   const [loading, setLoading] = useState(true)
@@ -42,22 +43,35 @@ export default function Home ( {navigation} ) {
     const user = await responseUser.json()   
     localStorage.setItem('user', JSON.stringify(user))   
   }
- 
+
   async function fecthDiscount(){
-    const response = await fetch(`https://my.tanda.co/api/v2/platform/discounts` ,{
+    const response = await fetch(`https://my.tanda.co/api/v2/platform/discounts`, {
       method: "GET",
       headers: {
         'Content-Type': 'application/json',
         Authorization: localStorage.getItem('tokenType')+ ' ' +localStorage.getItem('token')
       },
-      
     })
+
       var shift = localStorage.getItem('shift')
       const data = await response.json()
-      const mapData = await setDATA(data)
-      return mapData
-  }
 
+      if(shift === 'false')
+      {
+        const offData = await data.filter((item) =>{
+          return item.onshift === false
+        })     
+        setDATA(offData)
+      }
+      else if(shift == 'true')
+      {
+        const onData = await data.filter((item) =>{
+          return item.onshift === true
+        })  
+        setDATA(onData)   
+      }  
+  }
+  
   async function fecthClock(){
     const user = JSON.parse(localStorage.getItem('user'))   
     const past = getDate()[0]
