@@ -1,9 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Button} from 'react-native';
-import {FloatingLabelInput} from "react-native-floating-label-input";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-
+import { StyleSheet, Text, View, } from 'react-native';
+import {Button, Icon, Input} from "react-native-elements";
 
 function Login({navigation}) {
 
@@ -57,48 +55,36 @@ function Login({navigation}) {
       <Text style={styles.Text2}>Discount</Text>
       <Text style={styles.Text3}>Discovery</Text>      
       </View >
-      {error?
-      <Text style={{fontSize: 20, fontWeight: "bold", color: 'red', textAlign: 'center'}}>
-        username or password is incorrect
-        </Text>:null}
-        <View style={styles.footer}>          
-        <Text></Text>
-        <Text></Text>
-        <View >         
-          <FloatingLabelInput 
-          label= "Username"
+      <View style={styles.main}>
+        <Input style={styles.username}
+          placeholder='Username'
+          placeholderTextColor="white"
+          containerStyle={{width:350, color:"white"}}
+          inputStyle={{color:"white", fontSize:16}}
+          label="Username"
+          labelStyle={{color:"white"}}
           value={username}
-          containerStyles={{
-          borderWidth:2,
-          borderColor:"white",
-          borderRadius: 10,
-          width:40,
-          height:40,
-          }}
           onChangeText={value => setUsername(value)}
-        /></View>
-        <Text></Text>
-        <Text></Text>
-        <View >
-        <FloatingLabelInput
-          label="Password"
-          isPassword={true}
-          value={password}
-          containerStyles={{
-          borderWidth:2,
-          borderColor:"white",
-          borderRadius: 10,
-          width:40,
-          height:40,
-          }}
-          onChangeText={value => setPassword(value)}
         />
-        </View>
         <Text></Text>
-        <Text></Text>
-        <View>
-        <Button title='login' class="Button" onPress = {DoLogin} />
-        </View>
+        <Input style={styles.password}
+          placeholderTextColor="white"
+          placeholder='Password'
+          containerStyle={{width:350, color:"white"}}
+          inputStyle={{color:'white', fontSize:16}}
+          label="Password"
+          labelStyle={{color:"white"}}
+          value={password}
+          onChangeText={value => setPassword(value)}
+          secureTextEntry={true}
+          underlineColorAndroid="white"
+          errorStyle={{ color: 'red' }}
+        />
+      </View>
+      <View style={styles.button}>
+        <Button title="Login" onPress={DoLogin} />
+          
+        
       </View>
     </View>
   ); 
@@ -108,60 +94,57 @@ export default Login;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex:1,
     backgroundColor: '#45B8DB',   
   },
   header:{
-    marginTop: 60,
-    flex:1, 
+    marginTop: 90,
   },
   Text1:{
-    flex:1,
     position:"relative",
     fontWeight:"bold",
     color:"royalblue",
-    left:280,
+    left:250,
     fontSize:30,
     fontFamily:"Arial",
     fontWeight: "bold"
   },
   Text2:{
-    flex:1,
     position:"relative",
     color:"white",
-    bottom:40,
+    top:60,
     left:20,
     fontSize:50,
     fontFamily:"Arial",
     fontWeight: "bold"
   },
   Text3:{
-    flex:1,
     position:"relative",
     color:"white",
-    bottom:60,
+    top:140,
     left:120,
     fontSize:50,
     fontFamily:"Arial",
     fontWeight: "bold"
   },
-  footer:{
-    flex:1,
-    color:"white",
+  main:{
+    position:"relative",
+    top:220,
+    left:20,
   },
   username:{
-    padding:10,
-    position:"relative",
-    bottom:60,
+    borderBottomColor:'white',
+    borderBottomWidth: 1.5 
   },
   password:{
-    padding:10,
-    position:"relative",
-    bottom:60,
+    borderBottomColor:'white',
+    borderBottomWidth: 1.5 
   },
-  Button:{
-    padding:15,
+  button:{
     position:"relative",
-    bottom:60,
-  }
+    top: 250,
+    paddingLeft:70,
+    paddingRight:70
+  },
+
 });
