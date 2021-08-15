@@ -70,6 +70,7 @@ export default function Home ( {navigation} ) {
         })  
         setDATA(onData)   
       }  
+      
   }
   
   async function fecthClock(){
