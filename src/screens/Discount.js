@@ -14,8 +14,8 @@ export default function Discount( {route, navigation} ) {
   const user = JSON.parse(localStorage.getItem('user'))
   return (
     <ScrollView style={{flex: 1,  alignSelf:'center'}}>
-      <View style={{width: 250, height:250, alignSelf:'center',marginTop:20, borderWidth: 2, marginBottom:20, backgroundColor:'#45B8DB', borderRadius: 100/2}}>
-        <Text style={{fontSize: 120, color: 'white', alignSelf:'center'}}>
+      <View style={{width: 250, height:220, alignSelf:'center',marginTop:20, borderWidth: 2, marginBottom:20, backgroundColor:'#45B8DB', borderRadius: 100/2}}>
+        <Text style={{fontSize: 90, color: 'white', alignSelf:'center'}}>
         {route.params.value}
         </Text>
         <Text style={{fontSize: 30,color: 'white', fontWeight:'bold', alignSelf:'center'}}>
