@@ -22,15 +22,15 @@ function getDate() {
 
 export default function Home ( {navigation} ) {
 
-  const [DATA, setDATA] = useState([])
   const [final, setfinal] = useState([])
   const [refreshing, setRefreshing] = useState(false)
-  const [shift, setShift] = useState()
   const [loading, setLoading] = useState(true)
-
+  const [request, setRequest] = useState({
+    shift: null,
+    discount: []
+  })
   async function setUp(){
     await fetchUser()
-    await fecthClock()
     await fecthDiscount()
     await setLoading(false)
   }
@@ -53,22 +53,29 @@ export default function Home ( {navigation} ) {
       },
     })
 
-      var shift = localStorage.getItem('shift')
-      const data = await response.json()
+      var shift = await fecthClock()
+      const discount = await response.json()
 
-      if(shift === 'false')
+      if(shift === false)
       {
-        const offData = await data.filter((item) =>{
+      
+        const offDiscount = await discount.filter((item) =>{
           return item.onshift === false
         })     
-        setDATA(offData)
+        setRequest({
+          shift: false,
+          discount: offDiscount
+        })
       }
-      else if(shift == 'true')
+      else if(shift == true)
       {
-        const onData = await data.filter((item) =>{
+        const onDiscount = await discount.filter((item) =>{
           return item.onshift === true
         })  
-        setDATA(onData)   
+        setRequest({
+          shift: true,
+          discount: onDiscount
+        })  
       }  
       
   }
@@ -86,15 +93,12 @@ export default function Home ( {navigation} ) {
     if (clock.length > 0) {
       const t = clock[clock.length - 1].type
       if (t !== 'finish') {
-        setShift(true)
-        localStorage.setItem('shift', true)  
+        return true       
       } else {
-        setShift(false)
-        localStorage.setItem('shift', false) 
+        return false    
       }
     } else {
-      setShift(false)
-      localStorage.setItem('shift', false) 
+      return false     
     }
   }
 
@@ -104,8 +108,7 @@ export default function Home ( {navigation} ) {
 
   
   const onRefresh = React.useCallback(async () => {
-    setRefreshing(true);
-    await fecthClock()
+    await setRefreshing(true);
     await fecthDiscount()
     await setRefreshing(false)
   }, []);
@@ -132,10 +135,10 @@ export default function Home ( {navigation} ) {
     );
   };
   if (loading !== true){
-  return (
-    
+ 
+  return (   
     <SafeAreaView style={styles.container}>       
-      {shift?  
+      {request.shift?  
         <View style={styles.clockin}>                
             <Text title="clocked in" style={{fontSize: 20, color: 'white', fontWeight: 'bold'}} >
                 clocked in
@@ -148,7 +151,7 @@ export default function Home ( {navigation} ) {
         </View>
       }         
       <FlatList
-        data={DATA}
+        data={request.discount}
         renderItem={renderItem}
         keyExtractor={(item, index) => index.toString()}               
         style={{marginVertical: 25}}  
