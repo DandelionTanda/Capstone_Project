@@ -13,41 +13,53 @@ export default function Discount( {route, navigation} ) {
 
   const user = JSON.parse(localStorage.getItem('user'))
   return (
-    <ScrollView style={{flex: 1,  alignSelf:'center'}}>
-      <View style={{width: 250, height:220, alignSelf:'center',marginTop:20, borderWidth: 2, marginBottom:20, backgroundColor:'#45B8DB', borderRadius: 100/2}}>
-        <Text style={{fontSize: 90, color: 'white', alignSelf:'center'}}>
+    <ScrollView style={{flex: 1}}>
+      <View style={{width: 300, height:240, alignSelf:'center',marginTop:40, borderWidth: 2, marginBottom:20, backgroundColor:'#45B8DB', borderRadius: 100/2}}>
+        <Text style={{fontSize: 110, color: 'white', alignSelf:'center'}}>
         {route.params.value}
         </Text>
-        <Text style={{fontSize: 30,color: 'white', fontWeight:'bold', alignSelf:'center'}}>
+        <Text style={{fontSize: 25,color: 'white', fontWeight:'bold', alignSelf:'center', marginTop: 30}}>
         {route.params.name} 
         </Text>
-        <Text style={{fontSize: 24,color: 'white',fontWeight:'bold', alignSelf:'center'}}>
-          {route.params.shift} Discount
-        </Text>
+        
       </View>
-      <Text style={styles.label}>Username:</Text>
-      <Text style={styles.infor}>{user.name}</Text>
-      <Text style={styles.label}>ID:</Text>
-      <Text style={styles.infor}>{user.id}</Text>
-      <Text style={styles.label}>Organisation:</Text>
-      <Text style={styles.infor }>{user.organisation}</Text>
+      <View style= {styles.personalInfor}>
+        <Text style={styles.label}>Name</Text>
+        <Text style={styles.infor}>{user.name}</Text>
+      </View>
+      <View style= {styles.personalInfor}>
+        <Text style={styles.label}>Email</Text>
+        <Text style={styles.infor}>{user.email}</Text>
+      </View>
+      <View style= {styles.personalInfor}>
+        <Text style={styles.label}>ID</Text>
+        <Text style={styles.infor}>{user.id}</Text>
+      </View>
+      <View style= {styles.personalInfor}>
+        <Text style={styles.label}>Organisation</Text>
+        <Text style={styles.infor }>{user.organisation}</Text>
+      </View>
     </ScrollView>
   );
   }
   
   const styles = StyleSheet.create({
+     
+    personalInfor:{
+      marginLeft:30,
+      marginRight:30,
+      borderBottomColor: 'black',
+      borderBottomWidth: 1
+    },
     label:{
-      marginLeft:20,
-      fontSize: 30,
+      marginTop:10,
+      fontSize: 22,
       fontWeight: "bold",
       color: '#1D87E3'
     },
     infor:{
-      marginBottom:20,
-      marginLeft:50,
-      marginRight:30,
-      fontSize: 22,
-      fontWeight: "bold",
-      color: '#232A22'
+      fontSize: 18,
+      color: '#232A22',
+      lineHeight: 40
     },
   });

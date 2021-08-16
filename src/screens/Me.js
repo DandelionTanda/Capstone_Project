@@ -15,9 +15,9 @@ export default function Me( { navigation } ) {
   }
   const user = JSON.parse(localStorage.getItem('user'))
   return (
-    <ScrollView style={{ flex: 1, alignSelf:'center' }}>
+    <ScrollView style={{ flex: 1}}>
       {/* View for image */}
-      <View style={{flexDirection: "row", marginTop:20,alignSelf:'center'}}>
+      <View style={{flexDirection: "row", marginTop:40 ,alignSelf:'center'}}>
       {localStorage.getItem('photo')!=='null'?
       <Image style={{ width: 150, height: 150, borderRadius: 130/2 }} 
       source={{
@@ -26,17 +26,21 @@ export default function Me( { navigation } ) {
        <MaterialCommunityIcons name="account-circle"  size={100}/>}
       </View>
       {/* View for information: Name, Email, ID, Role, Company*/}
-      <View style= {{alignSelf : 'auto', marginTop: 30}}>
-      <Text style={styles.label}>Name:</Text>
-      <Text style={styles.infor}>{user.name}</Text>
-      <Text style={styles.label}>Email:</Text>
-      <Text style={styles.infor}>{user.email}</Text>
-      <Text style={styles.label}>Company:</Text>
-      <Text style={styles.infor}>{user.organisation}</Text>
-      <Text style={styles.label}>Role:</Text>
-      <Text style={styles.infor}>{user.permissions}</Text>
-      <Text style={styles.label}>ID:</Text>
-      <Text style={styles.infor}>{user.id}</Text>
+      <View style= {styles.personalInfor}>
+        <Text style={styles.label}>Name</Text>
+        <Text style={styles.infor}>{user.name}</Text>
+      </View>
+      <View style= {styles.personalInfor}>
+        <Text style={styles.label}>Email</Text>
+        <Text style={styles.infor}>{user.email}</Text>
+      </View>
+      <View style= {styles.personalInfor}>
+        <Text style={styles.label}>Company</Text>
+        <Text style={styles.infor}>{user.organisation}</Text>
+      </View>
+      <View style= {styles.personalInfor}>
+        <Text style={styles.label}>ID</Text>
+        <Text style={styles.infor}>{user.id}</Text>
       </View>
       {/* logout button */}
       <TouchableOpacity
@@ -53,7 +57,7 @@ export default function Me( { navigation } ) {
 const styles = StyleSheet.create({
   logoutButton: {
     alignSelf:"center",
-    marginTop: 50,
+    marginTop: 30,
     alignItems: "center",
     backgroundColor: "#E3310E",
     padding: 10,   
@@ -64,17 +68,21 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 15,
     marginBottom:40
   },
+  personalInfor:{
+    marginLeft:30,
+    marginRight:30,
+    borderBottomColor: 'black',
+    borderBottomWidth: 1
+  },
   label:{
-    marginLeft:24,
     marginTop:10,
-    fontSize: 30,
+    fontSize: 22,
     fontWeight: "bold",
-    color: 'black'
+    color: '#1D87E3'
   },
   infor:{
-    marginLeft:50,
-    marginRight:30,
-    fontSize: 22,
-    color: '#232A22'
+    fontSize: 18,
+    color: '#232A22',
+    lineHeight: 40
   },
 });

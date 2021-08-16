@@ -65,6 +65,7 @@ function Login({navigation}) {
           labelStyle={{color:"white"}}
           value={username}
           onChangeText={value => setUsername(value)}
+          
         />
         <Text></Text>
         <Input style={styles.password}
@@ -77,7 +78,7 @@ function Login({navigation}) {
           value={password}
           onChangeText={value => setPassword(value)}
           secureTextEntry={true}
-          underlineColorAndroid="white"
+          
           errorStyle={{ color: 'red' }}
         />
       </View>
@@ -112,7 +113,7 @@ const styles = StyleSheet.create({
   Text2:{
     position:"relative",
     color:"white",
-    top:60,
+    top:40,
     left:20,
     fontSize:50,
     fontFamily:"Arial",
@@ -121,7 +122,7 @@ const styles = StyleSheet.create({
   Text3:{
     position:"relative",
     color:"white",
-    top:140,
+    top:50,
     left:120,
     fontSize:50,
     fontFamily:"Arial",
@@ -129,7 +130,7 @@ const styles = StyleSheet.create({
   },
   main:{
     position:"relative",
-    top:220,
+    top:120,
     left:20,
   },
   username:{
@@ -142,7 +143,7 @@ const styles = StyleSheet.create({
   },
   button:{
     position:"relative",
-    top: 250,
+    top: 150,
     paddingLeft:70,
     paddingRight:70
   },
