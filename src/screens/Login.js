@@ -1,7 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, } from 'react-native';
+import { StyleSheet, Text, View, Pressable} from 'react-native';
 import {Button, Icon, Input} from "react-native-elements";
+import { color } from 'react-native-elements/dist/helpers';
 
 function Login({navigation}) {
 
@@ -64,8 +65,7 @@ function Login({navigation}) {
           label="Username"
           labelStyle={{color:"white"}}
           value={username}
-          onChangeText={value => setUsername(value)}
-          
+          onChangeText={value => setUsername(value)} 
         />
         <Text></Text>
         <Input style={styles.password}
@@ -78,14 +78,13 @@ function Login({navigation}) {
           value={password}
           onChangeText={value => setPassword(value)}
           secureTextEntry={true}
-          
           errorStyle={{ color: 'red' }}
         />
       </View>
-      <View style={styles.button}>
-        <Button title="Login" onPress={DoLogin} />
-          
-        
+      <View >
+        <Pressable style={styles.button} onPress={DoLogin}>
+          <Text style={styles.text}>Login</Text>
+        </Pressable>
       </View>
     </View>
   ); 
@@ -122,7 +121,7 @@ const styles = StyleSheet.create({
   Text3:{
     position:"relative",
     color:"white",
-    top:50,
+    top:70,
     left:120,
     fontSize:50,
     fontFamily:"Arial",
@@ -130,7 +129,7 @@ const styles = StyleSheet.create({
   },
   main:{
     position:"relative",
-    top:120,
+    top:150,
     left:20,
   },
   username:{
@@ -142,10 +141,20 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1.5 
   },
   button:{
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginLeft:60,
+    marginRight:60,
+    paddingVertical: 15,
+    borderRadius: 4,  
+    backgroundColor: 'white',
     position:"relative",
-    top: 150,
-    paddingLeft:70,
-    paddingRight:70
+    top:200,
   },
+  text:{
+    fontSize:24,
+    fontWeight:'bold',
+    color:"#45B8DB"
+  }
 
 });
