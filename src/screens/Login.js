@@ -20,11 +20,11 @@ function Login({navigation}) {
      body: JSON.stringify({
        username:"zouweiran9122@gmail.com",
        password:"123456789",
-       scope:"me user device platform",
+       scope:"me user device platform organisation",
        grant_type:"password"
      })
    })
-   .then(res=>res.json())
+   .then(res=> res.json())
    .then(data=>{  
       try{     
         console.log(data) 
@@ -41,7 +41,6 @@ function Login({navigation}) {
       catch(err)
       {
         console.log(err)
-        
       }
     })
     
@@ -149,7 +148,7 @@ const styles = StyleSheet.create({
     borderRadius: 4,  
     backgroundColor: 'white',
     position:"relative",
-    top:200,
+    top:180,
   },
   text:{
     fontSize:24,
