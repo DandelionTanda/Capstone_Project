@@ -137,9 +137,22 @@ export default function Home ( {navigation} ) {
       }  
       
   }
-  
-  
-
+  /*
+  async function getOrgToken(org_id){
+    const responseToken = await fetch(`https://my.tanda.co/api/oauth/token`,{
+      method: "POST",
+      body: JSON.stringify({
+        access_token:localStorage.getItem('token'),
+        organisation_id:org_id,
+        scope:"me user device platform organisation",
+        grant_type:"partner_token"
+      })
+      })
+    const token = await responseToken.json()   
+    localStorage.setItem('token', token.access_token)
+    localStorage.setItem('tokenType', token.token_type)     
+  }
+  */
   useEffect(()=>{  
     setUp()
   },[])
@@ -173,11 +186,13 @@ export default function Home ( {navigation} ) {
       />
     );
   };
-  
+ 
   if (loading !== true){
   
   return (   
-    <SafeAreaView style={styles.container}>       
+    <SafeAreaView style={styles.container}>  
+    <View style={{flexDirection:'row', 
+    flexWrap:'wrap',}}>     
       {request.shift?  
         <View style={styles.clockin}>                
             <Text title="clocked in" style={{fontSize: 20, color: 'white', fontWeight: 'bold'}} >
@@ -195,21 +210,25 @@ export default function Home ( {navigation} ) {
         <View style={styles.picker}>  
           <Picker         
             selectedValue={selectedOrganisation}
-            onValueChange={(itemValue, itemIndex) =>{
-              setSelectedOrganisation(itemValue);   
-              console.log(itemValue);         
+            onValueChange={async (itemValue, itemIndex) =>{
+              setRefreshing(true);
+              await setSelectedOrganisation(itemValue);   
+              //await getOrgToken(itemValue); 
+              //await fecthDiscount();     
+              setRefreshing(false);               
             }} 
             mode='dropdown'  
-            style={{color:'black'}}
+            style={{color:'black', marginVertical:-4}}
              
           >
-            <Picker.Item label="Switch Organisations" enabled={false} />
+            <Picker.Item label={JSON.parse(localStorage.getItem('user')).organisation}/>
             {request.organisations.map((org, index) => {
               return <Picker.Item label={org.name} value={org.id} key={index} />
             })}        
           </Picker>  
         </View>  
       }
+      </View>  
       <FlatList
         data={request.discount}
         renderItem={renderItem}
@@ -276,34 +295,38 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   clockin: {
-   
+    width: '37%',
+    height: 52,
     padding: 10,
+    paddingLeft: 15,
     color: "white",
     alignSelf:  "flex-start",
     backgroundColor: "green",
-    borderTopLeftRadius: 10,
-    borderTopRightRadius: 10,
-    borderBottomLeftRadius: 10,
-    borderBottomRightRadius: 10,
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15,
+    borderBottomLeftRadius: 15,
+    borderBottomRightRadius: 15,
   },
   clockout: {    
+    width: '37%', 
+    height: 52,
     padding: 10,
     color: "white",
     alignSelf:  "flex-start",
     backgroundColor: "red",
-    borderTopLeftRadius: 10,
-    borderTopRightRadius: 10,
-    borderBottomLeftRadius: 10,
-    borderBottomRightRadius: 10,
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15,
+    borderBottomLeftRadius: 15,
+    borderBottomRightRadius: 15,
   },
   
   picker: {
     borderWidth: 3,
     borderColor: 'grey',  
-    width: '100%', 
-    alignSelf: 
-    'center', 
-    marginTop:20,
+    width: '60%', 
+    height: 52,
+    
+    marginLeft:10,
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
     borderBottomLeftRadius: 15,
