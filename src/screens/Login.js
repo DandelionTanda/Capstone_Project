@@ -1,8 +1,25 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Pressable} from 'react-native';
+import { StyleSheet, Text, View, Pressable, Dimensions, PixelRatio} from 'react-native';
 import {Button, Icon, Input} from "react-native-elements";
 import { color } from 'react-native-elements/dist/helpers';
+
+// Retrieve initial screen's width
+let screenWidth = Dimensions.get('window').width;
+
+// Retrieve initial screen's height
+let screenHeight = Dimensions.get('window').height;
+
+function fontSizer(screenWidth){
+  if(screenWidth > 250){
+    return 40;
+  }else { 
+    return 35;
+  }
+};
+
+
+
 
 function Login({navigation}) {
 
@@ -18,7 +35,7 @@ function Login({navigation}) {
        'Content-Type': 'application/json'
      },
      body: JSON.stringify({
-       username:"zouweiran9122@gmail.com",
+       username:"leo727268082@gmail.com",
        password:"123456789",
        scope:"me user device platform",
        grant_type:"password"
@@ -40,22 +57,20 @@ function Login({navigation}) {
       }
       catch(err)
       {
-        console.log(err)
-        
+        console.log(err)     
       }
     })
-    
-   
   }
 
   return (
     <View style={styles.container}>
-      <StatusBar style="auto" />
+
+      {/* <StatusBar style="auto" /> */}
       <View style={styles.header}>
       <Text style={styles.Text1}>TANDA</Text>
       <Text style={styles.Text2}>Discount</Text>
       <Text style={styles.Text3}>Discovery</Text>      
-      </View >
+      </View>
       <View style={styles.main}>
         <Input style={styles.username}
           placeholder='Username'
@@ -67,7 +82,9 @@ function Login({navigation}) {
           value={username}
           onChangeText={value => setUsername(value)} 
         />
+
         <Text></Text>
+
         <Input style={styles.password}
           placeholderTextColor="white"
           placeholder='Password'
@@ -78,68 +95,80 @@ function Login({navigation}) {
           value={password}
           onChangeText={value => setPassword(value)}
           secureTextEntry={true}
+          renderErrorMessage={false}
+          errorMessage=""
           errorStyle={{ color: 'red' }}
         />
+
       </View>
+
       <View >
         <Pressable style={styles.button} onPress={DoLogin}>
           <Text style={styles.text}>Login</Text>
         </Pressable>
       </View>
+      
     </View>
+
   ); 
 }
 
 export default Login;
 
-const styles = StyleSheet.create({
+const styles = StyleSheet.create(
+  {
+  
   container: {
-    flex:1,
-    backgroundColor: '#45B8DB',   
+    // flex:1,
+    backgroundColor: '#45B8DB',  
+    paddingBottom:screenHeight, 
   },
-  header:{
-    marginTop: 90,
-  },
+
   Text1:{
-    position:"relative",
+    marginTop: screenHeight*0.12,
     fontWeight:"bold",
     color:"royalblue",
-    left:250,
-    fontSize:30,
+    left:screenWidth*0.68,
+    fontSize:27,
     fontFamily:"Arial",
-    fontWeight: "bold"
   },
+
   Text2:{
-    position:"relative",
+    
     color:"white",
-    top:40,
-    left:20,
-    fontSize:50,
+    top:screenHeight*0.1,
+    left:screenWidth*0.1,
+    fontSize:fontSizer(screenWidth),
     fontFamily:"Arial",
     fontWeight: "bold"
   },
+
   Text3:{
-    position:"relative",
     color:"white",
-    top:70,
-    left:120,
-    fontSize:50,
+    top:screenHeight*0.15,
+    left:screenWidth*0.35,
+    fontSize:fontSizer(screenWidth),
     fontFamily:"Arial",
     fontWeight: "bold"
   },
+
   main:{
-    position:"relative",
-    top:150,
-    left:20,
+    marginTop:220,
+    width:screenHeight*0.45,
+    height:screenHeight*0.18,
+    alignItems:'center',
   },
+
   username:{
     borderBottomColor:'white',
     borderBottomWidth: 1.5 
   },
+
   password:{
     borderBottomColor:'white',
     borderBottomWidth: 1.5 
   },
+
   button:{
     alignItems: 'center',
     justifyContent: 'center',
@@ -149,8 +178,9 @@ const styles = StyleSheet.create({
     borderRadius: 4,  
     backgroundColor: 'white',
     position:"relative",
-    top:200,
+    top:screenWidth*0.2,
   },
+
   text:{
     fontSize:24,
     fontWeight:'bold',
