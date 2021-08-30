@@ -11,6 +11,7 @@ import Me from "./screens/Me";
 import Discount from "./screens/Discount";
 import Login from "./screens/Login";
 import 'localstorage-polyfill';
+import Header from "./Header";
 
 function getHeaderTitle(route) {
   const routeName = getFocusedRouteNameFromRoute(route) ?? 'Home';
@@ -26,13 +27,13 @@ const Tab = createBottomTabNavigator();
 
 function HomeTabs({ navigation, route }) {
   React.useLayoutEffect(() => {
-    navigation.setOptions({ headerTitle: getHeaderTitle(route) });
+    navigation.setOptions({ headerTitle: ()=> <Header/> });
   }, [navigation, route]);
   return (
     <Tab.Navigator
       initialRouteName="Home"
       tabBarOptions={{
-        activeTintColor: '#45B8DB',
+        activeTintColor: '#45B8EB',
       }}
     >
       <Tab.Screen
