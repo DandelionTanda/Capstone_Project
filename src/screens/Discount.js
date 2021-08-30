@@ -16,10 +16,11 @@ export default function Discount( {route, navigation} ) {
     <ScrollView style={{flex: 1}}>
       <View style={{width: 300, height:240, alignSelf:'center',marginTop:40, borderWidth: 2, marginBottom:20, backgroundColor:'#45B8DB', borderRadius: 100/2}}>
         <Text style={{fontSize: 110, color: 'white', alignSelf:'center'}}>
-        {route.params.value}
+          {route.params.value}
         </Text>
+        {/* TODO: make the name responsive, see 100% example */}
         <Text style={{fontSize: 25,color: 'white', fontWeight:'bold', alignSelf:'center', marginTop: 30}}>
-        {route.params.name} 
+          {route.params.name} 
         </Text>
         
       </View>
