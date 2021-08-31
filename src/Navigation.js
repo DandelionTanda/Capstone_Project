@@ -11,12 +11,6 @@ import Me from "./screens/Me";
 import Discount from "./screens/Discount";
 import Login from "./screens/Login";
 import 'localstorage-polyfill';
-import * as Font from 'expo=font';
-
-//custom font
-const getFonts = ()=> Font.loadAsync({
-  'FredokaOne-Regular': require('./assets/fonts/FredokaOne-Regular.ttf')
-})
 
 function getHeaderTitle(route) {
   const routeName = getFocusedRouteNameFromRoute(route) ?? 'Home';
