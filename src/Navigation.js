@@ -26,7 +26,7 @@ const Tab = createBottomTabNavigator();
 
 function HomeTabs({ navigation, route }) {
   React.useLayoutEffect(() => {
-    navigation.setOptions({ headerTitle: getFocusedRouteNameFromRoute(route) });
+    navigation.setOptions({ headerTitle: getHeaderTitle(route) });
   }, [navigation, route]);
   return (
     <Tab.Navigator

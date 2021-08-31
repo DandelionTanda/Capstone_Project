@@ -130,7 +130,7 @@ const styles = StyleSheet.create(
     color:"royalblue",
     left:screenWidth*0.68,
     fontSize:27,
-    fontFamily:"Arial",
+    fontFamily:"FredokaOne-Regular",
   },
 
   Text2:{
@@ -139,7 +139,7 @@ const styles = StyleSheet.create(
     top:screenHeight*0.1,
     left:screenWidth*0.1,
     fontSize:fontSizer(screenWidth),
-    fontFamily:"Arial",
+    fontFamily:"FredokaOne-Regular",
     fontWeight: "bold"
   },
 
