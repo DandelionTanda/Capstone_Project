@@ -4,14 +4,19 @@ import { Button, FlatList, SafeAreaView, StatusBar, StyleSheet, Text, TouchableO
 import 'react-native-gesture-handler';
 import { NavigationContainer, getFocusedRouteNameFromRoute, } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createStackNavigator } from '@react-navigation/stack';
+import { Assets, createStackNavigator } from '@react-navigation/stack';
 import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
 import Home from "./screens/Home";
 import Me from "./screens/Me";
 import Discount from "./screens/Discount";
 import Login from "./screens/Login";
 import 'localstorage-polyfill';
-import Header from "./Header";
+import * as Font from 'expo=font';
+
+//custom font
+const getFonts = ()=> Font.loadAsync({
+  'FredokaOne-Regular': require('./assets/fonts/FredokaOne-Regular.ttf')
+})
 
 function getHeaderTitle(route) {
   const routeName = getFocusedRouteNameFromRoute(route) ?? 'Home';
@@ -27,7 +32,7 @@ const Tab = createBottomTabNavigator();
 
 function HomeTabs({ navigation, route }) {
   React.useLayoutEffect(() => {
-    navigation.setOptions({ headerTitle: ()=> <Header/> });
+    navigation.setOptions({ headerTitle: getFocusedRouteNameFromRoute(route) });
   }, [navigation, route]);
   return (
     <Tab.Navigator
@@ -73,7 +78,7 @@ export default function App() {
       <Stack.Navigator initialRouteName="Login" >
         <Stack.Screen name="Login" component={Login} options={{headerShown: false }}/>
         <Stack.Screen 
-          name="HomeTabs" 
+          name="Home" 
           component={HomeTabs} 
           options={{ 
           tabBarLabel: 'Home!' ,

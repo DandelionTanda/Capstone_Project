@@ -178,19 +178,19 @@ export default function Home ( {navigation} ) {
     const color = index === selectedId ? 'white' : 'white';
 
     return (
-      <Item
-        item={item}
-        onPress={() => setSelectedId(index)}
-        backgroundColor={{ backgroundColor }}
-        textColor={{ color }}
-      />
+        <Item
+          item={item}
+          onPress={() => setSelectedId(index)}
+          backgroundColor={{ backgroundColor }}
+          textColor={{ color }}
+        />
     );
   };
  
   if (loading !== true){
   
-  return (   
-    <SafeAreaView style={styles.container}>  
+  return (
+    <SafeAreaView style={styles.container}>
     <View style={{flexDirection:'row', 
     flexWrap:'wrap',}}>     
       {request.shift?  
@@ -331,5 +331,5 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 15,
     borderBottomLeftRadius: 15,
     borderBottomRightRadius: 15,
-  }
+  },
 });

@@ -14,6 +14,11 @@ export default function Discount( {route, navigation} ) {
   const user = JSON.parse(localStorage.getItem('user'))
   return (
     <ScrollView style={{flex: 1}}>
+      <View>
+            <Image 
+            style={styles.logo}
+            source={require('../image/tanda-logo-image.png')}/>
+      </View>
       <View style={{width: 300, height:240, alignSelf:'center',marginTop:40, borderWidth: 2, marginBottom:20, backgroundColor:'#45B8DB', borderRadius: 100/2}}>
         <Text style={{fontSize: 110, color: 'white', alignSelf:'center'}}>
           {route.params.value}
@@ -50,7 +55,8 @@ export default function Discount( {route, navigation} ) {
       marginLeft:30,
       marginRight:30,
       borderBottomColor: 'black',
-      borderBottomWidth: 1
+      borderBottomWidth: 1,
+      marginBottom:24
     },
     label:{
       marginTop:10,
@@ -61,6 +67,13 @@ export default function Discount( {route, navigation} ) {
     infor:{
       fontSize: 18,
       color: '#232A22',
-      lineHeight: 40
+      lineHeight: 40,
     },
+    logo:{
+      height:24,
+      width:64,
+      alignSelf:'flex-end',
+      marginRight:20,
+      marginTop:20
+    }
   });
