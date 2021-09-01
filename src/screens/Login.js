@@ -45,7 +45,7 @@ function Login({navigation}) {
        'Content-Type': 'application/json'
      },
      body: JSON.stringify({
-       username:"leo727268082@gmail.com",
+       username:"zouweiran9122@gmail.com",
        password:"123456789",
        scope:"me user device platform",
        grant_type:"password"

@@ -37,7 +37,8 @@ export default function Home ( {navigation} ) {
   async function setUp(){
     await fetchUser()
     await fecthDiscount()
-    await setLoading(false)
+    await setSelectedOrganisation(JSON.parse(localStorage.getItem('user')).organisation_id)
+    await setLoading(false)     
   }
   async function fetchUser(){
     const responseUser = await fetch(`https://my.tanda.co/api/v2/users/me`,{
@@ -103,8 +104,12 @@ export default function Home ( {navigation} ) {
         setRequest({
           organisations: [
             {
-              id: 747,
-              name: "Tom's Restaurant",
+              id: 153575,
+              name: "QUT Capstone - DEMO ACCOUNT",
+            },            
+            {
+              id: 162048,
+              name: "Multi-Job Account Org DEMO",
             },
             {
               id: 757,
@@ -123,8 +128,13 @@ export default function Home ( {navigation} ) {
         setRequest({
           organisations: [
             {
-              id: 747,
-              name: "Tom's Restaurant",
+              id: 153575,
+              name: "QUT Capstone - DEMO ACCOUNT",
+            },   
+            
+            {
+              id: 162048,
+              name: "Multi-Job Account Org DEMO",
             },
             {
               id: 757,
@@ -212,18 +222,19 @@ export default function Home ( {navigation} ) {
             selectedValue={selectedOrganisation}
             onValueChange={async (itemValue, itemIndex) =>{
               setRefreshing(true);
-              await setSelectedOrganisation(itemValue);   
-              //await getOrgToken(itemValue); 
+              await setSelectedOrganisation(itemValue);               
+              //await getOrgToken(itemValue);            
+              // await fetchUser();           
               //await fecthDiscount();     
-              setRefreshing(false);               
+              setRefreshing(false);     
+                      
             }} 
             mode='dropdown'  
             style={{color:'black', marginVertical:-4}}
              
-          >
-            <Picker.Item label={JSON.parse(localStorage.getItem('user')).organisation}/>
-            {request.organisations.map((org, index) => {
-              return <Picker.Item label={org.name} value={org.id} key={index} />
+          >           
+            {request.organisations.map((org, index) => {                         
+              return <Picker.Item label={org.name} value={org.id} key={index} />                                 
             })}        
           </Picker>  
         </View>  
