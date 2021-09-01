@@ -5,19 +5,29 @@ import {Button, Icon, Input} from "react-native-elements";
 import { color } from 'react-native-elements/dist/helpers';
 
 // Retrieve initial screen's width
-let screenWidth = Dimensions.get('window').width;
+let screenWidth = Dimensions.get('screen').width;
 
 // Retrieve initial screen's height
-let screenHeight = Dimensions.get('window').height;
+let screenHeight = Dimensions.get('screen').height;
 
-function fontSizer(screenWidth){
-  if(screenWidth > 250){
+function fontSizer(screenHeight){
+  if(screenHeight > 550){
     return 40;
   }else { 
     return 35;
   }
+
 };
 
+function textSizer(screenWidth,screenHeight){
+  if(screenHeight < 550)
+  {
+    return screenWidth*0.1
+  }
+  else{
+    return screenWidth*0.15
+  }
+}
 
 
 
@@ -62,6 +72,8 @@ function Login({navigation}) {
     })
   }
 
+  console.log(screenHeight)
+  console.log(screenWidth)
   return (
     <View style={styles.container}>
 
@@ -75,7 +87,7 @@ function Login({navigation}) {
         <Input style={styles.username}
           placeholder='Username'
           placeholderTextColor="white"
-          containerStyle={{width:350, color:"white"}}
+          containerStyle={{width:screenWidth, color:"white"}}
           inputStyle={{color:"white", fontSize:16}}
           label="Username"
           labelStyle={{color:"white"}}
@@ -88,7 +100,7 @@ function Login({navigation}) {
         <Input style={styles.password}
           placeholderTextColor="white"
           placeholder='Password'
-          containerStyle={{width:350, color:"white"}}
+          containerStyle={{width:screenWidth, color:"white"}}
           inputStyle={{color:'white', fontSize:16}}
           label="Password"
           labelStyle={{color:"white"}}
@@ -119,13 +131,12 @@ const styles = StyleSheet.create(
   {
   
   container: {
-    // flex:1,
     backgroundColor: '#45B8DB',  
     paddingBottom:screenHeight, 
   },
 
   Text1:{
-    marginTop: screenHeight*0.12,
+    marginTop: textSizer(screenWidth,screenHeight),
     fontWeight:"bold",
     color:"royalblue",
     left:screenWidth*0.68,
@@ -136,26 +147,28 @@ const styles = StyleSheet.create(
   Text2:{
     
     color:"white",
-    top:screenHeight*0.1,
-    left:screenWidth*0.1,
-    fontSize:fontSizer(screenWidth),
+    marginTop: textSizer(screenWidth,screenHeight),
+    marginLeft: screenWidth*0.1,
+    fontSize:fontSizer(screenHeight),
     fontFamily:"Arial",
     fontWeight: "bold"
   },
 
   Text3:{
     color:"white",
-    top:screenHeight*0.15,
-    left:screenWidth*0.35,
-    fontSize:fontSizer(screenWidth),
+    marginTop: textSizer(screenWidth,screenHeight),
+    marginLeft:screenWidth*0.2,
+    textAlign:"center",
+    fontSize: fontSizer(screenHeight),
     fontFamily:"Arial",
     fontWeight: "bold"
   },
 
   main:{
-    marginTop:220,
-    width:screenHeight*0.45,
-    height:screenHeight*0.18,
+    marginTop:screenHeight*0.04,
+    marginLeft: screenWidth*0.1,
+    marginRight: screenWidth*0.1,
+    height:screenHeight*0.1,
     alignItems:'center',
   },
 
@@ -165,6 +178,7 @@ const styles = StyleSheet.create(
   },
 
   password:{
+    marginTop:-5,
     borderBottomColor:'white',
     borderBottomWidth: 1.5 
   },
@@ -172,13 +186,13 @@ const styles = StyleSheet.create(
   button:{
     alignItems: 'center',
     justifyContent: 'center',
-    marginLeft:60,
-    marginRight:60,
+    marginLeft:screenWidth*0.2,
+    marginRight:screenWidth*0.2,
     paddingVertical: 15,
     borderRadius: 4,  
     backgroundColor: 'white',
     position:"relative",
-    top:screenWidth*0.2,
+    top:screenWidth*0.45,
   },
 
   text:{
