@@ -52,7 +52,7 @@ function Login({navigation}) {
           localStorage.setItem('token', data.access_token)
           localStorage.setItem('tokenType', data.token_type) 
           setError(false)      
-          navigation.navigate("Home") 
+          navigation.navigate("HomeTabs") 
         }               
       }
       catch(err)

@@ -72,7 +72,7 @@ export default function App() {
       <Stack.Navigator initialRouteName="Login" >
         <Stack.Screen name="Login" component={Login} options={{headerShown: false }}/>
         <Stack.Screen 
-          name="Home" 
+          name="HomeTabs" 
           component={HomeTabs} 
           options={{ 
           tabBarLabel: 'Home!' ,
