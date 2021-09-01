@@ -197,6 +197,7 @@ export default function Home ( {navigation} ) {
     );
   };
  
+  
   if (loading !== true){
   
   return (
@@ -231,10 +232,18 @@ export default function Home ( {navigation} ) {
             }} 
             mode='dropdown'  
             style={{color:'black', marginVertical:-4}}
-             
+            
           >           
-            {request.organisations.map((org, index) => {                         
-              return <Picker.Item label={org.name} value={org.id} key={index} />                                 
+            {request.organisations.map((org, index) => {                 
+           
+              if(org.id === selectedOrganisation) {
+                return <Picker.Item label={org.name} value={org.id} key={index} style={{color:'#2F57BD'}}/>
+              }           
+              else {
+                return <Picker.Item label={org.name} value={org.id} key={index} />
+              }
+              
+                                               
             })}        
           </Picker>  
         </View>  
