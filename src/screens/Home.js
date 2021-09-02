@@ -27,8 +27,7 @@ export default function Home ( {navigation} ) {
   const [final, setfinal] = useState([])
   const [refreshing, setRefreshing] = useState(false)
   const [loading, setLoading] = useState(true)
-  const [request, setRequest] = useState({
-    organisations: [],
+  const [request, setRequest] = useState({   
     shift: null,
     discount: []
   })
@@ -48,16 +47,6 @@ export default function Home ( {navigation} ) {
         Authorization: localStorage.getItem('tokenType')+ ' ' +localStorage.getItem('token')}})
     const user = await responseUser.json()   
     localStorage.setItem('user', JSON.stringify(user))   
-  }
-
-  async function fetchOrganisations(){
-    const responseOrg= await fetch(`https://my.tanda.co/api/v2/organisations`,{
-      method: "GET",
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: localStorage.getItem('tokenType')+ ' ' +localStorage.getItem('token')}})
-    const organisations = await responseOrg.json()   
-    return organisations;
   }
 
   async function fetchClock(){
@@ -92,6 +81,7 @@ export default function Home ( {navigation} ) {
 
       
       const discount = await response.json()
+     
       var shift = await fetchClock()
       // wait for server api
       //var organisations = await fetchOrganisations() 
@@ -102,20 +92,6 @@ export default function Home ( {navigation} ) {
           return item.onshift === false
         })     
         setRequest({
-          organisations: [
-            {
-              id: 153575,
-              name: "QUT Capstone - DEMO ACCOUNT",
-            },            
-            {
-              id: 162048,
-              name: "Multi-Job Account Org DEMO",
-            },
-            {
-              id: 757,
-              name: "Jack's Burger",
-            },
-          ],
           shift: false,
           discount: offDiscount
         })
@@ -125,22 +101,7 @@ export default function Home ( {navigation} ) {
         const onDiscount = await discount.filter((item) =>{
           return item.onshift === true
         })  
-        setRequest({
-          organisations: [
-            {
-              id: 153575,
-              name: "QUT Capstone - DEMO ACCOUNT",
-            },   
-            
-            {
-              id: 162048,
-              name: "Multi-Job Account Org DEMO",
-            },
-            {
-              id: 757,
-              name: "Jack's Burger",
-            },
-          ],
+        setRequest({         
           shift: true,
           discount: onDiscount
         })  
@@ -216,7 +177,7 @@ export default function Home ( {navigation} ) {
             </Text>      
         </View>
       } 
-      {request.organisations.length === 1?
+      {JSON.parse(localStorage.getItem('user')).organisations.length === 1?
         null: 
         <View style={styles.picker}>  
           <Picker         
@@ -234,7 +195,7 @@ export default function Home ( {navigation} ) {
             style={{color:'black', marginVertical:-4}}
             
           >           
-            {request.organisations.map((org, index) => {                 
+            {JSON.parse(localStorage.getItem('user')).organisations.map((org, index) => {                 
            
               if(org.id === selectedOrganisation) {
                 return <Picker.Item label={org.name} value={org.id} key={index} style={{color:'#2F57BD'}}/>

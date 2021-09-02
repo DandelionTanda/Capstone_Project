@@ -38,7 +38,7 @@ export default function Discount( {route, navigation} ) {
         <Text style={styles.infor}>{user.email}</Text>
       </View>
       <View style= {styles.personalInfor}>
-        <Text style={styles.label}>ID</Text>
+        <Text style={styles.label}>Employee ID</Text>
         <Text style={styles.infor}>{user.id}</Text>
       </View>
       <View style= {styles.personalInfor}>

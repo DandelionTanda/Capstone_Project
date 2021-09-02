@@ -46,8 +46,9 @@ function Login({navigation}) {
      },
      body: JSON.stringify({
        username:"zouweiran9122@gmail.com",
+       //username:"leo727268082@gmail.com",
        password:"123456789",
-       scope:"me user device platform",
+       scope:"me user device platform organisation",
        grant_type:"password"
      })
    })
