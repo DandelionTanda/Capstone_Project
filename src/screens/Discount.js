@@ -1,13 +1,12 @@
 import { useState }  from "react";
 import * as React from 'react';
-import { Button, FlatList, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity,View,Icon,Image, ScrollView } from "react-native";
+import { Button, FlatList, SafeAreaView, StatusBar, Dimensions, StyleSheet, Text, TouchableOpacity,View,Icon,Image, ScrollView } from "react-native";
 import 'react-native-gesture-handler';
 import { NavigationContainer, getFocusedRouteNameFromRoute} from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
 import { get } from "react-native/Libraries/Utilities/PixelRatio";
-
 
 export default function Discount( {route, navigation} ) {
 
@@ -19,12 +18,13 @@ export default function Discount( {route, navigation} ) {
             style={styles.logo}
             source={require('../image/tanda-logo-image.png')}/>
       </View>
-      <View style={{width: 300, height:240, alignSelf:'center',marginTop:40, borderWidth: 2, marginBottom:20, backgroundColor:'#45B8DB', borderRadius: 100/2}}>
-        <Text style={{fontSize: 110, color: 'white', alignSelf:'center'}}>
+      {/*Discount view */}
+      <View style={styles.discount}>
+        <Text style={styles.valueDiscount}>
           {route.params.value}
         </Text>
         {/* TODO: make the name responsive, see 100% example */}
-        <Text style={{fontSize: 25,color: 'white', fontWeight:'bold', alignSelf:'center', marginTop: 30}}>
+        <Text style={styles.nameDiscount}>
           {route.params.name} 
         </Text>
         
@@ -47,10 +47,69 @@ export default function Discount( {route, navigation} ) {
       </View>
     </ScrollView>
   );
-  }
+}
   
-  const styles = StyleSheet.create({
-     
+// Retrieve initial screen's width
+let width = Dimensions.get('screen').width;
+
+// Retrieve initial screen's height
+let height = Dimensions.get('screen').height;
+
+{/*Custom styles*/}
+let styles;
+if(width < height){
+  if(width<350){
+    styles = StyleSheet.create ({
+      personalInfor:{
+        marginLeft:30,
+        marginRight:30,
+        borderBottomColor: 'black',
+        borderBottomWidth: 1,
+        marginBottom:24
+      },
+      label:{
+        marginTop:10,
+        fontSize: 20,
+        fontWeight: "bold",
+        color: '#1D87E3'
+      },
+      infor:{
+        fontSize: 16,
+        color: '#232A22',
+        lineHeight: 40,
+      },
+      logo:{
+        height:20,
+        width:56,
+        alignSelf:'flex-end',
+        marginRight:20,
+        marginTop:20
+      },
+      discount:{
+        width: 250,
+        height:180,
+        alignSelf:'center',
+        marginTop:32,
+        borderWidth: 2,
+        marginBottom:20,
+        backgroundColor:'#45B8DB',
+        borderRadius: 100/2
+      },
+      valueDiscount:{
+        fontSize: 90,
+        color: 'white',
+        alignSelf:'center'
+      },
+      nameDiscount:{
+        fontSize: 18,
+        color: 'white',
+        fontWeight:'bold',
+        alignSelf:'center',
+      },
+    });
+  }
+  else{
+  styles = StyleSheet.create({
     personalInfor:{
       marginLeft:30,
       marginRight:30,
@@ -60,12 +119,12 @@ export default function Discount( {route, navigation} ) {
     },
     label:{
       marginTop:10,
-      fontSize: 22,
+      fontSize: 28,
       fontWeight: "bold",
       color: '#1D87E3'
     },
     infor:{
-      fontSize: 18,
+      fontSize: 20,
       color: '#232A22',
       lineHeight: 40,
     },
@@ -75,5 +134,29 @@ export default function Discount( {route, navigation} ) {
       alignSelf:'flex-end',
       marginRight:20,
       marginTop:20
-    }
+    },
+    discount:{
+      width: 300,
+      height:240,
+      alignSelf:'center',
+      marginTop:40,
+      borderWidth: 2,
+      marginBottom:20,
+      backgroundColor:'#45B8DB',
+      borderRadius: 100/2
+    },
+    valueDiscount:{
+      fontSize: 110,
+      color: 'white',
+      alignSelf:'center'
+    },
+    nameDiscount:{
+      fontSize: 24,
+      color: 'white',
+      fontWeight:'bold',
+      alignSelf:'center',
+    },
   });
+}
+}
+  
