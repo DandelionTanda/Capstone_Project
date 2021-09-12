@@ -35,7 +35,13 @@ export default function Home ( {navigation} ) {
 
   async function setUp(){
     await fetchUser()
-    await fecthDiscount()
+    let discount = await fecthDiscount()
+    let clock = await fetchClock()
+    let filteredDis = await filterDiscount(discount, clock)
+    await setRequest({         
+      shift: clock,
+      discount: filteredDis
+    })  
     await setSelectedOrganisation(JSON.parse(localStorage.getItem('user')).organisation_id)
     await setLoading(false)     
   }
@@ -77,37 +83,19 @@ export default function Home ( {navigation} ) {
         'Content-Type': 'application/json',
         Authorization: localStorage.getItem('tokenType')+ ' ' +localStorage.getItem('token')
       },
-    })
-
-      
+    })      
       const discount = await response.json()
-      
-      var shift = await fetchClock()
-      // wait for server api
-      //var organisations = await fetchOrganisations() 
-      if(shift === false)
-      {
-      
-        const offDiscount = await discount.filter((item) =>{
-          return item.onshift === false
-        })     
-        setRequest({
-          shift: false,
-          discount: offDiscount
-        })
-      }
-      else if(shift == true)
-      {
-        const onDiscount = await discount.filter((item) =>{
-          return item.onshift === true
-        })  
-        setRequest({         
-          shift: true,
-          discount: onDiscount
-        })  
-      }  
-      
+      return discount
+     
   }
+
+  async function filterDiscount(discount, shift) {
+    const filteredDiscount = await discount.filter((item) =>{
+        return item.onshift === shift;
+      }) 
+      return filteredDiscount;          
+  }
+
   /*
   async function getOrgToken(org_id){
     const responseToken = await fetch(`https://my.tanda.co/api/oauth/token`,{
@@ -131,7 +119,13 @@ export default function Home ( {navigation} ) {
   
   const onRefresh = React.useCallback(async () => {
     await setRefreshing(true);
-    await fecthDiscount()
+    let discount = await fecthDiscount()
+    let clock = await fetchClock()
+    let filteredDis = await filterDiscount(discount, clock)
+    await setRequest({         
+      shift: clock,
+      discount: filteredDis
+    })  
     await setRefreshing(false)
   }, []);
 
