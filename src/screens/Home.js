@@ -68,24 +68,37 @@ export default function Home ( {navigation} ) {
   }
 
   async function fetchClock(){
-    const user = JSON.parse(localStorage.getItem('user'))   
-    const past = getDate()[0]
-    const today = getDate()[1]
-    const fetchResult = await fetch(`https://my.tanda.co/api/v2/clockins` + 
-    `?user_id=${user.id}&from=${past}&to=${today}` ,{
-      method: "GET",
-      headers: {Authorization: localStorage.getItem('tokenType')+ ' ' +localStorage.getItem('token')}})
-    const clock = await fetchResult.json()
-       
-    if (clock.length > 0) {
-      const t = clock[clock.length - 1].type
-      if (t !== 'finish') {
-        return true       
-      } else {
-        return false    
+    try {
+      const user = JSON.parse(localStorage.getItem('user'))   
+      const past = getDate()[0]
+      const today = getDate()[1]
+      const fetchResult = await fetch(`https://my.tanda.co/api/v2/clockins` + 
+      `?user_id=${user.id}&from=${past}&to=${today}` ,{
+        method: "GET",
+        headers: {Authorization: localStorage.getItem('tokenType')+ ' ' +localStorage.getItem('token')}})
+      if (!fetchResult.ok) {
+        const errorMessage = `An error has occured: ${fetchResult.status}`;   
+        throw Error(errorMessage)  
       }
-    } else {
-      return false     
+      else {
+        const clock = await fetchResult.json()
+          
+        if (clock.length > 0) {
+          const t = clock[clock.length - 1].type
+          if (t !== 'finish') {
+            return true       
+          } else {
+            return false    
+          }
+        } else {
+          return false     
+        }
+      }
+    }
+    catch(err) {
+      console.log(err.message)  
+      setError(err.message)
+      return err
     }
   }
   async function fecthDiscount(){
