@@ -32,6 +32,7 @@ export default function Home ( {navigation} ) {
     discount: []
   })
   const [selectedOrganisation, setSelectedOrganisation] = useState();
+  const [error, setError] = useState('') 
 
   async function setUp(){
     await fetchUser()
@@ -101,16 +102,30 @@ export default function Home ( {navigation} ) {
       return err
     }
   }
+
   async function fecthDiscount(){
-    const fetchResult = await fetch(`https://my.tanda.co/api/v2/platform/discounts`, {
-      method: "GET",
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: localStorage.getItem('tokenType')+ ' ' +localStorage.getItem('token')
-      },
-    })      
-      const discount = await fetchResult.json()
-      return discount
+    try {
+      const fetchResult = await fetch(`https://my.tanda.co/api/v2/platform/discounts`, {
+        method: "GET",
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: localStorage.getItem('tokenType')+ ' ' +localStorage.getItem('token')
+        },
+      })
+      if (!fetchResult.ok) {
+        const errorMessage = `An error has occured: ${fetchResult.status}`;   
+        throw Error(errorMessage)  
+      }
+      else {
+        const discount = await fetchResult.json()
+        return discount
+      }           
+    }
+    catch(err) {
+      console.log(err.message)  
+      setError(err.message)
+      return err
+    }
      
   }
 
@@ -229,6 +244,7 @@ export default function Home ( {navigation} ) {
         </View>  
       }
       </View>  
+      {error ? <Text style={styles.error}>{error}</Text> : null}
       <FlatList
         data={request.discount}
         renderItem={renderItem}
@@ -332,4 +348,9 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 15,
     borderBottomRightRadius: 15,
   },
+  error: {
+    fontSize:20,
+    marginTop: 10,
+    color:'red',
+  }
 });
