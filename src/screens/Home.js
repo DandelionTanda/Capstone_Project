@@ -46,24 +46,36 @@ export default function Home ( {navigation} ) {
     await setLoading(false)     
   }
   async function fetchUser(){
-    const responseUser = await fetch(`https://my.tanda.co/api/v2/users/me`,{
-      method: "GET",
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: localStorage.getItem('tokenType')+ ' ' +localStorage.getItem('token')}})
-    const user = await responseUser.json()   
-    localStorage.setItem('user', JSON.stringify(user))   
+    try {
+      const fetchResult = await fetch(`https://my.tanda.co/api/v2/users/me`,{
+        method: "GET",
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: localStorage.getItem('tokenType')+ ' ' +localStorage.getItem('token')}})      
+      if (!fetchResult.ok) {
+        const errorMessage = `An error has occured: ${fetchResult.status}`;   
+        throw Error(errorMessage)  
+      }
+      else {
+        const user = await fetchResult.json()   
+        localStorage.setItem('user', JSON.stringify(user))  
+      }
+    } catch(err) {
+      console.log(err.message)  
+      setError(err.message)
+      return err
+    }
   }
 
   async function fetchClock(){
     const user = JSON.parse(localStorage.getItem('user'))   
     const past = getDate()[0]
     const today = getDate()[1]
-    const responseClock = await fetch(`https://my.tanda.co/api/v2/clockins` + 
+    const fetchResult = await fetch(`https://my.tanda.co/api/v2/clockins` + 
     `?user_id=${user.id}&from=${past}&to=${today}` ,{
       method: "GET",
       headers: {Authorization: localStorage.getItem('tokenType')+ ' ' +localStorage.getItem('token')}})
-    const clock = await responseClock.json()
+    const clock = await fetchResult.json()
        
     if (clock.length > 0) {
       const t = clock[clock.length - 1].type
@@ -77,14 +89,14 @@ export default function Home ( {navigation} ) {
     }
   }
   async function fecthDiscount(){
-    const response = await fetch(`https://my.tanda.co/api/v2/platform/discounts`, {
+    const fetchResult = await fetch(`https://my.tanda.co/api/v2/platform/discounts`, {
       method: "GET",
       headers: {
         'Content-Type': 'application/json',
         Authorization: localStorage.getItem('tokenType')+ ' ' +localStorage.getItem('token')
       },
     })      
-      const discount = await response.json()
+      const discount = await fetchResult.json()
       return discount
      
   }
