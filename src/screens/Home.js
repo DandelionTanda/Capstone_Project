@@ -1,6 +1,6 @@
 import { useState, useEffect }  from "react";
 import * as React from 'react';
-import { ActivityIndicator, RefreshControl, Dimensions, FlatList, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity,View,Icon,Image } from "react-native";
+import { ActivityIndicator, RefreshControl, Button, FlatList, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity,View,Icon,Image } from "react-native";
 import 'react-native-gesture-handler';
 import { set } from "react-native-reanimated";
 import {Picker} from '@react-native-picker/picker';
@@ -81,7 +81,7 @@ export default function Home ( {navigation} ) {
 
       
       const discount = await response.json()
-     
+      
       var shift = await fetchClock()
       // wait for server api
       //var organisations = await fetchOrganisations() 
@@ -163,15 +163,16 @@ export default function Home ( {navigation} ) {
   
   return (
     <SafeAreaView style={styles.container}>
-    <View style={styles.viewAnouncement}>     
+    <View style={{flexDirection:'row', 
+    flexWrap:'wrap',}}>     
       {request.shift?  
         <View style={styles.clockin}>                
-            <Text title="clocked in" style={styles.clockinText} >
+            <Text title="clocked in" style={{fontSize: 20, color: 'white', fontWeight: 'bold'}} >
                 clocked in
             </Text>                  
         </View>:   
         <View style={styles.clockout}>              
-            <Text title="clocked out" style={styles.clockoutText}>
+            <Text title="clocked out" style={{fontSize: 20, color: 'white', fontWeight: 'bold'}}>
                 clocked out
             </Text>      
         </View>
@@ -231,215 +232,85 @@ export default function Home ( {navigation} ) {
     </View>
     )
   }
-
+  
   
 };
-// Retrieve initial screen's width
-let width = Dimensions.get('screen').width;
-
-// Retrieve initial screen's height
-let height = Dimensions.get('screen').height;
-
-{/*Custom styles*/}
-let styles;
-if(width < height){
-  if(width<350){
-    styles = StyleSheet.create({
-      container: {
-        flex: 1,    
-        backgroundColor: '#F5F3F3',
-        marginTop: 20,
-        marginLeft: 20,
-        marginRight: 20,
-        marginBottom: 20
-      },
-      horizontal: {
-        flexDirection: "row",
-        justifyContent: "space-around",
-        padding: 10
-      },
-      item: {
-        padding: 16,
-        marginVertical: 16,
-        
-        borderTopLeftRadius: 15,
-        borderTopRightRadius: 15,
-        borderBottomLeftRadius: 15,
-        borderBottomRightRadius: 15,
-        flexDirection:'row', 
-        flexWrap:'wrap',
-        
-      },
-      disName: {
-        fontSize: 16,
-        
-      },
-      disValue: {
-        fontSize: 16,
-        paddingLeft: 40,
-        
-      },
-      scrollView: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-      },
-      clockin: {
-        alignItems:'center',
-        width: '37%',
-        height: 48,
-        padding: 10,
-        paddingLeft: 15,
-        color: "white",
-        alignSelf:  "flex-start",
-        backgroundColor: "green",
-        borderTopLeftRadius: 15,
-        borderTopRightRadius: 15,
-        borderBottomLeftRadius: 15,
-        borderBottomRightRadius: 15,
-        marginBottom:8,
-      },
-
-      clockinText: {
-        fontSize: 20,
-        color: 'white',
-        fontWeight: 'bold'
-      },
-
-      clockout: {
-        alignItems:'center',
-        width: '37%', 
-        height: 48,
-        padding: 15,
-        color: "white",
-        alignSelf:  "flex-start",
-        backgroundColor: "red",
-        borderTopLeftRadius: 15,
-        borderTopRightRadius: 15,
-        borderBottomLeftRadius: 15,
-        borderBottomRightRadius: 15,
-        marginBottom:8,
-      },
-      
-      clockoutText:{
-        fontSize: 14,
-        color: 'white',
-        fontWeight: 'bold'  
-      },
-
-      picker: {
-        alignContent:'center',
-        borderWidth: 3,
-        borderColor: 'grey',  
-        width: '59%', 
-        height: 52,
-        marginLeft:10,
-        borderTopLeftRadius: 15,
-        borderTopRightRadius: 15,
-        borderBottomLeftRadius: 15,
-        borderBottomRightRadius: 15,
-      },
-      viewAnouncement:{
-        flexDirection:'row',
-        flexWrap:'wrap',
-      },
-    });
-  }else{
-    styles = StyleSheet.create({
-      container: {
-        flex: 1,    
-        backgroundColor: '#F5F3F3',
-        marginTop: 24,
-        marginLeft: 24,
-        marginRight: 24,
-        marginBottom: 24
-      },
-      horizontal: {
-        flexDirection: "row",
-        justifyContent: "space-around",
-        padding: 10
-      },
-      item: {
-        padding: 16,
-        marginVertical: 16,
-        
-        borderTopLeftRadius: 15,
-        borderTopRightRadius: 15,
-        borderBottomLeftRadius: 15,
-        borderBottomRightRadius: 15,
-        flexDirection:'row', 
-        flexWrap:'wrap',
-        
-      },
-      disName: {
-        fontSize: 20,
-        
-      },
-      disValue: {
-        fontSize: 20,
-        paddingLeft: 50,
-        
-      },
-      scrollView: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-      },
-      clockin: {
-        width: '36%',
-        height: 52,
-        padding: 10,
-        paddingLeft: 15,
-        color: "white",
-        alignSelf:  "flex-start",
-        backgroundColor: "green",
-        borderTopLeftRadius: 15,
-        borderTopRightRadius: 15,
-        borderBottomLeftRadius: 15,
-        borderBottomRightRadius: 15,
-      },
-
-      clockinText: {
-        fontSize: 20,
-        color: 'white',
-        fontWeight: 'bold'
-      },
-
-      clockout: {    
-        width: '36%', 
-        height: 52,
-        padding: 10,
-        color: "white",
-        alignSelf:  "flex-start",
-        backgroundColor: "red",
-        borderTopLeftRadius: 15,
-        borderTopRightRadius: 15,
-        borderBottomLeftRadius: 15,
-        borderBottomRightRadius: 15,
-      },
-      
-      clockoutText: {
-        fontSize: 20,
-        color: 'white',
-        fontWeight: 'bold'
-      },
-
-      picker: {
-        borderWidth: 3,
-        borderColor: 'grey',  
-        width: '59%', 
-        height: 52,
-        
-        marginLeft:10,
-        borderTopLeftRadius: 15,
-        borderTopRightRadius: 15,
-        borderBottomLeftRadius: 15,
-        borderBottomRightRadius: 15,
-      },
-      viewAnouncement:{
-        flexDirection:'row',
-        flexWrap:'wrap',
-      },
-    });
-  }
-}
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,    
+    backgroundColor: '#F5F3F3',
+    marginTop: 24,
+    marginLeft: 24,
+    marginRight: 24,
+    marginBottom: 24
+  },
+  horizontal: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    padding: 10
+  },
+  item: {
+    padding: 16,
+    marginVertical: 16,
+    
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15,
+    borderBottomLeftRadius: 15,
+    borderBottomRightRadius: 15,
+    flexDirection:'row', 
+    flexWrap:'wrap',
+    
+  },
+  disName: {
+    fontSize: 20,
+    
+  },
+  disValue: {
+    fontSize: 20,
+    paddingLeft: 50,
+    
+  },
+  scrollView: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  clockin: {
+    width: '37%',
+    height: 52,
+    padding: 10,
+    paddingLeft: 15,
+    color: "white",
+    alignSelf:  "flex-start",
+    backgroundColor: "green",
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15,
+    borderBottomLeftRadius: 15,
+    borderBottomRightRadius: 15,
+  },
+  clockout: {    
+    width: '37%', 
+    height: 52,
+    padding: 10,
+    color: "white",
+    alignSelf:  "flex-start",
+    backgroundColor: "red",
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15,
+    borderBottomLeftRadius: 15,
+    borderBottomRightRadius: 15,
+  },
+  
+  picker: {
+    borderWidth: 3,
+    borderColor: 'grey',  
+    width: '60%', 
+    height: 52,
+    
+    marginLeft:10,
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15,
+    borderBottomLeftRadius: 15,
+    borderBottomRightRadius: 15,
+  },
+});

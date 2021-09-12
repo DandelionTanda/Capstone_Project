@@ -35,46 +35,46 @@ function Login({navigation}) {
 
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  const [error, setError] = useState(false)
-
-  function DoLogin(){
-     
-    fetch(`https://my.tanda.co/api/oauth/token`,{
-     method: "POST",
-     headers: {
-       'Content-Type': 'application/json'
-     },
-     body: JSON.stringify({
-       username:"zouweiran9122@gmail.com",
-       //username:"leo727268082@gmail.com",
-       password:"123456789",
-       scope:"me user device platform organisation",
-       grant_type:"password"
-     })
-   })
-   .then(res=>res.json())
-   .then(data=>{  
-      try{     
-        console.log(data) 
-        if (data.error){
-          setError(data.error)
-        }   
-        else {          
-          localStorage.setItem('token', data.access_token)
-          localStorage.setItem('tokenType', data.token_type) 
-          setError(false)      
-          navigation.navigate("HomeTabs") 
-        }               
+  const [error, setError] = useState('') 
+  
+  async function DoLogin(){    
+    try {
+      const fetchResult = await fetch(`https://my.tanda.co/api/oauth/token`,{
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          username:"zouweiran9122@gmail.com",
+          //username:"leo727268082@gmail.com",
+          password:"123456789",
+          scope:"me user device platform organisation",
+          grant_type:"password"
+        })
+      })
+      if (!fetchResult.ok) {         
+        if (fetchResult.status === 400) {               
+          const errorMessage = "Invalid email or password";
+          throw Error(errorMessage)        
+        }
+        else {
+          const errorMessage = `An error has occured: ${fetchResult.status}`;   
+          throw Error(errorMessage)         
+        }                  
+      }  
+      else {
+        setError("")
+        const data = await fetchResult.json() 
+        localStorage.setItem('token', data.access_token)
+        localStorage.setItem('tokenType', data.token_type) 
+        navigation.navigate("HomeTabs") 
       }
-      catch(err)
-      {
-        console.log(err)     
-      }
-    })
-  }
+    } catch (err) {        
+      console.log(err.message)  
+      setError(err.message)
+    }   
+  }   
 
-  console.log(screenHeight)
-  console.log(screenWidth)
   return (
     <View style={styles.container}>
 
@@ -112,13 +112,13 @@ function Login({navigation}) {
           errorMessage=""
           errorStyle={{ color: 'red' }}
         />
-
+        {error ? <Text style={styles.error}>{error}</Text> : null}
       </View>
 
-      <View >
+      <View >       
         <Pressable style={styles.button} onPress={DoLogin}>
           <Text style={styles.text}>Login</Text>
-        </Pressable>
+        </Pressable>      
       </View>
       
     </View>
@@ -200,6 +200,11 @@ const styles = StyleSheet.create(
     fontSize:24,
     fontWeight:'bold',
     color:"#45B8DB"
-  }
+  },
+  error: {
+    fontSize:20,
+    marginTop: 10,
+    color:'red',
 
+  }
 });
