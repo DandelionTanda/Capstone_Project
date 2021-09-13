@@ -1,9 +1,46 @@
 import { useState, useEffect }  from "react";
 import * as React from 'react';
-import { ActivityIndicator, RefreshControl, Button, FlatList, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity,View,Icon,Image } from "react-native";
+import { ActivityIndicator, RefreshControl, Button, FlatList, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity,View,Icon,Image, Dimensions, PixelRatio } from "react-native";
 import 'react-native-gesture-handler';
 import { set } from "react-native-reanimated";
 import {Picker} from '@react-native-picker/picker';
+
+
+// Retrieve initial screen's width
+let screenWidth = Dimensions.get('screen').width;
+
+// Retrieve initial screen's height
+let screenHeight = Dimensions.get('screen').height;
+
+function modifyFont(screenWidth){
+  if(screenWidth < 350)
+  {
+    return 16
+  }
+  else{
+    return 21
+  }
+}
+
+function modifyShift(screenWidth){
+  if(screenWidth < 350)
+  {
+    return 8
+  }
+  else{
+    return 10
+  }
+}
+
+function modifyShiftSize(screenWidth){
+  if(screenWidth < 350)
+  {
+    return 42
+  }
+  else{
+    return 52
+  }
+}
 
 // Reference Samuel Meddows & mohshbool's answer at https://stackoverflow.com/questions/1531093/how-do-i-get-the-current-date-in-javascript?rq=1
 function getDate() {
@@ -192,6 +229,7 @@ export default function Home ( {navigation} ) {
     );
   };
  
+  console.log(screenWidth)
   
   if (loading !== true){
   
@@ -201,12 +239,12 @@ export default function Home ( {navigation} ) {
     flexWrap:'wrap',}}>     
       {request.shift?  
         <View style={styles.clockin}>                
-            <Text title="clocked in" style={{fontSize: 20, color: 'white', fontWeight: 'bold'}} >
+            <Text title="clocked in" style={{fontSize: modifyFont(screenWidth), color: 'white', fontWeight: 'bold'}} >
                 clocked in
             </Text>                  
         </View>:   
         <View style={styles.clockout}>              
-            <Text title="clocked out" style={{fontSize: 20, color: 'white', fontWeight: 'bold'}}>
+            <Text title="clocked out" style={{fontSize: modifyFont(screenWidth), color: 'white', fontWeight: 'bold'}}>
                 clocked out
             </Text>      
         </View>
@@ -268,6 +306,7 @@ export default function Home ( {navigation} ) {
     )
   }
   
+
   
 };
 const styles = StyleSheet.create({
@@ -297,11 +336,11 @@ const styles = StyleSheet.create({
     
   },
   disName: {
-    fontSize: 20,
+    fontSize: modifyFont(screenWidth),
     
   },
   disValue: {
-    fontSize: 20,
+    fontSize: modifyFont(screenWidth),
     paddingLeft: 50,
     
   },
@@ -312,8 +351,8 @@ const styles = StyleSheet.create({
   },
   clockin: {
     width: '37%',
-    height: 52,
-    padding: 10,
+    height: modifyShiftSize(screenWidth),
+    padding: modifyShift(screenWidth),
     paddingLeft: 15,
     color: "white",
     alignSelf:  "flex-start",
@@ -325,8 +364,8 @@ const styles = StyleSheet.create({
   },
   clockout: {    
     width: '37%', 
-    height: 52,
-    padding: 10,
+    height: modifyShiftSize(screenWidth),
+    padding: modifyShift(screenWidth),
     color: "white",
     alignSelf:  "flex-start",
     backgroundColor: "red",
