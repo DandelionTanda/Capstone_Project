@@ -23,12 +23,12 @@ export default function Discount( {route, navigation} ) {
         <Text style={styles.valueDiscount}>
           {route.params.value}
         </Text>
-        {/* TODO: make the name responsive, see 100% example */}
         <Text style={styles.nameDiscount}>
           {route.params.name} 
         </Text>
-        
       </View>
+
+      {/*display personal information*/}
       <View style= {styles.personalInfor}>
         <Text style={styles.label}>Name</Text>
         <Text style={styles.infor}>{user.name}</Text>
@@ -58,6 +58,7 @@ let height = Dimensions.get('screen').height;
 {/*Custom styles*/}
 let styles;
 if(width < height){
+  //small screen
   if(width<350){
     styles = StyleSheet.create ({
       personalInfor:{
@@ -86,8 +87,8 @@ if(width < height){
         marginTop:20
       },
       discount:{
+        alignSelf: 'baseline',
         width: 250,
-        height:180,
         alignSelf:'center',
         marginTop:32,
         borderWidth: 2,
@@ -105,9 +106,11 @@ if(width < height){
         color: 'white',
         fontWeight:'bold',
         alignSelf:'center',
+        marginBottom:20
       },
     });
   }
+  //large screen
   else{
   styles = StyleSheet.create({
     personalInfor:{
@@ -136,8 +139,8 @@ if(width < height){
       marginTop:20
     },
     discount:{
+      alignSelf: 'baseline',
       width: 300,
-      height:240,
       alignSelf:'center',
       marginTop:40,
       borderWidth: 2,
@@ -155,6 +158,7 @@ if(width < height){
       color: 'white',
       fontWeight:'bold',
       alignSelf:'center',
+      marginBottom:20
     },
   });
 }

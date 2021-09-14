@@ -1,6 +1,6 @@
 import { useState, useEffect }  from "react";
 import * as React from 'react';
-import { Button, FlatList, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity,View,Icon,Image, ScrollView } from "react-native";
+import { Button, FlatList, Dimensions, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity,View,Icon,Image, ScrollView } from "react-native";
 import 'react-native-gesture-handler';
 import { NavigationContainer, getFocusedRouteNameFromRoute, } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -17,7 +17,7 @@ export default function Me( { navigation } ) {
   return (
     <ScrollView style={{ flex: 1}}>
       {/* View for image */}
-      <View style={{flexDirection: "row", marginTop:40 ,alignSelf:'center'}}>
+      <View style={styles.image}>
       {localStorage.getItem('photo')!=='null'?
       <Image style={{ width: 150, height: 150, borderRadius: 130/2 }} 
       source={{
@@ -54,35 +54,93 @@ export default function Me( { navigation } ) {
   );
 }
 
-const styles = StyleSheet.create({
-  logoutButton: {
-    alignSelf:"center",
-    marginTop: 30,
-    alignItems: "center",
-    backgroundColor: "#E3310E",
-    padding: 10,   
-    flexDirection: 'row',
-    borderTopLeftRadius: 15,
-    borderTopRightRadius: 15,
-    borderBottomLeftRadius: 15,
-    borderBottomRightRadius: 15,
-    marginBottom:40
-  },
-  personalInfor:{
-    marginLeft:30,
-    marginRight:30,
-    borderBottomColor: 'black',
-    borderBottomWidth: 1
-  },
-  label:{
-    marginTop:10,
-    fontSize: 22,
-    fontWeight: "bold",
-    color: '#1D87E3'
-  },
-  infor:{
-    fontSize: 18,
-    color: '#232A22',
-    lineHeight: 40
-  },
-});
+// Retrieve initial screen's width
+let width = Dimensions.get('screen').width;
+
+// Retrieve initial screen's height
+let height = Dimensions.get('screen').height;
+
+{/*Custom styles*/}
+let styles;
+if(width < height){
+  //small screen
+  if(width<350){
+    styles = StyleSheet.create({
+      logoutButton: {
+        alignSelf:"center",
+        marginTop: 24,
+        alignItems: "center",
+        backgroundColor: "#E3310E",
+        padding: 10,   
+        flexDirection: 'row',
+        borderTopLeftRadius: 15,
+        borderTopRightRadius: 15,
+        borderBottomLeftRadius: 15,
+        borderBottomRightRadius: 15,
+        marginBottom:28
+      },
+      personalInfor:{
+        marginLeft:30,
+        marginRight:30,
+        borderBottomColor: 'black',
+        borderBottomWidth: 1
+      },
+      label:{
+        marginTop:20,
+        fontSize: 20,
+        fontWeight: "bold",
+        color: '#1D87E3'
+      },
+      infor:{
+        fontSize: 16,
+        color: '#232A22',
+        lineHeight: 32
+      },
+      image:{
+        flexDirection: "row",
+        marginTop:28 ,
+        alignSelf:'center',
+      },
+    });
+  }
+  //large screen
+  else{
+    styles = StyleSheet.create({
+      logoutButton: {
+        alignSelf:"center",
+        marginTop: 30,
+        alignItems: "center",
+        backgroundColor: "#E3310E",
+        padding: 10,   
+        flexDirection: 'row',
+        borderTopLeftRadius: 15,
+        borderTopRightRadius: 15,
+        borderBottomLeftRadius: 15,
+        borderBottomRightRadius: 15,
+        marginBottom:40
+      },
+      personalInfor:{
+        marginLeft:30,
+        marginRight:30,
+        borderBottomColor: 'black',
+        borderBottomWidth: 1
+      },
+      label:{
+        marginTop:10,
+        fontSize: 22,
+        fontWeight: "bold",
+        color: '#1D87E3'
+      },
+      infor:{
+        fontSize: 18,
+        color: '#232A22',
+        lineHeight: 40
+      },
+      image:{
+        flexDirection: "row",
+        marginTop:40 ,
+        alignSelf:'center',
+      },
+    });
+  }
+}
