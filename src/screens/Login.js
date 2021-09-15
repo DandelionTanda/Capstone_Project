@@ -29,6 +29,39 @@ function textSizer(screenWidth,screenHeight){
   }
 }
 
+function buttonSizer(screenWidth,screenHeight){
+  if(screenWidth < 350 || screenHeight <550)
+  {
+    return screenWidth*0.3
+  }
+  else{
+    return screenWidth*0.2
+  }
+}
+
+
+function buttonPadding(screenWidth, screenHeight){
+  if(screenWidth < 350 || screenHeight <550)
+  {
+    return 5
+  }
+  else{
+    return 15
+  }
+}
+
+function buttonTop(screenWidth, screenHeight){
+  if(screenWidth < 350 || screenHeight <550)
+  {
+    return screenWidth*0.48
+  }
+  else{
+    return screenWidth*0.45
+  }
+}
+
+
+
 
 
 function Login({navigation}) {
@@ -187,13 +220,13 @@ const styles = StyleSheet.create(
   button:{
     alignItems: 'center',
     justifyContent: 'center',
-    marginLeft:screenWidth*0.2,
-    marginRight:screenWidth*0.2,
-    paddingVertical: 15,
+    marginLeft:buttonSizer(screenWidth,screenHeight),
+    marginRight:buttonSizer(screenWidth,screenHeight),
+    paddingVertical: buttonPadding(screenWidth, screenHeight),
     borderRadius: 4,  
     backgroundColor: 'white',
     position:"relative",
-    top:screenWidth*0.45,
+    top:buttonTop(screenWidth, screenHeight),
   },
 
   text:{
