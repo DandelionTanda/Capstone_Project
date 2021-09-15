@@ -18,7 +18,7 @@ function modifyFont(screenWidth){
     return 16
   }
   else{
-    return 21
+    return 19
   }
 }
 
@@ -43,7 +43,7 @@ function modifyShiftSize(screenWidth){
 }
 
 // Reference Samuel Meddows & mohshbool's answer at https://stackoverflow.com/questions/1531093/how-do-i-get-the-current-date-in-javascript?rq=1
-function getDate() {
+function getDates() {
   var today = new Date();
   var dd_today = String(today.getDate()).padStart(2, '0');
   var mm_today = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
@@ -108,8 +108,8 @@ export default function Home ( {navigation} ) {
   async function fetchClock(){
     try {
       const user = JSON.parse(localStorage.getItem('user'))   
-      const past = getDate()[0]
-      const today = getDate()[1]
+      const past = getDates()[0]
+      const today = getDates()[1]
       const fetchResult = await fetch(`https://my.tanda.co/api/v2/clockins` + 
       `?user_id=${user.id}&from=${past}&to=${today}` ,{
         method: "GET",
