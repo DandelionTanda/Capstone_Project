@@ -43,7 +43,7 @@ function modifyShiftSize(screenWidth){
 }
 
 // Reference Samuel Meddows & mohshbool's answer at https://stackoverflow.com/questions/1531093/how-do-i-get-the-current-date-in-javascript?rq=1
-function getDates() {
+export function getDates() {
   var today = new Date();
   var dd_today = String(today.getDate()).padStart(2, '0');
   var mm_today = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
@@ -61,7 +61,6 @@ function getDates() {
 
 export default function Home ( {navigation} ) {
 
-  const [final, setfinal] = useState([])
   const [refreshing, setRefreshing] = useState(false)
   const [loading, setLoading] = useState(true)
   const [request, setRequest] = useState({   
@@ -98,10 +97,9 @@ export default function Home ( {navigation} ) {
         const user = await fetchResult.json()   
         localStorage.setItem('user', JSON.stringify(user))  
       }
-    } catch(err) {
-      console.log(err.message)  
+    } catch(err) {     
       setError(err.message)
-      return err
+      return err.message
     }
   }
 
@@ -133,10 +131,9 @@ export default function Home ( {navigation} ) {
         }
       }
     }
-    catch(err) {
-      console.log(err.message)  
+    catch(err) {    
       setError(err.message)
-      return err
+      return err.message
     }
   }
 
@@ -158,10 +155,9 @@ export default function Home ( {navigation} ) {
         return discount
       }           
     }
-    catch(err) {
-      console.log(err.message)  
+    catch(err) { 
       setError(err.message)
-      return err
+      return err.message
     }
      
   }
@@ -189,8 +185,8 @@ export default function Home ( {navigation} ) {
     localStorage.setItem('tokenType', token.token_type)     
   }
   */
-  useEffect(()=>{  
-    setUp()
+  useEffect(async ()=>{  
+    await setUp()
   },[])
 
   
@@ -228,8 +224,6 @@ export default function Home ( {navigation} ) {
         />
     );
   };
- 
-  console.log(screenWidth)
   
   if (loading !== true){
   
