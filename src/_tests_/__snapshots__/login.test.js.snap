@@ -1,0 +1,252 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Login setup Should render correctly 1`] = `
+<View
+  style={
+    Object {
+      "backgroundColor": "#45B8DB",
+      "paddingBottom": 1334,
+    }
+  }
+>
+  <View>
+    <Text
+      style={
+        Object {
+          "color": "royalblue",
+          "fontFamily": "FredokaOne-Regular",
+          "fontSize": 27,
+          "fontWeight": "bold",
+          "left": 510.00000000000006,
+          "marginTop": 112.5,
+        }
+      }
+    >
+      TANDA
+    </Text>
+    <Text
+      style={
+        Object {
+          "color": "white",
+          "fontFamily": "Arial",
+          "fontSize": 40,
+          "fontWeight": "bold",
+          "marginLeft": 75,
+          "marginTop": 112.5,
+        }
+      }
+    >
+      Discount
+    </Text>
+    <Text
+      style={
+        Object {
+          "color": "white",
+          "fontFamily": "Arial",
+          "fontSize": 40,
+          "fontWeight": "bold",
+          "marginLeft": 150,
+          "marginTop": 112.5,
+          "textAlign": "center",
+        }
+      }
+    >
+      Discovery
+    </Text>
+  </View>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "height": 133.4,
+        "marginLeft": 75,
+        "marginRight": 75,
+        "marginTop": 53.36,
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "color": "white",
+          "paddingHorizontal": 10,
+          "width": 750,
+        }
+      }
+    >
+      <Text
+        style={
+          Object {
+            "color": "white",
+            "fontSize": 16,
+            "fontWeight": "bold",
+          }
+        }
+      >
+        Email
+      </Text>
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "borderBottomWidth": 1,
+            "borderColor": "#86939e",
+            "flexDirection": "row",
+            "transform": Array [
+              Object {
+                "translateX": 0,
+              },
+            ],
+          }
+        }
+      >
+        <TextInput
+          allowFontScaling={true}
+          editable={true}
+          onChangeText={[Function]}
+          placeholder="Email"
+          placeholderTextColor="white"
+          rejectResponderTermination={true}
+          style={
+            Object {
+              "borderBottomColor": "white",
+              "borderBottomWidth": 1.5,
+              "color": "white",
+              "flex": 1,
+              "fontSize": 16,
+              "minHeight": 40,
+            }
+          }
+          testID="RNE__Input__text-input"
+          underlineColorAndroid="transparent"
+          value=""
+        />
+      </View>
+      <Text
+        style={
+          Object {
+            "color": "#ff190c",
+            "fontSize": 12,
+            "margin": 5,
+          }
+        }
+      />
+    </View>
+    <Text />
+    <View
+      style={
+        Object {
+          "color": "white",
+          "paddingHorizontal": 10,
+          "width": 750,
+        }
+      }
+    >
+      <Text
+        style={
+          Object {
+            "color": "white",
+            "fontSize": 16,
+            "fontWeight": "bold",
+          }
+        }
+      >
+        Password
+      </Text>
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "borderBottomWidth": 1,
+            "borderColor": "#86939e",
+            "flexDirection": "row",
+            "transform": Array [
+              Object {
+                "translateX": 0,
+              },
+            ],
+          }
+        }
+      >
+        <TextInput
+          allowFontScaling={true}
+          editable={true}
+          onChangeText={[Function]}
+          placeholder="Password"
+          placeholderTextColor="white"
+          rejectResponderTermination={true}
+          secureTextEntry={true}
+          style={
+            Object {
+              "borderBottomColor": "white",
+              "borderBottomWidth": 1.5,
+              "color": "white",
+              "flex": 1,
+              "fontSize": 16,
+              "marginTop": -5,
+              "minHeight": 40,
+            }
+          }
+          testID="RNE__Input__text-input"
+          underlineColorAndroid="transparent"
+          value=""
+        />
+      </View>
+      <Text
+        style={
+          Object {
+            "color": "red",
+            "fontSize": 12,
+            "height": 0,
+            "margin": 0,
+            "padding": 0,
+          }
+        }
+      >
+        
+      </Text>
+    </View>
+  </View>
+  <View>
+    <View
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "white",
+          "borderRadius": 4,
+          "justifyContent": "center",
+          "marginLeft": 150,
+          "marginRight": 150,
+          "paddingVertical": 15,
+          "position": "relative",
+          "top": 337.5,
+        }
+      }
+    >
+      <Text
+        style={
+          Object {
+            "color": "#45B8DB",
+            "fontSize": 24,
+            "fontWeight": "bold",
+          }
+        }
+      >
+        Login
+      </Text>
+    </View>
+  </View>
+</View>
+`;

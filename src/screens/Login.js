@@ -60,13 +60,9 @@ function buttonTop(screenWidth, screenHeight){
   }
 }
 
-
-
-
-
 function Login({navigation}) {
 
-  const [username, setUsername] = useState('')
+  const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('') 
   
@@ -78,8 +74,8 @@ function Login({navigation}) {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          // username:"zouweiran9122@gmail.com",
-          username:"leo727268082@gmail.com",
+          // email:"zouweiran9122@gmail.com",
+          email:"leo727268082@gmail.com",
           password:"123456789",
           scope:"me user device platform organisation",
           grant_type:"password"
@@ -118,15 +114,15 @@ function Login({navigation}) {
       <Text style={styles.Text3}>Discovery</Text>      
       </View>
       <View style={styles.main}>
-        <Input style={styles.username}
-          placeholder='Username'
+        <Input style={styles.email}
+          placeholder='Email'
           placeholderTextColor="white"
           containerStyle={{width:screenWidth, color:"white"}}
           inputStyle={{color:"white", fontSize:16}}
-          label="Username"
+          label="Email"
           labelStyle={{color:"white"}}
-          value={username}
-          onChangeText={value => setUsername(value)} 
+          value={email}
+          onChangeText={value => setEmail(value)} 
         />
 
         <Text></Text>
@@ -206,7 +202,7 @@ const styles = StyleSheet.create(
     alignItems:'center',
   },
 
-  username:{
+  email:{
     borderBottomColor:'white',
     borderBottomWidth: 1.5 
   },
