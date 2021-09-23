@@ -39,7 +39,7 @@ export default function Me( { navigation } ) {
         <Text style={styles.infor}>{user.organisation}</Text>
       </View>
       <View style= {styles.personalInfor}>
-        <Text style={styles.label}>ID</Text>
+        <Text style={styles.label}>Employee ID</Text>
         <Text style={styles.infor}>{user.id}</Text>
       </View>
       {/* logout button */}

@@ -74,13 +74,13 @@ function Login({navigation}) {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          // email:"zouweiran9122@gmail.com",
-          email:"leo727268082@gmail.com",
+          username:"zouweiran9122@gmail.com",
+          // username:"leo727268082@gmail.com",
           password:"123456789",
           scope:"me user device platform organisation",
           grant_type:"password"
         })
-      })
+      })           
       if (!fetchResult.ok) {         
         if (fetchResult.status === 400) {               
           const errorMessage = "Invalid email or password";

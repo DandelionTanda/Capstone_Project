@@ -2,7 +2,7 @@ import 'react-native'
 import React from 'react'
 import Login from "../screens/Login"
 import renderer from 'react-test-renderer';
-import {fireEvent, render} from '@testing-library/react-native'
+import {fireEvent, render, waitFor} from '@testing-library/react-native'
 import { View, Text, Pressable } from 'react-native';
 
 describe('Login setup', () => {
@@ -39,9 +39,11 @@ describe('Login setup', () => {
       <Login />
     );
     const emailInput = getByPlaceholderText('Email');
-    const passwordInput = getByPlaceholderText('Password');
+    const passwordInput = getByPlaceholderText('Password'); 
+    
     expect(emailInput.props.value).toBe('');
     expect(passwordInput.props.value).toBe('');
+    
   });
 
   it('Check email input', () => {
@@ -82,3 +84,5 @@ describe('Login setup', () => {
   });  
 
 })
+
+

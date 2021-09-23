@@ -203,8 +203,9 @@ export default function Home ( {navigation} ) {
   }, []);
 
   const Item = ({ item, onPress, backgroundColor, textColor }) => (
-    <TouchableOpacity onPress={() => navigation.navigate('Discount Details', item)} style={[styles.item, backgroundColor]}>
+    <TouchableOpacity onPress={() => navigation.navigate('Discount', item)} style={[styles.item, backgroundColor]}>
       <Text style={[styles.disName, textColor]}>{item.name} </Text>
+      <View style={styles.verticleLine}></View>
       <Text style={[styles.disValue, textColor]}> {item.value} </Text>
     </TouchableOpacity>
   );
@@ -331,12 +332,17 @@ const styles = StyleSheet.create({
   },
   disName: {
     fontSize: modifyFont(screenWidth),
-    
+    width: '70%'
   },
   disValue: {
-    fontSize: modifyFont(screenWidth),
-    paddingLeft: 50,
-    
+    fontSize: modifyFont(screenWidth),    
+    width: '25%',
+    textAlign: 'center'
+  },
+  verticleLine: {
+    height: '100%',
+    width: 1,
+    backgroundColor: 'white',
   },
   scrollView: {
     flex: 1,

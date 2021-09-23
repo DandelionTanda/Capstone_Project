@@ -87,7 +87,7 @@ export default function App() {
           headerLeft: null
         }}/>
         <Stack.Screen 
-          name="Discount Details" 
+          name="Discount" 
           component={Discount} 
           options={{           
           headerStyle: {

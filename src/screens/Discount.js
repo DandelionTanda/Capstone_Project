@@ -14,9 +14,9 @@ export default function Discount( {route, navigation} ) {
   return (
     <ScrollView style={{flex: 1}}>
       <View>
-            <Image 
-            style={styles.logo}
-            source={require('../image/tanda-logo-image.png')}/>
+        <Image 
+        style={styles.logo}
+        source={require('../image/tanda-logo-image.png')}/>
       </View>
       {/*Discount view */}
       <View style={styles.discount}>
