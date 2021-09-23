@@ -86,7 +86,7 @@ if(width < height){
         borderBottomWidth: 1
       },
       label:{
-        marginTop:20,
+        marginTop:10,
         fontSize: 20,
         fontWeight: "bold",
         color: '#1D87E3'

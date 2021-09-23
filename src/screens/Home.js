@@ -60,7 +60,7 @@ export function getDates() {
 }
 
 export default function Home ( {navigation} ) {
-
+  const [selectedId, setSelectedId] = useState(null);
   const [refreshing, setRefreshing] = useState(false)
   const [loading, setLoading] = useState(true)
   const [request, setRequest] = useState({   
@@ -210,11 +210,9 @@ export default function Home ( {navigation} ) {
     </TouchableOpacity>
   );
 
-  const [selectedId, setSelectedId] = useState(null);
-
   const renderItem = ({ item, index }) => {
-    const backgroundColor = index === selectedId ? '#45B8DB' : '#45B8DB';
-    const color = index === selectedId ? 'white' : 'white';
+    const backgroundColor = '#45B8DB';
+    const color = 'white';
 
     return (
         <Item

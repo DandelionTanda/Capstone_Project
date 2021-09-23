@@ -98,11 +98,10 @@ function Login({navigation}) {
         localStorage.setItem('tokenType', data.token_type) 
         navigation.navigate("HomeTabs") 
       }
-    } catch (err) {   
-      console.log(err.message)  
+    } catch (err) {         
       setError(err.message)
     }   
-  }   
+  };   
 
   return (
     <View style={styles.container}>
@@ -141,7 +140,7 @@ function Login({navigation}) {
           errorMessage=""
           errorStyle={{ color: 'red' }}
         />
-        {error ? <Text style={styles.error}>{error}</Text> : null}
+        {error ? <Text style={styles.error} testID='Error'>{error}</Text> : null}
       </View>
 
       <View >       

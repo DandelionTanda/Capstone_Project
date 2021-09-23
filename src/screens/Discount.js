@@ -26,6 +26,9 @@ export default function Discount( {route, navigation} ) {
         <Text style={styles.nameDiscount}>
           {route.params.name} 
         </Text>
+        <Text style={styles.nameDiscount}>
+          {route.params.onshift} 
+        </Text>
       </View>
 
       {/*display personal information*/}
@@ -65,8 +68,7 @@ if(width < height){
         marginLeft:30,
         marginRight:30,
         borderBottomColor: 'black',
-        borderBottomWidth: 1,
-        marginBottom:24
+        borderBottomWidth: 1,      
       },
       label:{
         marginTop:10,
@@ -92,7 +94,7 @@ if(width < height){
         alignSelf:'center',
         marginTop:32,
         borderWidth: 2,
-        marginBottom:20,
+        marginBottom:15,
         backgroundColor:'#45B8DB',
         borderRadius: 100/2
       },
@@ -106,7 +108,6 @@ if(width < height){
         color: 'white',
         fontWeight:'bold',
         alignSelf:'center',
-        marginBottom:20
       },
     });
   }
@@ -117,12 +118,11 @@ if(width < height){
       marginLeft:30,
       marginRight:30,
       borderBottomColor: 'black',
-      borderBottomWidth: 1,
-      marginBottom:24
+      borderBottomWidth: 1,     
     },
     label:{
       marginTop:10,
-      fontSize: 28,
+      fontSize: 22,
       fontWeight: "bold",
       color: '#1D87E3'
     },
@@ -143,8 +143,8 @@ if(width < height){
       width: 300,
       alignSelf:'center',
       marginTop:40,
-      borderWidth: 2,
-      marginBottom:20,
+      marginBottom: 20,
+      borderWidth: 2,    
       backgroundColor:'#45B8DB',
       borderRadius: 100/2
     },
@@ -158,7 +158,6 @@ if(width < height){
       color: 'white',
       fontWeight:'bold',
       alignSelf:'center',
-      marginBottom:20
     },
   });
 }
