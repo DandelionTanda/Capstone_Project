@@ -10,7 +10,8 @@ import { get } from "react-native/Libraries/Utilities/PixelRatio";
 
 export default function Discount( {route, navigation} ) {
 
-  const user = JSON.parse(localStorage.getItem('user'))
+  const discount = route.params.discount
+  const user = route.params.user
   return (
     <ScrollView style={{flex: 1}}>
       <View>
@@ -21,13 +22,13 @@ export default function Discount( {route, navigation} ) {
       {/*Discount view */}
       <View style={styles.discount}>
         <Text style={styles.valueDiscount}>
-          {route.params.value}
+          {discount.value}
         </Text>
         <Text style={styles.nameDiscount}>
-          {route.params.name} 
+          {discount.name} 
         </Text>
         <Text style={styles.nameDiscount}>
-          {route.params.onshift} 
+          {discount.onshift} 
         </Text>
       </View>
 

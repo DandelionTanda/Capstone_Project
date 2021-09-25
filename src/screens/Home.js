@@ -1,6 +1,6 @@
 import { useState, useEffect }  from "react";
 import * as React from 'react';
-import { ActivityIndicator, RefreshControl, Button, FlatList, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity,View,Icon,Image, Dimensions, PixelRatio } from "react-native";
+import { ActivityIndicator, RefreshControl, Pressable, FlatList, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity,View,Icon,Image, Dimensions, PixelRatio } from "react-native";
 import 'react-native-gesture-handler';
 import { set } from "react-native-reanimated";
 import {Picker} from '@react-native-picker/picker';
@@ -41,8 +41,6 @@ function modifyShiftSize(screenWidth){
     return 52
   }
 }
-
-
 
 export default function Home ( {navigation} ) {
   const [selectedId, setSelectedId] = useState(null);
@@ -116,7 +114,7 @@ export default function Home ( {navigation} ) {
   }, []);
 
   const Item = ({ item, onPress, backgroundColor, textColor }) => (
-    <TouchableOpacity onPress={() => navigation.navigate('Discount', item)} style={[styles.item, backgroundColor]}>
+    <TouchableOpacity onPress={() => navigation.navigate('Discount', {discount:item, user:request.user})} style={[styles.item, backgroundColor]}>
       <Text style={[styles.disName, textColor]}>{item.name} </Text>
       <View style={styles.verticleLine}></View>
       <Text style={[styles.disValue, textColor]}> {item.value} </Text>
@@ -139,7 +137,15 @@ export default function Home ( {navigation} ) {
   
   if (loading !== true){  
     if (error) {
-      return <Text style={styles.error}>{error.message}</Text>
+      return (
+        <View style={{ flex: 1,justifyContent: 'center', alignItems: 'center',
+          flexDirection: 'column',}}>
+          <Text style={styles.error}>{error.message}</Text>
+         <Pressable style={styles.button} onPress={onRefresh}>
+          <Text style={{color:'white', fontSize:20}}>Refresh</Text>
+        </Pressable> 
+        </View>
+      )
     } else {
       return (
         <SafeAreaView style={styles.container}>
@@ -306,5 +312,17 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: 'center',
     color:'red',
-  }
+  },
+  button:{
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginLeft:20,
+    marginRight:20,
+    paddingVertical: 16,
+    borderRadius: 4,  
+    backgroundColor: '#45B8DB',
+    position:"relative",
+    top:20,
+    width: '40%'
+  },
 });

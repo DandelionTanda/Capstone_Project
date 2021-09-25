@@ -1,6 +1,6 @@
 import { useState, useEffect }  from "react";
 import * as React from 'react';
-import { ActivityIndicator, Button, FlatList, Dimensions, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity,View,Icon,Image, ScrollView } from "react-native";
+import { ActivityIndicator, Button, Pressable, FlatList, Dimensions, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity,View,Icon,Image, ScrollView } from "react-native";
 import 'react-native-gesture-handler';
 import { NavigationContainer, getFocusedRouteNameFromRoute, } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -16,14 +16,37 @@ export default function Me( { navigation } ) {
     navigation.navigate('Login')
     localStorage.clear()
   }
+
   useEffect(async () => {  
     let user = await fetchUser()      
     await setUser(user)  
     await setLoading(false)        
   },[])
+
+  const onRefresh = React.useCallback(async () => {
+    await setLoading(true);
+    let user = await fetchUser()   
+    if (user instanceof Error) {
+      setError("ooops, there is an error from server")
+    }
+    else {
+      setError("")
+      await setUser(user)  
+    }
+    await setLoading(false)
+  }, []);  
+  
   if (loading !== true){  
     if (error) {
-      return <Text style={styles.error}>{error.message}</Text>
+      return (
+        <View style={{ flex: 1,justifyContent: 'center', alignItems: 'center',
+        flexDirection: 'column',}}>
+          <Text style={styles.error}>{error.message}</Text>
+          <Pressable style={styles.button} onPress={onRefresh}>
+            <Text style={{color:'white', fontSize:20}}>Refresh</Text>
+          </Pressable>
+        </View>
+      ) 
     } else {
       return (
         <ScrollView style={{ flex: 1}}>
@@ -139,7 +162,19 @@ if(width < height){
         alignItems: "center",
         justifyContent: 'center',
         color:'red',
-      }
+      },
+      button:{
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginLeft:20,
+        marginRight:20,
+        paddingVertical: 16,
+        borderRadius: 4,  
+        backgroundColor: '#45B8DB',
+        position:"relative",
+        top:20,
+        width: '40%'
+      },
     });
   }
   //large screen
@@ -197,7 +232,19 @@ if(width < height){
         alignItems: "center",
         justifyContent: 'center',
         color:'red',
-      }
+      },
+      button:{
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginLeft:20,
+        marginRight:20,
+        paddingVertical: 16,
+        borderRadius: 4,  
+        backgroundColor: '#45B8DB',
+        position:"relative",
+        top:20,
+        width: '40%'
+      },
     });
   }
 }
