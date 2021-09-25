@@ -11,6 +11,7 @@ import { fetchUser } from '../networking/Api'
 export default function Me( { navigation } ) {
   const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState('') 
   function clear(){
     navigation.navigate('Login')
     localStorage.clear()
@@ -21,51 +22,57 @@ export default function Me( { navigation } ) {
     await setLoading(false)        
   },[])
   if (loading !== true){  
-    return (
-      <ScrollView style={{ flex: 1}}>
-        {/* View for image */}
-        <View style={styles.image}>
-        {user.photo!=='null'?
-        <Image style={{ width: 150, height: 150, borderRadius: 130/2 }} 
-        source={{
-            uri: user.photo,
-        }} alt = "Avatar"></Image>:
-        <MaterialCommunityIcons name="account-circle"  size={100}/>}
-        </View>
-        {/* View for information: Name, Email, ID, Role, Company*/}
-        <View style= {styles.personalInfor}>
-          <Text style={styles.label}>Name</Text>
-          <Text style={styles.infor}>{user.name}</Text>
-        </View>
-        <View style= {styles.personalInfor}>
-          <Text style={styles.label}>Email</Text>
-          <Text style={styles.infor}>{user.email}</Text>
-        </View>
-        <View style= {styles.personalInfor}>
-          <Text style={styles.label}>Company</Text>
-          <Text style={styles.infor}>{user.organisation}</Text>
-        </View>
-        <View style= {styles.personalInfor}>
-          <Text style={styles.label}>Employee ID</Text>
-          <Text style={styles.infor}>{user.id}</Text>
-        </View>
-        {/* logout button */}
-        <TouchableOpacity
-          style={styles.logoutButton}
-          onPress={clear}
-        >
-          <Ionicons name="log-out" size={35} color="white"/>
-          <Text style={{fontSize: 20, fontWeight: "bold", color: 'white'}}>Log out</Text>
-        </TouchableOpacity>
-      </ScrollView>
-    )
-  } else {
-    return (
-      <View style={[styles.container, styles.horizontal]}>      
-        <ActivityIndicator size="large" color="#0000ff"/>
-      </View>
+    if (error) {
+      return <Text style={styles.error}>{error.message}</Text>
+    } else {
+      return (
+        <ScrollView style={{ flex: 1}}>
+          {/* View for image */}
+          <View style={styles.image}>
+          {user.photo!=='null'?
+          <Image style={{ width: 150, height: 150, borderRadius: 130/2 }} 
+          source={{
+              uri: user.photo,
+          }} alt = "Avatar"></Image>:
+          <MaterialCommunityIcons name="account-circle"  size={100}/>}
+          </View>
+          {/* View for information: Name, Email, ID, Role, Company*/}
+          <View style= {styles.personalInfor}>
+            <Text style={styles.label}>Name</Text>
+            <Text style={styles.infor}>{user.name}</Text>
+          </View>
+          <View style= {styles.personalInfor}>
+            <Text style={styles.label}>Email</Text>
+            <Text style={styles.infor}>{user.email}</Text>
+          </View>
+          <View style= {styles.personalInfor}>
+            <Text style={styles.label}>Company</Text>
+            <Text style={styles.infor}>{user.organisation}</Text>
+          </View>
+          <View style= {styles.personalInfor}>
+            <Text style={styles.label}>Employee ID</Text>
+            <Text style={styles.infor}>{user.id}</Text>
+          </View>
+          {/* logout button */}
+          <TouchableOpacity
+            style={styles.logoutButton}
+            onPress={clear}
+          >
+            <Ionicons name="log-out" size={35} color="white"/>
+            <Text style={{fontSize: 20, fontWeight: "bold", color: 'white'}}>Log out</Text>
+          </TouchableOpacity>
+        </ScrollView>
       )
+    }
+  } 
+  else {
+      return (
+        <View style={[styles.container, styles.horizontal]}>      
+          <ActivityIndicator size="large" color="#0000ff"/>
+        </View>
+        )
   }
+    
 }
 
 // Retrieve initial screen's width
@@ -80,6 +87,19 @@ if(width < height){
   //small screen
   if(width<350){
     styles = StyleSheet.create({
+      container: {
+        flex: 1,    
+        backgroundColor: '#F5F3F3',
+        marginTop: 24,
+        marginLeft: 24,
+        marginRight: 24,
+        marginBottom: 24
+      },
+      horizontal: {
+        flexDirection: "row",
+        justifyContent: "space-around",
+        padding: 10
+      },
       logoutButton: {
         alignSelf:"center",
         marginTop: 24,
@@ -114,12 +134,30 @@ if(width < height){
         flexDirection: "row",
         marginTop:28 ,
         alignSelf:'center',
-      },
+      },error: {
+        fontSize:20,
+        alignItems: "center",
+        justifyContent: 'center',
+        color:'red',
+      }
     });
   }
   //large screen
   else{
     styles = StyleSheet.create({
+      container: {
+        flex: 1,    
+        backgroundColor: '#F5F3F3',
+        marginTop: 24,
+        marginLeft: 24,
+        marginRight: 24,
+        marginBottom: 24
+      },
+      horizontal: {
+        flexDirection: "row",
+        justifyContent: "space-around",
+        padding: 10
+      },
       logoutButton: {
         alignSelf:"center",
         marginTop: 30,
@@ -154,7 +192,12 @@ if(width < height){
         flexDirection: "row",
         marginTop:40 ,
         alignSelf:'center',
-      },
+      },error: {
+        fontSize:20,
+        alignItems: "center",
+        justifyContent: 'center',
+        color:'red',
+      }
     });
   }
 }

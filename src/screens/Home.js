@@ -138,70 +138,74 @@ export default function Home ( {navigation} ) {
   };
   
   if (loading !== true){  
-    return (
-      <SafeAreaView style={styles.container}>
-        <View style={{flexDirection:'row', 
-        flexWrap:'wrap',}}>     
-          {request.shift?  
-          <View style={styles.clockin}>                
-              <Text title="clocked in" style={{fontSize: modifyFont(screenWidth), color: 'white', fontWeight: 'bold'}} >
-                  clocked in
-              </Text>                  
-          </View>:   
-          <View style={styles.clockout}>              
-              <Text title="clocked out" style={{fontSize: modifyFont(screenWidth), color: 'white', fontWeight: 'bold'}}>
-                  clocked out
-              </Text>      
-          </View>
-        } 
-        {request.user.organisations.length === 1?
-          null: 
-          <View style={styles.picker}>  
-            <Picker         
-              selectedValue={selectedOrganisation}
-              onValueChange={async (itemValue, itemIndex) =>{
-                setRefreshing(true);
-                await setSelectedOrganisation(itemValue);               
-                //await getOrgToken(itemValue);            
-                // await fetchUser();           
-                //await fecthDiscount();     
-                setRefreshing(false);     
-                        
-              }} 
-              mode='dropdown'  
-              style={{color:'black', marginVertical:-4}}
-              
-            >           
-              {JSON.parse(localStorage.getItem('user')).organisations.map((org, index) => {                 
-            
-                if(org.id === selectedOrganisation) {
-                  return <Picker.Item label={org.name} value={org.id} key={index} style={{color:'#2F57BD'}}/>
-                }           
-                else {
-                  return <Picker.Item label={org.name} value={org.id} key={index} />
-                }
+    if (error) {
+      return <Text style={styles.error}>{error.message}</Text>
+    } else {
+      return (
+        <SafeAreaView style={styles.container}>
+          <View style={{flexDirection:'row', 
+          flexWrap:'wrap',}}>     
+            {request.shift?  
+            <View style={styles.clockin}>                
+                <Text title="clocked in" style={{fontSize: modifyFont(screenWidth), color: 'white', fontWeight: 'bold'}} >
+                    clocked in
+                </Text>                  
+            </View>:   
+            <View style={styles.clockout}>              
+                <Text title="clocked out" style={{fontSize: modifyFont(screenWidth), color: 'white', fontWeight: 'bold'}}>
+                    clocked out
+                </Text>      
+            </View>
+          } 
+          {request.user.organisations.length === 1?
+            null: 
+            <View style={styles.picker}>  
+              <Picker         
+                selectedValue={selectedOrganisation}
+                onValueChange={async (itemValue, itemIndex) =>{
+                  setRefreshing(true);
+                  await setSelectedOrganisation(itemValue);               
+                  //await getOrgToken(itemValue);            
+                  // await fetchUser();           
+                  //await fecthDiscount();     
+                  setRefreshing(false);     
+                          
+                }} 
+                mode='dropdown'  
+                style={{color:'black', marginVertical:-4}}
                 
-                                                
-              })}        
-            </Picker>  
+              >           
+                {request.user.organisations.map((org, index) => {                 
+              
+                  if(org.id === selectedOrganisation) {
+                    return <Picker.Item label={org.name} value={org.id} key={index} style={{color:'#2F57BD'}}/>
+                  }           
+                  else {
+                    return <Picker.Item label={org.name} value={org.id} key={index} />
+                  }
+                  
+                                                  
+                })}        
+              </Picker>  
+            </View>  
+          }
           </View>  
-        }
-        </View>  
-        {error ? <Text style={styles.error}>{error}</Text> : null}
-        <FlatList
-          data={request.discount}
-          renderItem={renderItem}
-          keyExtractor={(item, index) => index.toString()}               
-          style={{marginVertical: 10}}  
-          refreshControl={
-            <RefreshControl
-              refreshing={refreshing}
-              onRefresh={onRefresh}
-            />
-          }  
-        /> 
-    
-      </SafeAreaView>)
+          
+          <FlatList
+            data={request.discount}
+            renderItem={renderItem}
+            keyExtractor={(item, index) => index.toString()}               
+            style={{marginVertical: 10}}  
+            refreshControl={
+              <RefreshControl
+                refreshing={refreshing}
+                onRefresh={onRefresh}
+              />
+            }  
+          />      
+        </SafeAreaView>
+      )
+    }
   }
   else {
     return (
@@ -299,7 +303,8 @@ const styles = StyleSheet.create({
   },
   error: {
     fontSize:20,
-    marginTop: 10,
+    alignItems: "center",
+    justifyContent: 'center',
     color:'red',
   }
 });
