@@ -57,7 +57,6 @@ export default function Home ( {navigation} ) {
   const [selectedOrganisation, setSelectedOrganisation] = useState();
   const [error, setError] = useState('') 
  
-
   /*
   async function getOrgToken(org_id){
     const responseToken = await fetch(`https://my.tanda.co/api/oauth/token`,{
@@ -77,16 +76,20 @@ export default function Home ( {navigation} ) {
   
   useEffect(async () => {  
     let user = await fetchUser()   
-    let discount = await fecthDiscount()      
-    let clock = await fetchClock(user.id)   
-    let filteredDis = await filterDiscount(discount, clock)
-    
-    await setRequest({   
-      user: user,      
-      shift: clock,
-      discount: filteredDis
-    })  
-    await setSelectedOrganisation(user.organisation_id)
+    let discount = await fecthDiscount()     
+    let clock = await fetchClock(user.id)  
+    if (user instanceof Error || discount instanceof Error || clock  instanceof Error) {
+      setError("ooops, there is an error from server")
+    }
+    else {
+      let filteredDis = await filterDiscount(discount, clock)   
+      await setRequest({   
+        user: user,      
+        shift: clock,
+        discount: filteredDis
+      })  
+      await setSelectedOrganisation(user.organisation_id)
+    }
     await setLoading(false)  
   },[])
 
@@ -96,12 +99,18 @@ export default function Home ( {navigation} ) {
     let user = await fetchUser()   
     let discount = await fecthDiscount()
     let clock = await fetchClock(user.id)
-    let filteredDis = await filterDiscount(discount, clock)
-    await setRequest({    
-      user: user,     
-      shift: clock,
-      discount: filteredDis
-    })  
+    if (user instanceof Error || discount instanceof Error || clock  instanceof Error) {
+      setError("ooops, there is an error from server")
+    }
+    else {
+      setError("")
+      let filteredDis = await filterDiscount(discount, clock)
+      await setRequest({    
+        user: user,     
+        shift: clock,
+        discount: filteredDis
+      })  
+    }
 
     await setRefreshing(false)
   }, []);

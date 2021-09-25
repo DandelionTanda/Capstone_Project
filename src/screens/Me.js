@@ -1,57 +1,71 @@
 import { useState, useEffect }  from "react";
 import * as React from 'react';
-import { Button, FlatList, Dimensions, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity,View,Icon,Image, ScrollView } from "react-native";
+import { ActivityIndicator, Button, FlatList, Dimensions, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity,View,Icon,Image, ScrollView } from "react-native";
 import 'react-native-gesture-handler';
 import { NavigationContainer, getFocusedRouteNameFromRoute, } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
+import { fetchUser } from '../networking/Api'
 
 export default function Me( { navigation } ) {
-  
+  const [user, setUser] = useState(null)
+  const [loading, setLoading] = useState(true)
   function clear(){
     navigation.navigate('Login')
     localStorage.clear()
   }
-  const user = JSON.parse(localStorage.getItem('user'))
-  return (
-    <ScrollView style={{ flex: 1}}>
-      {/* View for image */}
-      <View style={styles.image}>
-      {localStorage.getItem('photo')!=='null'?
-      <Image style={{ width: 150, height: 150, borderRadius: 130/2 }} 
-      source={{
-          uri: user.photo,
-       }} alt = "Avatar"></Image>:
-       <MaterialCommunityIcons name="account-circle"  size={100}/>}
+  useEffect(async () => {  
+    let user = await fetchUser()      
+    await setUser(user)  
+    await setLoading(false)        
+  },[])
+  if (loading !== true){  
+    return (
+      <ScrollView style={{ flex: 1}}>
+        {/* View for image */}
+        <View style={styles.image}>
+        {user.photo!=='null'?
+        <Image style={{ width: 150, height: 150, borderRadius: 130/2 }} 
+        source={{
+            uri: user.photo,
+        }} alt = "Avatar"></Image>:
+        <MaterialCommunityIcons name="account-circle"  size={100}/>}
+        </View>
+        {/* View for information: Name, Email, ID, Role, Company*/}
+        <View style= {styles.personalInfor}>
+          <Text style={styles.label}>Name</Text>
+          <Text style={styles.infor}>{user.name}</Text>
+        </View>
+        <View style= {styles.personalInfor}>
+          <Text style={styles.label}>Email</Text>
+          <Text style={styles.infor}>{user.email}</Text>
+        </View>
+        <View style= {styles.personalInfor}>
+          <Text style={styles.label}>Company</Text>
+          <Text style={styles.infor}>{user.organisation}</Text>
+        </View>
+        <View style= {styles.personalInfor}>
+          <Text style={styles.label}>Employee ID</Text>
+          <Text style={styles.infor}>{user.id}</Text>
+        </View>
+        {/* logout button */}
+        <TouchableOpacity
+          style={styles.logoutButton}
+          onPress={clear}
+        >
+          <Ionicons name="log-out" size={35} color="white"/>
+          <Text style={{fontSize: 20, fontWeight: "bold", color: 'white'}}>Log out</Text>
+        </TouchableOpacity>
+      </ScrollView>
+    )
+  } else {
+    return (
+      <View style={[styles.container, styles.horizontal]}>      
+        <ActivityIndicator size="large" color="#0000ff"/>
       </View>
-      {/* View for information: Name, Email, ID, Role, Company*/}
-      <View style= {styles.personalInfor}>
-        <Text style={styles.label}>Name</Text>
-        <Text style={styles.infor}>{user.name}</Text>
-      </View>
-      <View style= {styles.personalInfor}>
-        <Text style={styles.label}>Email</Text>
-        <Text style={styles.infor}>{user.email}</Text>
-      </View>
-      <View style= {styles.personalInfor}>
-        <Text style={styles.label}>Company</Text>
-        <Text style={styles.infor}>{user.organisation}</Text>
-      </View>
-      <View style= {styles.personalInfor}>
-        <Text style={styles.label}>Employee ID</Text>
-        <Text style={styles.infor}>{user.id}</Text>
-      </View>
-      {/* logout button */}
-      <TouchableOpacity
-        style={styles.logoutButton}
-        onPress={clear}
-      >
-        <Ionicons name="log-out" size={35} color="white"/>
-        <Text style={{fontSize: 20, fontWeight: "bold", color: 'white'}}>Log out</Text>
-      </TouchableOpacity>
-    </ScrollView>
-  );
+      )
+  }
 }
 
 // Retrieve initial screen's width

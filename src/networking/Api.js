@@ -15,26 +15,21 @@ export async function fetchUser(){
     }
     else {
       const user = await fetchResult.json()  
-      return user 
-      //localStorage.setItem('user', JSON.stringify(user))  
+      return user    
     }
   } catch(err) {   
-    
-    //setError(err.message)
-    return err.message
+    return err
   }
 }
 
 export async function fetchClock(userID){
-  try {
-    //const user = JSON.parse(localStorage.getItem('user'))   
+  try {    
     const past = getDates()[0]
     const today = getDates()[1]
     const fetchResult = await fetch(`https://my.tanda.co/api/v2/clockins` + 
     `?user_id=${userID}&from=${past}&to=${today}` ,{
       method: "GET",
-      headers: {Authorization: localStorage.getItem('tokenType')+ ' ' +localStorage.getItem('token')}});
-     // console.log(fetchResult)
+      headers: {Authorization: localStorage.getItem('tokenType')+ ' ' +localStorage.getItem('token')}});    
     if (!fetchResult.ok) {
       const errorMessage = `An error has occured: ${fetchResult.status}`;   
       throw Error(errorMessage)  
@@ -54,10 +49,8 @@ export async function fetchClock(userID){
       }
     }
   }
-  catch(err) {    
-    
-    //setError(err.message)
-    return err.message
+  catch(err) {       
+    return err
   }
 }
 
@@ -70,7 +63,6 @@ export async function fecthDiscount(){
         Authorization: localStorage.getItem('tokenType')+ ' ' +localStorage.getItem('token')
       },
     })
-    //console.log(fetchResult)
     if (!fetchResult.ok) {
       const errorMessage = `An error has occured: ${fetchResult.status}`;   
       throw Error(errorMessage)  
@@ -80,9 +72,8 @@ export async function fecthDiscount(){
       return discount
     }           
   }
-  catch(err) { 
-    //setError(err.message)
-    return err.message
+  catch(err) {    
+    return err
   }
    
 }
