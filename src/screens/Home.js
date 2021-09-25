@@ -4,8 +4,8 @@ import { ActivityIndicator, RefreshControl, Button, FlatList, SafeAreaView, Stat
 import 'react-native-gesture-handler';
 import { set } from "react-native-reanimated";
 import {Picker} from '@react-native-picker/picker';
-
-
+import {fetchUser, fetchClock, fecthDiscount} from '../networking/Api'
+import filterDiscount from '../utilities/filterDiscount'
 // Retrieve initial screen's width
 let screenWidth = Dimensions.get('screen').width;
 
@@ -42,132 +42,21 @@ function modifyShiftSize(screenWidth){
   }
 }
 
-// Reference Samuel Meddows & mohshbool's answer at https://stackoverflow.com/questions/1531093/how-do-i-get-the-current-date-in-javascript?rq=1
-export function getDates() {
-  var today = new Date();
-  var dd_today = String(today.getDate()).padStart(2, '0');
-  var mm_today = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-  var yyyy_today = today.getFullYear();
 
-  var past = new Date(Date.now() - 31 * 24 * 60 * 60 * 1000) 
-  var dd_past = String(today.getDate()).padStart(2, '0');
-  var mm_past = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-  var yyyy_past = today.getFullYear();
-
-  today = yyyy_today + '-' + mm_today + '-' + dd_today;
-  past = yyyy_past + '-' + mm_past + '-' + dd_past;
-  return [past, today]
-}
 
 export default function Home ( {navigation} ) {
   const [selectedId, setSelectedId] = useState(null);
   const [refreshing, setRefreshing] = useState(false)
   const [loading, setLoading] = useState(true)
   const [request, setRequest] = useState({   
+    user: null,
     shift: null,
     discount: []
   })
+  const [user, setUser] = useState(null)
   const [selectedOrganisation, setSelectedOrganisation] = useState();
   const [error, setError] = useState('') 
-
-  async function setUp(){
-    await fetchUser()
-    let discount = await fecthDiscount()
-    let clock = await fetchClock()
-    let filteredDis = await filterDiscount(discount, clock)
-    await setRequest({         
-      shift: clock,
-      discount: filteredDis
-    })  
-    await setSelectedOrganisation(JSON.parse(localStorage.getItem('user')).organisation_id)
-    await setLoading(false)     
-  }
-  async function fetchUser(){
-    try {
-      const fetchResult = await fetch(`https://my.tanda.co/api/v2/users/me`,{
-        method: "GET",
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: localStorage.getItem('tokenType')+ ' ' +localStorage.getItem('token')}})      
-      if (!fetchResult.ok) {
-        const errorMessage = `An error has occured: ${fetchResult.status}`;   
-        throw Error(errorMessage)  
-      }
-      else {
-        const user = await fetchResult.json()   
-        localStorage.setItem('user', JSON.stringify(user))  
-      }
-    } catch(err) {     
-      setError(err.message)
-      return err.message
-    }
-  }
-
-  async function fetchClock(){
-    try {
-      const user = JSON.parse(localStorage.getItem('user'))   
-      const past = getDates()[0]
-      const today = getDates()[1]
-      const fetchResult = await fetch(`https://my.tanda.co/api/v2/clockins` + 
-      `?user_id=${user.id}&from=${past}&to=${today}` ,{
-        method: "GET",
-        headers: {Authorization: localStorage.getItem('tokenType')+ ' ' +localStorage.getItem('token')}})
-      if (!fetchResult.ok) {
-        const errorMessage = `An error has occured: ${fetchResult.status}`;   
-        throw Error(errorMessage)  
-      }
-      else {
-        const clock = await fetchResult.json()
-          
-        if (clock.length > 0) {
-          const t = clock[clock.length - 1].type
-          if (t !== 'finish') {
-            return true       
-          } else {
-            return false    
-          }
-        } else {
-          return false     
-        }
-      }
-    }
-    catch(err) {    
-      setError(err.message)
-      return err.message
-    }
-  }
-
-  async function fecthDiscount(){
-    try {
-      const fetchResult = await fetch(`https://my.tanda.co/api/v2/platform/discounts`, {
-        method: "GET",
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: localStorage.getItem('tokenType')+ ' ' +localStorage.getItem('token')
-        },
-      })
-      if (!fetchResult.ok) {
-        const errorMessage = `An error has occured: ${fetchResult.status}`;   
-        throw Error(errorMessage)  
-      }
-      else {
-        const discount = await fetchResult.json()
-        return discount
-      }           
-    }
-    catch(err) { 
-      setError(err.message)
-      return err.message
-    }
-     
-  }
-
-  async function filterDiscount(discount, shift) {
-    const filteredDiscount = await discount.filter((item) =>{
-        return item.onshift === shift;
-      }) 
-      return filteredDiscount;          
-  }
+ 
 
   /*
   async function getOrgToken(org_id){
@@ -185,20 +74,35 @@ export default function Home ( {navigation} ) {
     localStorage.setItem('tokenType', token.token_type)     
   }
   */
-  useEffect(async ()=>{  
-    await setUp()
+  
+  useEffect(async () => {  
+    let user = await fetchUser()   
+    let discount = await fecthDiscount()      
+    let clock = await fetchClock(user.id)   
+    let filteredDis = await filterDiscount(discount, clock)
+    
+    await setRequest({   
+      user: user,      
+      shift: clock,
+      discount: filteredDis
+    })  
+    await setSelectedOrganisation(user.organisation_id)
+    await setLoading(false)  
   },[])
 
   
   const onRefresh = React.useCallback(async () => {
     await setRefreshing(true);
+    let user = await fetchUser()   
     let discount = await fecthDiscount()
-    let clock = await fetchClock()
+    let clock = await fetchClock(user.id)
     let filteredDis = await filterDiscount(discount, clock)
-    await setRequest({         
+    await setRequest({    
+      user: user,     
       shift: clock,
       discount: filteredDis
     })  
+
     await setRefreshing(false)
   }, []);
 
@@ -224,77 +128,76 @@ export default function Home ( {navigation} ) {
     );
   };
   
-  if (loading !== true){
-  
-  return (
-    <SafeAreaView style={styles.container}>
-    <View style={{flexDirection:'row', 
-    flexWrap:'wrap',}}>     
-      {request.shift?  
-        <View style={styles.clockin}>                
-            <Text title="clocked in" style={{fontSize: modifyFont(screenWidth), color: 'white', fontWeight: 'bold'}} >
-                clocked in
-            </Text>                  
-        </View>:   
-        <View style={styles.clockout}>              
-            <Text title="clocked out" style={{fontSize: modifyFont(screenWidth), color: 'white', fontWeight: 'bold'}}>
-                clocked out
-            </Text>      
-        </View>
-      } 
-      {JSON.parse(localStorage.getItem('user')).organisations.length === 1?
-        null: 
-        <View style={styles.picker}>  
-          <Picker         
-            selectedValue={selectedOrganisation}
-            onValueChange={async (itemValue, itemIndex) =>{
-              setRefreshing(true);
-              await setSelectedOrganisation(itemValue);               
-              //await getOrgToken(itemValue);            
-              // await fetchUser();           
-              //await fecthDiscount();     
-              setRefreshing(false);     
-                      
-            }} 
-            mode='dropdown'  
-            style={{color:'black', marginVertical:-4}}
-            
-          >           
-            {JSON.parse(localStorage.getItem('user')).organisations.map((org, index) => {                 
-           
-              if(org.id === selectedOrganisation) {
-                return <Picker.Item label={org.name} value={org.id} key={index} style={{color:'#2F57BD'}}/>
-              }           
-              else {
-                return <Picker.Item label={org.name} value={org.id} key={index} />
-              }
+  if (loading !== true){  
+    return (
+      <SafeAreaView style={styles.container}>
+        <View style={{flexDirection:'row', 
+        flexWrap:'wrap',}}>     
+          {request.shift?  
+          <View style={styles.clockin}>                
+              <Text title="clocked in" style={{fontSize: modifyFont(screenWidth), color: 'white', fontWeight: 'bold'}} >
+                  clocked in
+              </Text>                  
+          </View>:   
+          <View style={styles.clockout}>              
+              <Text title="clocked out" style={{fontSize: modifyFont(screenWidth), color: 'white', fontWeight: 'bold'}}>
+                  clocked out
+              </Text>      
+          </View>
+        } 
+        {request.user.organisations.length === 1?
+          null: 
+          <View style={styles.picker}>  
+            <Picker         
+              selectedValue={selectedOrganisation}
+              onValueChange={async (itemValue, itemIndex) =>{
+                setRefreshing(true);
+                await setSelectedOrganisation(itemValue);               
+                //await getOrgToken(itemValue);            
+                // await fetchUser();           
+                //await fecthDiscount();     
+                setRefreshing(false);     
+                        
+              }} 
+              mode='dropdown'  
+              style={{color:'black', marginVertical:-4}}
               
-                                               
-            })}        
-          </Picker>  
+            >           
+              {JSON.parse(localStorage.getItem('user')).organisations.map((org, index) => {                 
+            
+                if(org.id === selectedOrganisation) {
+                  return <Picker.Item label={org.name} value={org.id} key={index} style={{color:'#2F57BD'}}/>
+                }           
+                else {
+                  return <Picker.Item label={org.name} value={org.id} key={index} />
+                }
+                
+                                                
+              })}        
+            </Picker>  
+          </View>  
+        }
         </View>  
-      }
-      </View>  
-      {error ? <Text style={styles.error}>{error}</Text> : null}
-      <FlatList
-        data={request.discount}
-        renderItem={renderItem}
-        keyExtractor={(item, index) => index.toString()}               
-        style={{marginVertical: 10}}  
-        refreshControl={
-          <RefreshControl
-            refreshing={refreshing}
-            onRefresh={onRefresh}
-          />
-        }  
-      /> 
-   
-    </SafeAreaView>)
+        {error ? <Text style={styles.error}>{error}</Text> : null}
+        <FlatList
+          data={request.discount}
+          renderItem={renderItem}
+          keyExtractor={(item, index) => index.toString()}               
+          style={{marginVertical: 10}}  
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={onRefresh}
+            />
+          }  
+        /> 
+    
+      </SafeAreaView>)
   }
   else {
     return (
     <View style={[styles.container, styles.horizontal]}>      
-      <ActivityIndicator size="large" color="#0000ff" />
+      <ActivityIndicator size="large" color="#0000ff"/>
     </View>
     )
   }

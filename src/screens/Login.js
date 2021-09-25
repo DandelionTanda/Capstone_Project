@@ -1,4 +1,3 @@
-import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, Pressable, Dimensions, PixelRatio} from 'react-native';
 import {Button, Icon, Input} from "react-native-elements";
@@ -66,7 +65,8 @@ function Login({navigation}) {
   const [password, setPassword] = useState('')
   const [error, setError] = useState('') 
   
-  async function DoLogin(){    
+  async function DoLogin(){   
+    
     try {
       const fetchResult = await fetch(`https://my.tanda.co/api/oauth/token`,{
         method: "POST",
@@ -98,7 +98,7 @@ function Login({navigation}) {
         localStorage.setItem('tokenType', data.token_type) 
         navigation.navigate("HomeTabs") 
       }
-    } catch (err) {         
+    } catch (err) {       
       setError(err.message)
     }   
   };   
@@ -106,7 +106,7 @@ function Login({navigation}) {
   return (
     <View style={styles.container}>
 
-      {/* <StatusBar style="auto" /> */}
+     
       <View style={styles.header}>
       <Text style={styles.Text1}>TANDA</Text>
       <Text style={styles.Text2}>Discount</Text>
