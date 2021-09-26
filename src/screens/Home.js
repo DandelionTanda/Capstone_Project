@@ -198,6 +198,7 @@ export default function Home ( {navigation} ) {
           </View>  
           
           <FlatList
+          
             data={request.discount}
             renderItem={renderItem}
             keyExtractor={(item, index) => index.toString()}               
@@ -208,6 +209,20 @@ export default function Home ( {navigation} ) {
                 onRefresh={onRefresh}
               />
             }  
+            ListEmptyComponent={() => 
+              {
+                if (request.shift) {
+                  return <Text testID="no-discounts" style={{textAlign: 'center', marginTop: 50, fontSize: 20}}>
+                          Sorry, no on-shift discounts found.
+                        </Text>;       
+                }   
+                else {
+                  return <Text testID="no-discounts" style={{textAlign: 'center', marginTop: 50, fontSize: 20}}>
+                          Sorry, no off-shift discounts found.
+                        </Text>;
+                }                                 
+              }
+            }
           />      
         </SafeAreaView>
       )
