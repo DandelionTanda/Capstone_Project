@@ -17,7 +17,9 @@ export default function Discount( {route, navigation} ) {
       <View>
         <Image 
         style={styles.logo}
-        source={require('../image/tanda-logo-image.png')}/>
+        source={require('../image/tanda-logo-image.png')}
+        testID={'Logo'}/>
+        
       </View>
       {/*Discount view */}
       <View style={styles.discount}>

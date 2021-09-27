@@ -114,7 +114,11 @@ export default function Home ( {navigation} ) {
   }, []);
 
   const Item = ({ item, onPress, backgroundColor, textColor }) => (
-    <TouchableOpacity onPress={() => navigation.navigate('Discount', {discount:item, user:request.user})} style={[styles.item, backgroundColor]}>
+    
+    <TouchableOpacity 
+      onPress={() => navigation.navigate('Discount', {discount:item, user:request.user})} 
+      style={[styles.item, backgroundColor]}
+      testID={`${item.name}`}>
       <Text style={[styles.disName, textColor]}>{item.name} </Text>
       <View style={styles.verticleLine}></View>
       <Text style={[styles.disValue, textColor]}> {item.value} </Text>
@@ -140,7 +144,7 @@ export default function Home ( {navigation} ) {
       return (
         <View style={{ flex: 1,justifyContent: 'center', alignItems: 'center',
           flexDirection: 'column',}}>
-          <Text style={styles.error}>{error.message}</Text>
+          <Text style={styles.error}>{error}</Text>
          <Pressable style={styles.button} onPress={onRefresh}>
           <Text style={{color:'white', fontSize:20}}>Refresh</Text>
         </Pressable> 
@@ -188,17 +192,15 @@ export default function Home ( {navigation} ) {
                   }           
                   else {
                     return <Picker.Item label={org.name} value={org.id} key={index} />
-                  }
-                  
-                                                  
+                  }                                                                  
                 })}        
               </Picker>  
             </View>  
           }
           </View>  
           
-          <FlatList
-          
+          <FlatList   
+            testID='discount-list'       
             data={request.discount}
             renderItem={renderItem}
             keyExtractor={(item, index) => index.toString()}               

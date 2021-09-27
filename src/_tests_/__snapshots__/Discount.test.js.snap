@@ -1,0 +1,212 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`When the user clicked on discount Should render Discount screen correctly 1`] = `
+<RCTScrollView
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+>
+  <View>
+    <View>
+      <Image
+        source={1}
+        style={
+          Object {
+            "alignSelf": "flex-end",
+            "height": 24,
+            "marginRight": 20,
+            "marginTop": 20,
+            "width": 64,
+          }
+        }
+        testID="Logo"
+      />
+    </View>
+    <View
+      style={
+        Object {
+          "alignSelf": "center",
+          "backgroundColor": "#45B8DB",
+          "borderRadius": 50,
+          "borderWidth": 2,
+          "marginBottom": 20,
+          "marginTop": 40,
+          "width": 300,
+        }
+      }
+    >
+      <Text
+        style={
+          Object {
+            "alignSelf": "center",
+            "color": "white",
+            "fontSize": 110,
+          }
+        }
+      >
+        25%
+      </Text>
+      <Text
+        style={
+          Object {
+            "alignSelf": "center",
+            "color": "white",
+            "fontSize": 24,
+            "fontWeight": "bold",
+          }
+        }
+      >
+        On-shift Discount - 1
+      </Text>
+      <Text
+        style={
+          Object {
+            "alignSelf": "center",
+            "color": "white",
+            "fontSize": 24,
+            "fontWeight": "bold",
+          }
+        }
+      />
+    </View>
+    <View
+      style={
+        Object {
+          "borderBottomColor": "black",
+          "borderBottomWidth": 1,
+          "marginLeft": 30,
+          "marginRight": 30,
+        }
+      }
+    >
+      <Text
+        style={
+          Object {
+            "color": "#1D87E3",
+            "fontSize": 22,
+            "fontWeight": "bold",
+            "marginTop": 10,
+          }
+        }
+      >
+        Name
+      </Text>
+      <Text
+        style={
+          Object {
+            "color": "#232A22",
+            "fontSize": 20,
+            "lineHeight": 40,
+          }
+        }
+      >
+        Weiran Zou
+      </Text>
+    </View>
+    <View
+      style={
+        Object {
+          "borderBottomColor": "black",
+          "borderBottomWidth": 1,
+          "marginLeft": 30,
+          "marginRight": 30,
+        }
+      }
+    >
+      <Text
+        style={
+          Object {
+            "color": "#1D87E3",
+            "fontSize": 22,
+            "fontWeight": "bold",
+            "marginTop": 10,
+          }
+        }
+      >
+        Email
+      </Text>
+      <Text
+        style={
+          Object {
+            "color": "#232A22",
+            "fontSize": 20,
+            "lineHeight": 40,
+          }
+        }
+      >
+        zouweiran9122@gmail.com
+      </Text>
+    </View>
+    <View
+      style={
+        Object {
+          "borderBottomColor": "black",
+          "borderBottomWidth": 1,
+          "marginLeft": 30,
+          "marginRight": 30,
+        }
+      }
+    >
+      <Text
+        style={
+          Object {
+            "color": "#1D87E3",
+            "fontSize": 22,
+            "fontWeight": "bold",
+            "marginTop": 10,
+          }
+        }
+      >
+        Employee ID
+      </Text>
+      <Text
+        style={
+          Object {
+            "color": "#232A22",
+            "fontSize": 20,
+            "lineHeight": 40,
+          }
+        }
+      >
+        1748964
+      </Text>
+    </View>
+    <View
+      style={
+        Object {
+          "borderBottomColor": "black",
+          "borderBottomWidth": 1,
+          "marginLeft": 30,
+          "marginRight": 30,
+        }
+      }
+    >
+      <Text
+        style={
+          Object {
+            "color": "#1D87E3",
+            "fontSize": 22,
+            "fontWeight": "bold",
+            "marginTop": 10,
+          }
+        }
+      >
+        Organisation
+      </Text>
+      <Text
+        style={
+          Object {
+            "color": "#232A22",
+            "fontSize": 20,
+            "lineHeight": 40,
+          }
+        }
+      >
+        QUT Capstone - DEMO ACCOUNT
+      </Text>
+    </View>
+  </View>
+</RCTScrollView>
+`;
