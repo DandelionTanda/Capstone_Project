@@ -18,7 +18,7 @@ export default function Me( { navigation } ) {
   }
 
   useEffect(async () => {  
-    let user = await fetchUser()      
+    let user = await fetchUser()    
     await setUser(user)  
     await setLoading(false)        
   },[])

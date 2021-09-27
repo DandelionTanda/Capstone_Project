@@ -1,0 +1,234 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Login setup Should render correctly 1`] = `
+<RCTScrollView
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+>
+  <View>
+    <View
+      style={
+        Object {
+          "alignSelf": "center",
+          "flexDirection": "row",
+          "marginTop": 40,
+        }
+      }
+    >
+      <Image
+        alt="Avatar"
+        source={
+          Object {
+            "uri": "https://s3.amazonaws.com/PayAus/logins/photos/214/946/904/icon/bd8b9cf053c843329b270cd902dd1cb8.jpeg",
+          }
+        }
+        style={
+          Object {
+            "borderRadius": 65,
+            "height": 150,
+            "width": 150,
+          }
+        }
+      />
+    </View>
+    <View
+      style={
+        Object {
+          "borderBottomColor": "black",
+          "borderBottomWidth": 1,
+          "marginLeft": 30,
+          "marginRight": 30,
+        }
+      }
+    >
+      <Text
+        style={
+          Object {
+            "color": "#1D87E3",
+            "fontSize": 22,
+            "fontWeight": "bold",
+            "marginTop": 10,
+          }
+        }
+      >
+        Name
+      </Text>
+      <Text
+        style={
+          Object {
+            "color": "#232A22",
+            "fontSize": 18,
+            "lineHeight": 40,
+          }
+        }
+      >
+        Weiran Zou
+      </Text>
+    </View>
+    <View
+      style={
+        Object {
+          "borderBottomColor": "black",
+          "borderBottomWidth": 1,
+          "marginLeft": 30,
+          "marginRight": 30,
+        }
+      }
+    >
+      <Text
+        style={
+          Object {
+            "color": "#1D87E3",
+            "fontSize": 22,
+            "fontWeight": "bold",
+            "marginTop": 10,
+          }
+        }
+      >
+        Email
+      </Text>
+      <Text
+        style={
+          Object {
+            "color": "#232A22",
+            "fontSize": 18,
+            "lineHeight": 40,
+          }
+        }
+      >
+        zouweiran9122@gmail.com
+      </Text>
+    </View>
+    <View
+      style={
+        Object {
+          "borderBottomColor": "black",
+          "borderBottomWidth": 1,
+          "marginLeft": 30,
+          "marginRight": 30,
+        }
+      }
+    >
+      <Text
+        style={
+          Object {
+            "color": "#1D87E3",
+            "fontSize": 22,
+            "fontWeight": "bold",
+            "marginTop": 10,
+          }
+        }
+      >
+        Company
+      </Text>
+      <Text
+        style={
+          Object {
+            "color": "#232A22",
+            "fontSize": 18,
+            "lineHeight": 40,
+          }
+        }
+      >
+        QUT Capstone - DEMO ACCOUNT
+      </Text>
+    </View>
+    <View
+      style={
+        Object {
+          "borderBottomColor": "black",
+          "borderBottomWidth": 1,
+          "marginLeft": 30,
+          "marginRight": 30,
+        }
+      }
+    >
+      <Text
+        style={
+          Object {
+            "color": "#1D87E3",
+            "fontSize": 22,
+            "fontWeight": "bold",
+            "marginTop": 10,
+          }
+        }
+      >
+        Employee ID
+      </Text>
+      <Text
+        style={
+          Object {
+            "color": "#232A22",
+            "fontSize": 18,
+            "lineHeight": 40,
+          }
+        }
+      >
+        1748964
+      </Text>
+    </View>
+    <View
+      accessible={true}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "alignItems": "center",
+          "alignSelf": "center",
+          "backgroundColor": "#E3310E",
+          "borderBottomLeftRadius": 15,
+          "borderBottomRightRadius": 15,
+          "borderTopLeftRadius": 15,
+          "borderTopRightRadius": 15,
+          "flexDirection": "row",
+          "marginBottom": 40,
+          "marginTop": 30,
+          "opacity": 1,
+          "padding": 10,
+        }
+      }
+    >
+      <Text
+        allowFontScaling={false}
+        style={
+          Array [
+            Object {
+              "color": "white",
+              "fontSize": 35,
+            },
+            undefined,
+            Object {
+              "fontFamily": "ionicons",
+              "fontStyle": "normal",
+              "fontWeight": "normal",
+            },
+            Object {},
+          ]
+        }
+      >
+        
+      </Text>
+      <Text
+        style={
+          Object {
+            "color": "white",
+            "fontSize": 20,
+            "fontWeight": "bold",
+          }
+        }
+      >
+        Log out
+      </Text>
+    </View>
+  </View>
+</RCTScrollView>
+`;

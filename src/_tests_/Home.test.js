@@ -6,6 +6,7 @@ import {fireEvent, render, waitFor} from '@testing-library/react-native'
 import { View, Text, Pressable } from 'react-native';
 import { act } from 'react-test-renderer';
 import {fakeUser, fakeDiscounts, fakeClockins_onShift, fakeClockins_offShift} from './fakeData'
+
 describe('When user clocked in the company having discounts and successfully fetch data', () => {
   
   beforeEach(() => {   
