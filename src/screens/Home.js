@@ -6,6 +6,8 @@ import { set } from "react-native-reanimated";
 import {Picker} from '@react-native-picker/picker';
 import {fetchUser, fetchClock, fecthDiscount} from '../networking/Api'
 import filterDiscount from '../utilities/filterDiscount'
+import MyButton from '../components/MyButton';
+
 // Retrieve initial screen's width
 let screenWidth = Dimensions.get('screen').width;
 
@@ -73,11 +75,18 @@ export default function Home ( {navigation} ) {
   */
   
   useEffect(async () => {  
+    
     let user = await fetchUser()   
     let discount = await fecthDiscount()     
     let clock = await fetchClock(user.id)  
-    if (user instanceof Error || discount instanceof Error || clock  instanceof Error) {
-      setError("ooops, there is an error from server")
+    if (user instanceof Error) {     
+      setError(user.message);
+    }
+    else if (discount instanceof Error) {    
+      setError(discount.message);
+    }
+    else if (clock instanceof Error) {    
+      setError(clock.message);
     }
     else {
       let filteredDis = await filterDiscount(discount, clock)   
@@ -97,10 +106,16 @@ export default function Home ( {navigation} ) {
     let user = await fetchUser()   
     let discount = await fecthDiscount()
     let clock = await fetchClock(user.id)
-    if (user instanceof Error || discount instanceof Error || clock  instanceof Error) {
-      setError("ooops, there is an error from server")
+    if (user instanceof Error) {     
+      setError(user.message);
     }
-    else {
+    else if (discount instanceof Error) {    
+      setError(discount.message);
+    }
+    else if (clock instanceof Error) {    
+      setError(clock.message);
+    }
+    else {     
       setError("")
       let filteredDis = await filterDiscount(discount, clock)
       await setRequest({    
@@ -145,9 +160,12 @@ export default function Home ( {navigation} ) {
         <View style={{ flex: 1,justifyContent: 'center', alignItems: 'center',
           flexDirection: 'column',}}>
           <Text style={styles.error}>{error}</Text>
-         <Pressable style={styles.button} onPress={onRefresh}>
-          <Text style={{color:'white', fontSize:20}}>Refresh</Text>
+        <MyButton onPress={onRefresh} title={'Refresh'} buttonStyle={styles.refreshButton} textStyle={styles.buttonText}/> 
+        {/*
+         <Pressable style={styles.refreshButton} onPress={onRefresh}>
+          <Text style={styles.buttonText}>Refresh</Text>
         </Pressable> 
+        */}
         </View>
       )
     } else {
@@ -205,8 +223,9 @@ export default function Home ( {navigation} ) {
             renderItem={renderItem}
             keyExtractor={(item, index) => index.toString()}               
             style={{marginVertical: 10}}  
-            refreshControl={
+            refreshControl={             
               <RefreshControl
+                testID='pullToRefresh'
                 refreshing={refreshing}
                 onRefresh={onRefresh}
               />
@@ -330,7 +349,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     color:'red',
   },
-  button:{
+  refreshButton:{
     alignItems: 'center',
     justifyContent: 'center',
     marginLeft:20,
@@ -342,4 +361,9 @@ const styles = StyleSheet.create({
     top:20,
     width: '40%'
   },
+  buttonText:{
+    fontSize: 20, 
+    fontWeight: "bold", 
+    color: 'white'
+  }
 });

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, Pressable, Dimensions, PixelRatio} from 'react-native';
 import {Button, Icon, Input} from "react-native-elements";
 import { color } from 'react-native-elements/dist/helpers';
-
+import MyButton from '../components/MyButton';
 // Retrieve initial screen's width
 let screenWidth = Dimensions.get('screen').width;
 
@@ -80,7 +80,8 @@ function Login({navigation}) {
           scope:"me user device platform organisation",
           grant_type:"password"
         })
-      })           
+      })        
+      
       if (!fetchResult.ok) {         
         if (fetchResult.status === 400) {               
           const errorMessage = "Invalid email or password";
@@ -98,15 +99,14 @@ function Login({navigation}) {
         localStorage.setItem('tokenType', data.token_type) 
         navigation.navigate("HomeTabs") 
       }
-    } catch (err) {       
+    } catch (err) {      
+      
       setError(err.message)
     }   
   };   
 
   return (
-    <View style={styles.container}>
-
-     
+    <View style={styles.container}>    
       <View style={styles.header}>
       <Text style={styles.Text1}>TANDA</Text>
       <Text style={styles.Text2}>Discount</Text>
@@ -141,13 +141,8 @@ function Login({navigation}) {
           errorStyle={{ color: 'red' }}
         />
         {error ? <Text style={styles.error} testID='Error'>{error}</Text> : null}
-      </View>
-
-      <View >       
-        <Pressable style={styles.button} onPress={DoLogin}>
-          <Text style={styles.text}>Login</Text>
-        </Pressable>      
-      </View>
+      </View>     
+      <MyButton onPress={DoLogin} title={'Login'} buttonStyle={styles.loginButton} textStyle={styles.buttonText}/> 
       
     </View>
 
@@ -212,7 +207,7 @@ const styles = StyleSheet.create(
     borderBottomWidth: 1.5 
   },
 
-  button:{
+  loginButton:{
     alignItems: 'center',
     justifyContent: 'center',
     marginLeft:buttonSizer(screenWidth,screenHeight),
@@ -224,7 +219,7 @@ const styles = StyleSheet.create(
     top:buttonTop(screenWidth, screenHeight),
   },
 
-  text:{
+  buttonText:{
     fontSize:24,
     fontWeight:'bold',
     color:"#45B8DB"

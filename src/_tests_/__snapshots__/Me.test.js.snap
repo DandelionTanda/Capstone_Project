@@ -1,6 +1,71 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Login setup Should render correctly 1`] = `
+exports[`Me when failed to fetch data should render properly 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "flex": 1,
+      "flexDirection": "column",
+      "justifyContent": "center",
+    }
+  }
+>
+  <Text
+    style={
+      Object {
+        "alignItems": "center",
+        "color": "red",
+        "fontSize": 20,
+        "justifyContent": "center",
+      }
+    }
+  >
+    An error has occured: 400
+  </Text>
+  <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#45B8DB",
+        "borderRadius": 4,
+        "justifyContent": "center",
+        "marginLeft": 20,
+        "marginRight": 20,
+        "opacity": 1,
+        "paddingVertical": 16,
+        "position": "relative",
+        "top": 20,
+        "width": "40%",
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "color": "white",
+          "fontSize": 20,
+          "fontWeight": "bold",
+          "marginLeft": 10,
+        }
+      }
+    >
+      Refresh
+    </Text>
+  </View>
+</View>
+`;
+
+exports[`Me when successful fetch data Should render correctly 1`] = `
 <RCTScrollView
   style={
     Object {
@@ -214,6 +279,7 @@ exports[`Login setup Should render correctly 1`] = `
             Object {},
           ]
         }
+        testID="log-out-icon"
       >
         
       </Text>
@@ -223,6 +289,7 @@ exports[`Login setup Should render correctly 1`] = `
             "color": "white",
             "fontSize": 20,
             "fontWeight": "bold",
+            "marginLeft": 10,
           }
         }
       >

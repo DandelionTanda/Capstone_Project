@@ -6,7 +6,7 @@ import renderer from 'react-test-renderer';
 import {fireEvent, render, waitFor} from '@testing-library/react-native'
 import {fakeUser} from './fakeData'
 
-describe('Login setup', () => {
+describe('Me when successful fetch data', () => {
   beforeEach(() => {   
     global.fetch = jest
     .fn()
@@ -48,16 +48,8 @@ describe('Login setup', () => {
       expect(getByText('Log out')).toBeTruthy();
     })
   });
-  /*
-  it('on pressing Logout button, a press handler function should be triggered on click event',  () => {
-    const onPressMock = jest.fn();
-    const { getByText } = render(
-      <Me/>
-    );
-    fireEvent.press(getByText('Log out'));
-    expect(onPressMock).toHaveBeenCalled();
-  });  
-  */
+  
+  
   it('Expect to clear token in localStorage & navigate to login screen after clicking on log out button', async () => {
     // Mocking navigate method
     const navigate = jest.fn();
@@ -73,4 +65,52 @@ describe('Login setup', () => {
     expect(navigate).toHaveBeenCalledTimes(1);
     expect(navigate).toHaveBeenCalledWith('Login');
   });  
+})
+
+describe('Me when failed to fetch data', () => {
+  beforeEach(() => {
+      global.fetch = jest
+      .fn()
+      .mockImplementation(() => Promise.reject(
+        new Error('An error has occured: 400')
+      ))
+       
+  }) 
+  it('should render properly', async () => {
+    const screen = render(<Me />);
+    await waitFor(() => {     
+      expect(screen.toJSON()).toMatchSnapshot();
+      
+    })
+        
+  })
+  it('Should not display user information', async () => {
+    const { queryByText } = render(
+      <Me />
+    );
+    await waitFor(() => {
+      expect(queryByText("Weiran Zou")).toBeFalsy();
+      expect(queryByText("zouweiran9122@gmail.com")).toBeFalsy();
+      expect(queryByText("QUT Capstone - DEMO ACCOUNT")).toBeFalsy();
+      expect(queryByText("1748964")).toBeFalsy();
+    })
+  })
+
+  it('should not render a logout button', async () => {
+    const screen = render(
+      <Me/>
+    );
+    await waitFor(() => {
+      expect(screen.queryByText('Log out')).toBeFalsy();
+    })
+  });
+
+  it('should display error and refresh button', async () => {
+    const screen = render(<Me />);
+    await waitFor(() => {     
+      expect(screen.queryByText("An error has occured: 400")).toBeTruthy();   
+      expect(screen.queryByText("Refresh")).toBeTruthy();       
+    })       
+  })
+  
 })

@@ -103,6 +103,8 @@ describe('When user clocked in the company having discounts and successfully fet
     expect(navigate).toHaveBeenCalledTimes(1);
     expect(navigate).toHaveBeenCalledWith('Discount', {discount:fakeDiscounts[1], user:fakeUser});
   });  
+
+  
 })
 
 describe('When user clocked out the company having discounts and successfully fetch data', () => {
@@ -201,6 +203,8 @@ describe('When user clocked out the company having discounts and successfully fe
     expect(navigate).toHaveBeenCalledTimes(1);
     expect(navigate).toHaveBeenCalledWith('Discount', {discount:fakeDiscounts[0], user:fakeUser});
   });  
+
+  
 })
 
 describe('When user clocked out the company having discounts and failed to fetch data', () => {
@@ -208,11 +212,11 @@ describe('When user clocked out the company having discounts and failed to fetch
       global.fetch = jest
       .fn()
       .mockImplementationOnce(() => Promise.reject(
-        new Error('Error message')
+        new Error('An error has occured: 400')
       )).mockImplementationOnce(() => Promise.reject(
-        new Error('Error message')
+        new Error('An error has occured: 400')
       )).mockImplementationOnce(() => Promise.reject(
-        new Error('Error message')
+        new Error('An error has occured: 400')
       ));
        
   })  
@@ -246,20 +250,9 @@ describe('When user clocked out the company having discounts and failed to fetch
   it('should display error and refresh button', async () => {
     const screen = render(<Home />);
     await waitFor(() => {     
-      expect(screen.queryByText("ooops, there is an error from server")).toBeTruthy();   
+      expect(screen.queryByText('An error has occured: 400')).toBeTruthy();   
       expect(screen.queryByText("Refresh")).toBeTruthy();       
     })       
   })
-
-  /*
-  it('should make refresh button pressable', async () => {
-    const onPress = jest.fn();
-    await waitFor(() => {     
-      screen.screen.queryByText("Refresh");
-      
-    })
-        
-  })
-  */
   
 })

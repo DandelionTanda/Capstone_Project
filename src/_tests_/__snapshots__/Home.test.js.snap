@@ -291,15 +291,12 @@ exports[`When user clocked out the company having discounts and failed to fetch 
       }
     }
   >
-    ooops, there is an error from server
+    An error has occured: 400
   </Text>
   <View
     accessible={true}
-    collapsable={false}
     focusable={true}
-    onBlur={[Function]}
     onClick={[Function]}
-    onFocus={[Function]}
     onResponderGrant={[Function]}
     onResponderMove={[Function]}
     onResponderRelease={[Function]}
@@ -314,6 +311,7 @@ exports[`When user clocked out the company having discounts and failed to fetch 
         "justifyContent": "center",
         "marginLeft": 20,
         "marginRight": 20,
+        "opacity": 1,
         "paddingVertical": 16,
         "position": "relative",
         "top": 20,
@@ -326,6 +324,7 @@ exports[`When user clocked out the company having discounts and failed to fetch 
         Object {
           "color": "white",
           "fontSize": 20,
+          "fontWeight": "bold",
         }
       }
     >

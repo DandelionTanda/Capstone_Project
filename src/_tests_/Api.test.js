@@ -19,11 +19,12 @@ describe('fetch user', () => {
     global.fetch = jest
       .fn()
       .mockImplementation(() => Promise.reject(
-        new Error('Error message')
+        new Error('An error has occured: 400')
         )
       )
     const result = await fetchUser()
     expect(typeof result).toBe(typeof new Error());
+    expect(result.message).toBe('An error has occured: 400');
   })
 })
 
@@ -58,11 +59,12 @@ describe('fetch clock', () => {
     global.fetch = jest
       .fn()
       .mockImplementation(() => Promise.reject(
-        new Error('Error message')
+        new Error('An error has occured: 400')
         )
       )
     const result = await fetchClock(1748964)
     expect(typeof result).toBe(typeof new Error());
+    expect(result.message).toBe('An error has occured: 400');
   })
 })
 
@@ -84,10 +86,11 @@ describe('fetch discount', () => {
     global.fetch = jest
       .fn()
       .mockImplementation(() => Promise.reject(
-        new Error('Error message')
+        new Error('An error has occured: 400')
         )
       )
     const result = await fetchUser()
     expect(typeof result).toBe(typeof new Error());
+    expect(result.message).toBe('An error has occured: 400');
   })
 })

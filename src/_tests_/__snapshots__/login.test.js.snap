@@ -207,46 +207,42 @@ exports[`Login setup Should render correctly 1`] = `
       </Text>
     </View>
   </View>
-  <View>
-    <View
-      accessible={true}
-      collapsable={false}
-      focusable={true}
-      onBlur={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
+  <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "white",
+        "borderRadius": 4,
+        "justifyContent": "center",
+        "marginLeft": 150,
+        "marginRight": 150,
+        "opacity": 1,
+        "paddingVertical": 15,
+        "position": "relative",
+        "top": 337.5,
+      }
+    }
+  >
+    <Text
       style={
         Object {
-          "alignItems": "center",
-          "backgroundColor": "white",
-          "borderRadius": 4,
-          "justifyContent": "center",
-          "marginLeft": 150,
-          "marginRight": 150,
-          "paddingVertical": 15,
-          "position": "relative",
-          "top": 337.5,
+          "color": "#45B8DB",
+          "fontSize": 24,
+          "fontWeight": "bold",
         }
       }
     >
-      <Text
-        style={
-          Object {
-            "color": "#45B8DB",
-            "fontSize": 24,
-            "fontWeight": "bold",
-          }
-        }
-      >
-        Login
-      </Text>
-    </View>
+      Login
+    </Text>
   </View>
 </View>
 `;

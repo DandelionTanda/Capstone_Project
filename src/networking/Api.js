@@ -10,7 +10,7 @@ export async function fetchUser(){
         Authorization: localStorage.getItem('tokenType')+ ' ' +localStorage.getItem('token')}})    
    // console.log(fetchResult)
     if (!fetchResult.ok) {
-      const errorMessage = `An error has occured: ${fetchResult.status}`;   
+      const errorMessage = `An error has occured: ${fetchResult.status}`;  
       throw Error(errorMessage)  
     }
     else {
@@ -31,7 +31,7 @@ export async function fetchClock(userID){
       method: "GET",
       headers: {Authorization: localStorage.getItem('tokenType')+ ' ' +localStorage.getItem('token')}});    
     if (!fetchResult.ok) {
-      const errorMessage = `An error has occured: ${fetchResult.status}`;   
+      const errorMessage = `An error has occured: ${fetchResult.status}`; 
       throw Error(errorMessage)  
     }
     else {
@@ -77,3 +77,28 @@ export async function fecthDiscount(){
   }
    
 }
+/*
+export async function fetchOrganisations(){
+  try {
+    const fetchResult = await fetch(`https://my.tanda.co/api/v2/organisations`, {
+      method: "GET",
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: localStorage.getItem('tokenType')+ ' ' +localStorage.getItem('token')
+      },
+    })
+    if (!fetchResult.ok) {
+      const errorMessage = `An error has occured: ${fetchResult.status}`;   
+      throw Error(errorMessage)  
+    }
+    else {
+      const organisations = await fetchResult.json()
+      return organisations
+    }           
+  }
+  catch(err) {    
+    return err
+  }
+   
+}
+*/

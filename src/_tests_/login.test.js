@@ -35,7 +35,7 @@ describe('Login setup', () => {
     expect(getByText('Login')).toBeTruthy();
   });
   
-  it('the default value for both fields should be empty and the error should be absence by defaule', () => {
+  it('the default value for both fields should be empty and the error should be absence by default', () => {
     const { getByPlaceholderText, queryByTestId } = render(
       <Login />
     );
@@ -69,20 +69,7 @@ describe('Login setup', () => {
     );
     expect(passwordInput.props.value).toBe('123456789');
   })
-
-  it('on pressing Login button, a press handler function should be triggered on click event',  () => {
-    const onPressMock = jest.fn();
-    const { getByText } = render(
-      <View >       
-        <Pressable onPress={onPressMock}>
-          <Text>Login</Text>
-        </Pressable>      
-      </View>
-    );
-    fireEvent.press(getByText('Login'));
-    expect(onPressMock).toHaveBeenCalled();
-  });  
-
+  
 })
 
 describe('Login flow', () => {

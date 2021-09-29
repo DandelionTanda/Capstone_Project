@@ -5,8 +5,9 @@ import 'react-native-gesture-handler';
 import { NavigationContainer, getFocusedRouteNameFromRoute, } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
-import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
+//import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
 import { fetchUser } from '../networking/Api'
+import MyButton from '../components/MyButton';
 
 export default function Me( { navigation } ) {
   const [user, setUser] = useState(null)
@@ -19,7 +20,13 @@ export default function Me( { navigation } ) {
 
   useEffect(async () => {  
     let user = await fetchUser()    
-    await setUser(user)  
+    
+    if (user instanceof Error) {
+      setError(user.message)     
+    }
+    else {    
+      await setUser(user)  
+    } 
     await setLoading(false)        
   },[])
 
@@ -27,7 +34,7 @@ export default function Me( { navigation } ) {
     await setLoading(true);
     let user = await fetchUser()   
     if (user instanceof Error) {
-      setError("ooops, there is an error from server")
+      setError(user.message)
     }
     else {
       setError("")
@@ -37,14 +44,17 @@ export default function Me( { navigation } ) {
   }, []);  
   
   if (loading !== true){  
-    if (error) {
+    if (error) {    
       return (
         <View style={{ flex: 1,justifyContent: 'center', alignItems: 'center',
         flexDirection: 'column',}}>
-          <Text style={styles.error}>{error.message}</Text>
-          <Pressable style={styles.button} onPress={onRefresh}>
+          <Text style={styles.error}>{error}</Text>
+          <MyButton onPress={onRefresh} title={'Refresh'} buttonStyle={styles.refreshButton} textStyle={styles.buttonText}/>
+          {/*
+          <Pressable style={styles.refreshButton} onPress={onRefresh}>
             <Text style={{color:'white', fontSize:20}}>Refresh</Text>
           </Pressable>
+          */}
         </View>
       ) 
     } else {
@@ -77,13 +87,8 @@ export default function Me( { navigation } ) {
             <Text style={styles.infor}>{user.id}</Text>
           </View>
           {/* logout button */}
-          <TouchableOpacity
-            style={styles.logoutButton}
-            onPress={clear}
-          >
-            <Ionicons name="log-out" size={35} color="white"/>
-            <Text style={{fontSize: 20, fontWeight: "bold", color: 'white'}}>Log out</Text>
-          </TouchableOpacity>
+          <MyButton onPress={clear} title={'Log out'} buttonStyle={styles.logoutButton} textStyle={styles.buttonText}/>
+          
         </ScrollView>
       )
     }
@@ -136,6 +141,7 @@ if(width < height){
         borderBottomRightRadius: 15,
         marginBottom:28
       },
+      
       personalInfor:{
         marginLeft:30,
         marginRight:30,
@@ -163,7 +169,7 @@ if(width < height){
         justifyContent: 'center',
         color:'red',
       },
-      button:{
+      refreshButton:{
         alignItems: 'center',
         justifyContent: 'center',
         marginLeft:20,
@@ -175,6 +181,12 @@ if(width < height){
         top:20,
         width: '40%'
       },
+      buttonText:{
+        fontSize: 18, 
+        fontWeight: "bold", 
+        color: 'white',
+        marginLeft:10
+      }
     });
   }
   //large screen
@@ -204,7 +216,8 @@ if(width < height){
         borderTopRightRadius: 15,
         borderBottomLeftRadius: 15,
         borderBottomRightRadius: 15,
-        marginBottom:40
+        marginBottom:40,
+        
       },
       personalInfor:{
         marginLeft:30,
@@ -233,7 +246,7 @@ if(width < height){
         justifyContent: 'center',
         color:'red',
       },
-      button:{
+      refreshButton:{
         alignItems: 'center',
         justifyContent: 'center',
         marginLeft:20,
@@ -245,6 +258,12 @@ if(width < height){
         top:20,
         width: '40%'
       },
+      buttonText:{
+        fontSize: 20, 
+        fontWeight: "bold", 
+        color: 'white',
+        marginLeft:10
+      }
     });
   }
 }
