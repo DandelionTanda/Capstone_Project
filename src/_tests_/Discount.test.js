@@ -4,19 +4,19 @@ import 'react-native'
 import React from 'react'
 import renderer from 'react-test-renderer';
 import {fireEvent, render, waitFor} from '@testing-library/react-native'
-import {fakeUser, fakeDiscounts, fakeClockins_onShift, fakeClockins_offShift} from './fakeData'
+import {fakeUser, fakeOnDiscounts,} from './fakeData'
 
-describe('When the user clicked on discount', () => {
+describe('When the user clicked on first discount item', () => {
   
   it('Should render Discount screen correctly', () => {
     const { toJSON } = render(
-      <Discount route={{params: {discount:fakeDiscounts[1], user: fakeUser}}}/>
+      <Discount route={{params: {discount:fakeOnDiscounts[0], user: fakeUser}}}/>
     );
     expect(toJSON()).toMatchSnapshot();
   })
   it('Should display clicked discont information', async () => {
     const { queryByText } = render(
-      <Discount route={{params: {discount:fakeDiscounts[1], user: fakeUser}}}/>
+      <Discount route={{params: {discount:fakeOnDiscounts[0], user: fakeUser}}}/>
     );
     await waitFor(() => {
       expect(queryByText("On-shift Discount - 1")).toBeTruthy();
@@ -25,7 +25,7 @@ describe('When the user clicked on discount', () => {
   })
   it('Should display user information', async () => {
     const { queryByText } = render(
-      <Discount route={{params: {discount:fakeDiscounts[1], user: fakeUser}}}/>
+      <Discount route={{params: {discount:fakeOnDiscounts[0], user: fakeUser}}}/>
     );
     await waitFor(() => {
       expect(queryByText("Weiran Zou")).toBeTruthy();
@@ -37,7 +37,7 @@ describe('When the user clicked on discount', () => {
 
   it('Should display Logo', async () => {
     const { queryByTestId } = render(
-      <Discount route={{params: {discount:fakeDiscounts[1], user: fakeUser}}}/>
+      <Discount route={{params: {discount:fakeOnDiscounts[0], user: fakeUser}}}/>
     );
     await waitFor(() => {
       expect(queryByTestId("Logo")).toBeTruthy();

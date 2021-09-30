@@ -1,11 +1,11 @@
 import 'react-native'
 import React from 'react'
-import Home from "../screens/Home"
+import Home, {Item} from "../screens/Home"
 import renderer from 'react-test-renderer';
 import {fireEvent, render, waitFor} from '@testing-library/react-native'
 import { View, Text, Pressable } from 'react-native';
 import { act } from 'react-test-renderer';
-import {fakeUser, fakeDiscounts, fakeClockins_onShift, fakeClockins_offShift} from './fakeData'
+import {fakeUser, fakeDiscounts, fakeOnDiscounts, fakeOffDiscounts, fakeClockins_onShift, fakeClockins_offShift} from './fakeData'
 
 describe('When user clocked in the company having discounts and successfully fetch data', () => {
   
@@ -71,25 +71,16 @@ describe('When user clocked in the company having discounts and successfully fet
     })
         
   })
-  /*
-  it('should make items in discount list pressable', async () => {
-    const onPress = jest.fn();
-    await waitFor(() => {     
-      screen.queryByTestId('On-shift Discount - 1');
-      
-    })
-        
-  })
-  */
+  
   it('should not display error and refresh button', async () => {
     const screen = render(<Home />);
     await waitFor(() => {     
       expect(screen.queryByText("Error message")).toBeFalsy();   
       expect(screen.queryByText("Refresh")).toBeFalsy();       
     })       
-  })
+  })  
 
-  it('should navigate to dscount screen after pressing discount item', async () => {        
+  it('should navigate to dscount screen after pressing first discount item', async () => {        
     // Mocking navigate method
     const navigate = jest.fn();
     // Getting element
@@ -101,9 +92,23 @@ describe('When user clocked in the company having discounts and successfully fet
     });   
     // Asserting screen navigation
     expect(navigate).toHaveBeenCalledTimes(1);
-    expect(navigate).toHaveBeenCalledWith('Discount', {discount:fakeDiscounts[1], user:fakeUser});
+    expect(navigate).toHaveBeenCalledWith('Discount', {discount:fakeOnDiscounts[0], user:fakeUser});
   });  
 
+  it('should navigate to dscount screen after pressing last discount item', async () => {        
+    // Mocking navigate method
+    const navigate = jest.fn();
+    // Getting element
+    const screen = render(<Home navigation={{ navigate }} />);
+    await waitFor(() => {
+      
+      const discount = screen.queryByTestId(`On-shift Discount - ${fakeOnDiscounts.length}`);
+      fireEvent.press(discount);
+    });   
+    // Asserting screen navigation
+    expect(navigate).toHaveBeenCalledTimes(1);
+    expect(navigate).toHaveBeenCalledWith('Discount', {discount:fakeOnDiscounts[fakeOnDiscounts.length-1], user:fakeUser});
+  });  
   
 })
 
@@ -170,16 +175,7 @@ describe('When user clocked out the company having discounts and successfully fe
     })
         
   })
-  /*
-  it('should make items in discount list pressable', async () => {
-    const onPress = jest.fn();
-    await waitFor(() => {     
-      screen.queryByTestId('On-shift Discount - 1');
-      
-    })
-        
-  })
-  */
+  
   it('should not display error and refresh button', async () => {
     const screen = render(<Home />);
     await waitFor(() => {     
@@ -188,7 +184,7 @@ describe('When user clocked out the company having discounts and successfully fe
     })       
   })
 
-  it('should navigate to dscount screen after pressing discount item', async () => {   
+  it('should navigate to dscount screen after pressing first discount item', async () => {   
   
     // Mocking navigate method
     const navigate = jest.fn();
@@ -201,9 +197,23 @@ describe('When user clocked out the company having discounts and successfully fe
     });
     // Asserting screen navigation
     expect(navigate).toHaveBeenCalledTimes(1);
-    expect(navigate).toHaveBeenCalledWith('Discount', {discount:fakeDiscounts[0], user:fakeUser});
+    expect(navigate).toHaveBeenCalledWith('Discount', {discount:fakeOffDiscounts[0], user:fakeUser});
   });  
 
+  it('should navigate to dscount screen after pressing last discount item', async () => {        
+    // Mocking navigate method
+    const navigate = jest.fn();
+    // Getting element
+    const screen = render(<Home navigation={{ navigate }} />);
+    await waitFor(() => {
+      
+      const discount = screen.queryByTestId(`Off-shift Discount - ${fakeOffDiscounts.length}`);
+      fireEvent.press(discount);
+    });   
+    // Asserting screen navigation
+    expect(navigate).toHaveBeenCalledTimes(1);
+    expect(navigate).toHaveBeenCalledWith('Discount', {discount:fakeOffDiscounts[fakeOffDiscounts.length-1], user:fakeUser});
+  });  
   
 })
 
@@ -255,4 +265,16 @@ describe('When user clocked out the company having discounts and failed to fetch
     })       
   })
   
+})
+
+
+it('Should make item in discount list be pressable', async () => {
+  
+    const onPress = jest.fn();
+    const { getByText } = render(
+      <Item item={item = { name: 'Test' }} onPress={onPress} />
+    );     
+    expect(getByText(/Test/)).toBeTruthy();
+      //expect(onPress).toHaveBeenCalled();    
+        
 })

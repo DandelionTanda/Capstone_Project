@@ -43,6 +43,18 @@ function modifyShiftSize(screenWidth){
     return 52
   }
 }
+export const Item = ({ item,  onPress, backgroundColor, textColor }) => {
+  return(  
+    <TouchableOpacity 
+      onPress={onPress}
+      style={[styles.item, backgroundColor]}
+      testID={`${item.name}`}>
+      <Text style={[styles.disName, textColor]}>{item.name} </Text>
+      <View style={styles.verticleLine}></View>
+      <Text style={[styles.disValue, textColor]}> {item.value} </Text>
+    </TouchableOpacity>
+  );
+};
 
 export default function Home ( {navigation} ) {
   const [selectedId, setSelectedId] = useState(null);
@@ -77,7 +89,7 @@ export default function Home ( {navigation} ) {
   useEffect(async () => {  
     
     let user = await fetchUser()   
-    let discount = await fecthDiscount()     
+    let discount = await fecthDiscount()      
     let clock = await fetchClock(user.id)  
     if (user instanceof Error) {     
       setError(user.message);
@@ -127,32 +139,6 @@ export default function Home ( {navigation} ) {
 
     await setRefreshing(false)
   }, []);
-
-  const Item = ({ item, onPress, backgroundColor, textColor }) => (
-    
-    <TouchableOpacity 
-      onPress={() => navigation.navigate('Discount', {discount:item, user:request.user})} 
-      style={[styles.item, backgroundColor]}
-      testID={`${item.name}`}>
-      <Text style={[styles.disName, textColor]}>{item.name} </Text>
-      <View style={styles.verticleLine}></View>
-      <Text style={[styles.disValue, textColor]}> {item.value} </Text>
-    </TouchableOpacity>
-  );
-
-  const renderItem = ({ item, index }) => {
-    const backgroundColor = '#45B8DB';
-    const color = 'white';
-
-    return (
-        <Item
-          item={item}
-          onPress={() => setSelectedId(index)}
-          backgroundColor={{ backgroundColor }}
-          textColor={{ color }}
-        />
-    );
-  };
   
   if (loading !== true){  
     if (error) {
@@ -220,7 +206,18 @@ export default function Home ( {navigation} ) {
           <FlatList   
             testID='discount-list'       
             data={request.discount}
-            renderItem={renderItem}
+            renderItem={({item, index}) => {
+              const backgroundColor = '#45B8DB';
+              const color = 'white';
+              return (
+                <Item
+                  item={item}          
+                  onPress={() => navigation.navigate('Discount', {discount:item, user:request.user})}
+                  backgroundColor={{ backgroundColor }}
+                  textColor={{ color }}
+                />
+              );
+            }}
             keyExtractor={(item, index) => index.toString()}               
             style={{marginVertical: 10}}  
             refreshControl={             

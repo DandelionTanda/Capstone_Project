@@ -97,6 +97,7 @@ exports[`When user clocked in the company having discounts and successfully fetc
       <RefreshControlMock
         onRefresh={[Function]}
         refreshing={false}
+        testID="pullToRefresh"
       />
     }
     removeClippedSubviews={false}
@@ -430,6 +431,7 @@ exports[`When user clocked out the company having discounts and successfully fet
       <RefreshControlMock
         onRefresh={[Function]}
         refreshing={false}
+        testID="pullToRefresh"
       />
     }
     removeClippedSubviews={false}
