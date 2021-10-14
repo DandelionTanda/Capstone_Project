@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Pressable, Dimensions, PixelRatio} from 'react-native';
+import { StyleSheet, Text, View, Dimensions, PixelRatio} from 'react-native';
 import {Button, Icon, Input} from "react-native-elements";
 import { color } from 'react-native-elements/dist/helpers';
 import MyButton from '../components/MyButton';
+
 // Retrieve initial screen's width
 let screenWidth = Dimensions.get('screen').width;
 
@@ -68,14 +69,14 @@ function Login({navigation}) {
   async function DoLogin(){   
     
     try {
-      const fetchResult = await fetch(`https://my.tanda.co/api/oauth/token`,{
+      const fetchResult = await fetch(`https://internal-allow-partner-organisation-to-be-switched-to.ms.tanda.co/api/oauth/token`,{
         method: "POST",
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
           username:"zouweiran9122@gmail.com",
-          // username:"leo727268082@gmail.com",
+          //username:"leo727268082@gmail.com",
           password:"123456789",
           scope:"me user device platform organisation",
           grant_type:"password"
@@ -155,8 +156,9 @@ const styles = StyleSheet.create(
   {
   
   container: {
+    flex: 1,
     backgroundColor: '#45B8DB',  
-    paddingBottom:screenHeight, 
+    
   },
 
   Text1:{
@@ -190,10 +192,11 @@ const styles = StyleSheet.create(
 
   main:{
     marginTop:screenHeight*0.04,
-    marginLeft: screenWidth*0.1,
+    marginLeft: screenWidth*0.12,
     marginRight: screenWidth*0.1,
     height:screenHeight*0.1,
     alignItems:'center',
+   
   },
 
   email:{

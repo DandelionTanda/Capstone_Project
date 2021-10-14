@@ -1,12 +1,12 @@
 import { useState, useEffect }  from "react";
 import * as React from 'react';
-import { ActivityIndicator, RefreshControl, Pressable, FlatList, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity,View,Icon,Image, Dimensions, PixelRatio } from "react-native";
-import 'react-native-gesture-handler';
+import { ActivityIndicator, RefreshControl, FlatList, SafeAreaView, StyleSheet, Text, TouchableOpacity,View, Image, Dimensions, PixelRatio } from "react-native";
 import { set } from "react-native-reanimated";
 import {Picker} from '@react-native-picker/picker';
 import {fetchUser, fetchClock, fecthDiscount} from '../networking/Api'
 import filterDiscount from '../utilities/filterDiscount'
 import MyButton from '../components/MyButton';
+import { useScrollToTop } from '@react-navigation/native';
 
 // Retrieve initial screen's width
 let screenWidth = Dimensions.get('screen').width;
@@ -49,9 +49,9 @@ export const Item = ({ item,  onPress, backgroundColor, textColor }) => {
       onPress={onPress}
       style={[styles.item, backgroundColor]}
       testID={`${item.name}`}>
-      <Text style={[styles.disName, textColor]}>{item.name} </Text>
+      <Text style={[styles.disName, textColor]}>{item.name}</Text>
       <View style={styles.verticleLine}></View>
-      <Text style={[styles.disValue, textColor]}> {item.value} </Text>
+      <Text style={[styles.disValue, textColor]}>{item.value}</Text>
     </TouchableOpacity>
   );
 };
@@ -68,10 +68,10 @@ export default function Home ( {navigation} ) {
   const [user, setUser] = useState(null)
   const [selectedOrganisation, setSelectedOrganisation] = useState();
   const [error, setError] = useState('') 
- 
+  
   /*
   async function getOrgToken(org_id){
-    const responseToken = await fetch(`https://my.tanda.co/api/oauth/token`,{
+    const responseToken = await fetch(`https://internal-allow-partner-organisation-to-be-switched-to.ms.tanda.co/api/oauth/token`,{
       method: "POST",
       body: JSON.stringify({
         access_token:localStorage.getItem('token'),
@@ -91,10 +91,12 @@ export default function Home ( {navigation} ) {
     let user = await fetchUser()   
     let discount = await fecthDiscount()      
     let clock = await fetchClock(user.id)  
-    if (user instanceof Error) {     
+    if (user instanceof Error) {
+          
       setError(user.message);
     }
-    else if (discount instanceof Error) {    
+    else if (discount instanceof Error) {  
+      
       setError(discount.message);
     }
     else if (clock instanceof Error) {    
@@ -114,6 +116,7 @@ export default function Home ( {navigation} ) {
 
   
   const onRefresh = React.useCallback(async () => {
+    
     await setRefreshing(true);
     let user = await fetchUser()   
     let discount = await fecthDiscount()
@@ -139,7 +142,9 @@ export default function Home ( {navigation} ) {
 
     await setRefreshing(false)
   }, []);
-  
+  const ref = React.useRef(null);
+  useScrollToTop(ref);
+
   if (loading !== true){  
     if (error) {
       return (
@@ -204,6 +209,7 @@ export default function Home ( {navigation} ) {
           </View>  
           
           <FlatList   
+            ref={ref}
             testID='discount-list'       
             data={request.discount}
             renderItem={({item, index}) => {
@@ -221,8 +227,7 @@ export default function Home ( {navigation} ) {
             keyExtractor={(item, index) => index.toString()}               
             style={{marginVertical: 10}}  
             refreshControl={             
-              <RefreshControl
-                testID='pullToRefresh'
+              <RefreshControl              
                 refreshing={refreshing}
                 onRefresh={onRefresh}
               />

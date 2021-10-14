@@ -3,7 +3,7 @@ import getDates from "../utilities/getDates";
 
 export async function fetchUser(){    
   try {
-    const fetchResult = await fetch(`https://my.tanda.co/api/v2/users/me`,{
+    const fetchResult = await fetch(`https://internal-allow-partner-organisation-to-be-switched-to.ms.tanda.co/api/v2/users/me`,{
       method: "GET",
       headers: {
         'Content-Type': 'application/json',
@@ -26,7 +26,7 @@ export async function fetchClock(userID){
   try {    
     const past = getDates()[0]
     const today = getDates()[1]
-    const fetchResult = await fetch(`https://my.tanda.co/api/v2/clockins` + 
+    const fetchResult = await fetch(`https://internal-allow-partner-organisation-to-be-switched-to.ms.tanda.co/api/v2/clockins` + 
     `?user_id=${userID}&from=${past}&to=${today}` ,{
       method: "GET",
       headers: {Authorization: localStorage.getItem('tokenType')+ ' ' +localStorage.getItem('token')}});    
@@ -56,7 +56,7 @@ export async function fetchClock(userID){
 
 export async function fecthDiscount(){
   try {
-    const fetchResult = await fetch(`https://my.tanda.co/api/v2/platform/discounts`, {
+    const fetchResult = await fetch(`https://internal-allow-partner-organisation-to-be-switched-to.ms.tanda.co/api/v2/platform/discounts`, {
       method: "GET",
       headers: {
         'Content-Type': 'application/json',
@@ -80,7 +80,7 @@ export async function fecthDiscount(){
 /*
 export async function fetchOrganisations(){
   try {
-    const fetchResult = await fetch(`https://my.tanda.co/api/v2/organisations`, {
+    const fetchResult = await fetch(`https://internal-allow-partner-organisation-to-be-switched-to.ms.tanda.co/api/v2/organisations`, {
       method: "GET",
       headers: {
         'Content-Type': 'application/json',

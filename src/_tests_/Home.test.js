@@ -6,7 +6,7 @@ import {fireEvent, render, waitFor} from '@testing-library/react-native'
 import { View, Text, Pressable } from 'react-native';
 import { act } from 'react-test-renderer';
 import {fakeUser, fakeDiscounts, fakeOnDiscounts, fakeOffDiscounts, fakeClockins_onShift, fakeClockins_offShift} from './fakeData'
-
+jest.mock('@react-navigation/native');
 describe('When user clocked in the company having discounts and successfully fetch data', () => {
   
   beforeEach(() => {   
@@ -214,6 +214,8 @@ describe('When user clocked out the company having discounts and successfully fe
     expect(navigate).toHaveBeenCalledTimes(1);
     expect(navigate).toHaveBeenCalledWith('Discount', {discount:fakeOffDiscounts[fakeOffDiscounts.length-1], user:fakeUser});
   });  
+
+  
   
 })
 
@@ -274,7 +276,7 @@ it('Should make item in discount list be pressable', async () => {
     const { getByText } = render(
       <Item item={item = { name: 'Test' }} onPress={onPress} />
     );     
-    expect(getByText(/Test/)).toBeTruthy();
+    expect(getByText('Test')).toBeTruthy();
       //expect(onPress).toHaveBeenCalled();    
         
 })

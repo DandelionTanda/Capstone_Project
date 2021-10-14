@@ -1,11 +1,6 @@
 import { useState }  from "react";
 import * as React from 'react';
-import { Button, FlatList, SafeAreaView, StatusBar, Dimensions, StyleSheet, Text, TouchableOpacity,View,Icon,Image, ScrollView } from "react-native";
-import 'react-native-gesture-handler';
-import { NavigationContainer, getFocusedRouteNameFromRoute} from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createStackNavigator } from '@react-navigation/stack';
-import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
+import { SafeAreaView, Dimensions, StyleSheet, Text, TouchableOpacity,View,Icon,Image, ScrollView } from "react-native";
 import { get } from "react-native/Libraries/Utilities/PixelRatio";
 
 export default function Discount( {route, navigation} ) {
@@ -29,9 +24,14 @@ export default function Discount( {route, navigation} ) {
         <Text style={styles.nameDiscount}>
           {discount.name} 
         </Text>
-        <Text style={styles.nameDiscount}>
-          {discount.onshift} 
-        </Text>
+        {discount.onshift? 
+          <Text style={styles.nameDiscount}>
+            on-shift
+          </Text>:
+          <Text style={styles.nameDiscount}>
+            off-shift
+          </Text>
+        }
       </View>
 
       {/*display personal information*/}
@@ -95,7 +95,8 @@ if(width < height){
         alignSelf: 'baseline',
         width: 250,
         alignSelf:'center',
-        marginTop:32,
+        marginTop:20,
+        paddingBottom:10,
         borderWidth: 2,
         marginBottom:15,
         backgroundColor:'#45B8DB',
@@ -145,7 +146,8 @@ if(width < height){
       alignSelf: 'baseline',
       width: 300,
       alignSelf:'center',
-      marginTop:40,
+      paddingBottom:15,
+      marginTop:30,
       marginBottom: 20,
       borderWidth: 2,    
       backgroundColor:'#45B8DB',

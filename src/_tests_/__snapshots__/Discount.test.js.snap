@@ -32,7 +32,8 @@ exports[`When the user clicked on first discount item Should render Discount scr
           "borderRadius": 50,
           "borderWidth": 2,
           "marginBottom": 20,
-          "marginTop": 40,
+          "marginTop": 30,
+          "paddingBottom": 15,
           "width": 300,
         }
       }
@@ -69,7 +70,9 @@ exports[`When the user clicked on first discount item Should render Discount scr
             "fontWeight": "bold",
           }
         }
-      />
+      >
+        on-shift
+      </Text>
     </View>
     <View
       style={

@@ -97,7 +97,6 @@ exports[`When user clocked in the company having discounts and successfully fetc
       <RefreshControlMock
         onRefresh={[Function]}
         refreshing={false}
-        testID="pullToRefresh"
       />
     }
     removeClippedSubviews={false}
@@ -160,7 +159,6 @@ exports[`When user clocked in the company having discounts and successfully fetc
             }
           >
             On-shift Discount - 1
-             
           </Text>
           <View
             style={
@@ -185,9 +183,7 @@ exports[`When user clocked in the company having discounts and successfully fetc
               ]
             }
           >
-             
             25%
-             
           </Text>
         </View>
       </View>
@@ -235,7 +231,6 @@ exports[`When user clocked in the company having discounts and successfully fetc
             }
           >
             On-shift Discount - 2
-             
           </Text>
           <View
             style={
@@ -260,9 +255,7 @@ exports[`When user clocked in the company having discounts and successfully fetc
               ]
             }
           >
-             
             35%
-             
           </Text>
         </View>
       </View>
@@ -431,7 +424,6 @@ exports[`When user clocked out the company having discounts and successfully fet
       <RefreshControlMock
         onRefresh={[Function]}
         refreshing={false}
-        testID="pullToRefresh"
       />
     }
     removeClippedSubviews={false}
@@ -494,7 +486,6 @@ exports[`When user clocked out the company having discounts and successfully fet
             }
           >
             Off-shift Discount - 1
-             
           </Text>
           <View
             style={
@@ -519,9 +510,7 @@ exports[`When user clocked out the company having discounts and successfully fet
               ]
             }
           >
-             
             35%
-             
           </Text>
         </View>
       </View>
@@ -569,7 +558,6 @@ exports[`When user clocked out the company having discounts and successfully fet
             }
           >
             Off-shift Discount - 2
-             
           </Text>
           <View
             style={
@@ -594,9 +582,7 @@ exports[`When user clocked out the company having discounts and successfully fet
               ]
             }
           >
-             
             40%
-             
           </Text>
         </View>
       </View>

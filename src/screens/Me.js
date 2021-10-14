@@ -1,11 +1,7 @@
 import { useState, useEffect }  from "react";
 import * as React from 'react';
-import { ActivityIndicator, Button, Pressable, FlatList, Dimensions, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity,View,Icon,Image, ScrollView } from "react-native";
-import 'react-native-gesture-handler';
-import { NavigationContainer, getFocusedRouteNameFromRoute, } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createStackNavigator } from '@react-navigation/stack';
-//import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
+import { ActivityIndicator,  Dimensions, SafeAreaView, StyleSheet, Text, View,Icon,Image, ScrollView } from "react-native";
+import { useScrollToTop } from '@react-navigation/native';
 import { fetchUser } from '../networking/Api'
 import MyButton from '../components/MyButton';
 
@@ -13,11 +9,12 @@ export default function Me( { navigation } ) {
   const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('') 
+
   function clear(){
     navigation.navigate('Login')
     localStorage.clear()
   }
-
+  
   useEffect(async () => {  
     let user = await fetchUser()    
     

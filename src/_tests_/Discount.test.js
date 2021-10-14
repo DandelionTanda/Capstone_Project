@@ -21,6 +21,7 @@ describe('When the user clicked on first discount item', () => {
     await waitFor(() => {
       expect(queryByText("On-shift Discount - 1")).toBeTruthy();
       expect(queryByText("25%")).toBeTruthy();
+      expect(queryByText("on-shift")).toBeTruthy();
     })
   })
   it('Should display user information', async () => {
