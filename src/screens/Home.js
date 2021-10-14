@@ -3,7 +3,7 @@ import * as React from 'react';
 import { ActivityIndicator, RefreshControl, FlatList, SafeAreaView, StyleSheet, Text, TouchableOpacity,View, Image, Dimensions, PixelRatio } from "react-native";
 import { set } from "react-native-reanimated";
 import {Picker} from '@react-native-picker/picker';
-import {fetchUser, fetchClock, fecthDiscount} from '../networking/Api'
+import {fetchUser, fetchClock, fecthDiscount, getOrgToken} from '../networking/Api'
 import filterDiscount from '../utilities/filterDiscount'
 import MyButton from '../components/MyButton';
 import { useScrollToTop } from '@react-navigation/native';
@@ -69,27 +69,11 @@ export default function Home ( {navigation} ) {
   const [selectedOrganisation, setSelectedOrganisation] = useState();
   const [error, setError] = useState('') 
   
-  /*
-  async function getOrgToken(org_id){
-    const responseToken = await fetch(`https://internal-allow-partner-organisation-to-be-switched-to.ms.tanda.co/api/oauth/token`,{
-      method: "POST",
-      body: JSON.stringify({
-        access_token:localStorage.getItem('token'),
-        organisation_id:org_id,
-        scope:"me user device platform organisation",
-        grant_type:"partner_token"
-      })
-      })
-    const token = await responseToken.json()   
-    localStorage.setItem('token', token.access_token)
-    localStorage.setItem('tokenType', token.token_type)     
-  }
-  */
-  
   useEffect(async () => {  
     
     let user = await fetchUser()   
-    let discount = await fecthDiscount()      
+    let discount = await fecthDiscount()    
+    console.log(discount)  
     let clock = await fetchClock(user.id)  
     if (user instanceof Error) {
           
@@ -152,11 +136,6 @@ export default function Home ( {navigation} ) {
           flexDirection: 'column',}}>
           <Text style={styles.error}>{error}</Text>
         <MyButton onPress={onRefresh} title={'Refresh'} buttonStyle={styles.refreshButton} textStyle={styles.buttonText}/> 
-        {/*
-         <Pressable style={styles.refreshButton} onPress={onRefresh}>
-          <Text style={styles.buttonText}>Refresh</Text>
-        </Pressable> 
-        */}
         </View>
       )
     } else {
@@ -184,9 +163,28 @@ export default function Home ( {navigation} ) {
                 onValueChange={async (itemValue, itemIndex) =>{
                   setRefreshing(true);
                   await setSelectedOrganisation(itemValue);               
-                  //await getOrgToken(itemValue);            
-                  // await fetchUser();           
-                  //await fecthDiscount();     
+                  await getOrgToken(itemValue);    
+                  let user = await fetchUser()   
+                  let discount = await fecthDiscount()
+                  let clock = await fetchClock(user.id)
+                  if (user instanceof Error) {     
+                    setError(user.message);
+                  }
+                  else if (discount instanceof Error) {    
+                    setError(discount.message);
+                  }
+                  else if (clock instanceof Error) {    
+                    setError(clock.message);
+                  }
+                  else {     
+                    setError("")
+                    let filteredDis = await filterDiscount(discount, clock)
+                    await setRequest({    
+                      user: user,     
+                      shift: clock,
+                      discount: filteredDis
+                    })  
+                  }                             
                   setRefreshing(false);     
                           
                 }} 

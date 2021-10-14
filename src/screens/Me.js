@@ -26,7 +26,8 @@ export default function Me( { navigation } ) {
     } 
     await setLoading(false)        
   },[])
-
+  
+  
   const onRefresh = React.useCallback(async () => {
     await setLoading(true);
     let user = await fetchUser()   

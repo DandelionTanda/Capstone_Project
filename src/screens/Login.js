@@ -96,8 +96,10 @@ function Login({navigation}) {
       else {
         setError("")
         const data = await fetchResult.json() 
-        localStorage.setItem('token', data.access_token)
-        localStorage.setItem('tokenType', data.token_type) 
+        localStorage.setItem('partner_token', data.access_token)
+        localStorage.setItem('partner_tokenType', data.token_type) 
+        localStorage.setItem('org_token', data.access_token)
+        localStorage.setItem('org_tokenType', data.token_type)
         navigation.navigate("HomeTabs") 
       }
     } catch (err) {      

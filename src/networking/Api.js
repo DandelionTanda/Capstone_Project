@@ -7,7 +7,7 @@ export async function fetchUser(){
       method: "GET",
       headers: {
         'Content-Type': 'application/json',
-        Authorization: localStorage.getItem('tokenType')+ ' ' +localStorage.getItem('token')}})    
+        Authorization: localStorage.getItem('org_tokenType')+ ' ' +localStorage.getItem('org_token')}})    
    // console.log(fetchResult)
     if (!fetchResult.ok) {
       const errorMessage = `An error has occured: ${fetchResult.status}`;  
@@ -29,7 +29,7 @@ export async function fetchClock(userID){
     const fetchResult = await fetch(`https://internal-allow-partner-organisation-to-be-switched-to.ms.tanda.co/api/v2/clockins` + 
     `?user_id=${userID}&from=${past}&to=${today}` ,{
       method: "GET",
-      headers: {Authorization: localStorage.getItem('tokenType')+ ' ' +localStorage.getItem('token')}});    
+      headers: {Authorization: localStorage.getItem('org_tokenType')+ ' ' +localStorage.getItem('org_token')}});    
     if (!fetchResult.ok) {
       const errorMessage = `An error has occured: ${fetchResult.status}`; 
       throw Error(errorMessage)  
@@ -60,7 +60,7 @@ export async function fecthDiscount(){
       method: "GET",
       headers: {
         'Content-Type': 'application/json',
-        Authorization: localStorage.getItem('tokenType')+ ' ' +localStorage.getItem('token')
+        Authorization: localStorage.getItem('org_tokenType')+ ' ' +localStorage.getItem('org_token')
       },
     })
     if (!fetchResult.ok) {
@@ -77,28 +77,34 @@ export async function fecthDiscount(){
   }
    
 }
-/*
-export async function fetchOrganisations(){
+
+export async function getOrgToken(org_id){
+  
   try {
-    const fetchResult = await fetch(`https://internal-allow-partner-organisation-to-be-switched-to.ms.tanda.co/api/v2/organisations`, {
-      method: "GET",
+    const fetchResult = await fetch(`https://internal-allow-partner-organisation-to-be-switched-to.ms.tanda.co/api/oauth/token`,{
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
-        Authorization: localStorage.getItem('tokenType')+ ' ' +localStorage.getItem('token')
+        'Content-Type': 'application/json'
       },
+      body: JSON.stringify({
+        access_token:localStorage.getItem("partner_token"),
+        organisation_id:org_id,
+        scope:"me user device platform organisation",
+        grant_type:"partner_token"
+      })
     })
     if (!fetchResult.ok) {
       const errorMessage = `An error has occured: ${fetchResult.status}`;   
       throw Error(errorMessage)  
     }
     else {
-      const organisations = await fetchResult.json()
-      return organisations
-    }           
+      const org_token = await fetchResult.json()   
+      localStorage.setItem('org_token', org_token.access_token)
+      localStorage.setItem('org_tokenType', org_token.token_type)  
+    }    
   }
-  catch(err) {    
+  catch(err) {  
+    console.log(err)  
     return err
   }
-   
 }
-*/
