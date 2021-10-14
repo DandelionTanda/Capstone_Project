@@ -15,19 +15,23 @@ export default function Me( { navigation } ) {
     localStorage.clear()
   }
   
-  useEffect(async () => {  
-    let user = await fetchUser()    
-    
-    if (user instanceof Error) {
-      setError(user.message)     
-    }
-    else {    
-      await setUser(user)  
-    } 
-    await setLoading(false)        
+  useEffect(() => {  
+
+    const unsubscribe = navigation.addListener('focus', async() => {     
+      let user = await fetchUser()    
+      if (user instanceof Error) {
+        setError(user.message)     
+      }
+      else {    
+        await setUser(user)  
+      } 
+      await setLoading(false) 
+      });
+
+      // Return the function to unsubscribe from the event so it gets removed on unmount
+      return unsubscribe;
+          
   },[])
-  
-  
   const onRefresh = React.useCallback(async () => {
     await setLoading(true);
     let user = await fetchUser()   
