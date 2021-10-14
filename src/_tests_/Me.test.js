@@ -1,11 +1,14 @@
 import 'react-native'
 import React from 'react'
 import Me from "../screens/Me"
-
 import renderer from 'react-test-renderer';
 import {fireEvent, render, waitFor} from '@testing-library/react-native'
 import {fakeUser} from './fakeData'
-
+jest.mock('@react-navigation/native', () => {
+  return {
+    useIsFocused: () => true
+  };
+});
 describe('Me when successful fetch data', () => {
   beforeEach(() => {   
     global.fetch = jest

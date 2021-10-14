@@ -102,8 +102,10 @@ describe('Login flow', () => {
       expect(passwordInput.props.value).toBe('123456789');
       fireEvent.press(button);
     });
-    expect(localStorage.setItem).toBeCalledWith('token', fakeToken.access_token)
-    expect(localStorage.setItem).toBeCalledWith('tokenType', fakeToken.token_type)
+    expect(localStorage.setItem).toBeCalledWith('partner_token', fakeToken.access_token)
+    expect(localStorage.setItem).toBeCalledWith('partner_tokenType', fakeToken.token_type)
+    expect(localStorage.setItem).toBeCalledWith('org_token', fakeToken.access_token)
+    expect(localStorage.setItem).toBeCalledWith('org_tokenType', fakeToken.token_type)
     // Asserting screen navigation
     expect(navigate).toHaveBeenCalledTimes(1);
     expect(navigate).toHaveBeenCalledWith('HomeTabs');

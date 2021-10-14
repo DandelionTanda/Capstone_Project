@@ -1,7 +1,7 @@
 import { useState, useEffect }  from "react";
 import * as React from 'react';
 import { ActivityIndicator,  Dimensions, SafeAreaView, StyleSheet, Text, View,Icon,Image, ScrollView } from "react-native";
-import { useScrollToTop } from '@react-navigation/native';
+import { useScrollToTop, useIsFocused } from '@react-navigation/native';
 import { fetchUser } from '../networking/Api'
 import MyButton from '../components/MyButton';
 
@@ -9,15 +9,15 @@ export default function Me( { navigation } ) {
   const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('') 
-
+  const isFocused = useIsFocused()
   function clear(){
     navigation.navigate('Login')
     localStorage.clear()
   }
   
-  useEffect(() => {  
+  useEffect(async () => {  
 
-    const unsubscribe = navigation.addListener('focus', async() => {     
+    if (isFocused) {     
       let user = await fetchUser()    
       if (user instanceof Error) {
         setError(user.message)     
@@ -26,12 +26,9 @@ export default function Me( { navigation } ) {
         await setUser(user)  
       } 
       await setLoading(false) 
-      });
-
-      // Return the function to unsubscribe from the event so it gets removed on unmount
-      return unsubscribe;
-          
-  },[])
+    }
+        
+  },[isFocused])
   const onRefresh = React.useCallback(async () => {
     await setLoading(true);
     let user = await fetchUser()   
