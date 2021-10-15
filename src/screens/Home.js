@@ -8,41 +8,6 @@ import filterDiscount from '../utilities/filterDiscount'
 import MyButton from '../components/MyButton';
 import { useScrollToTop } from '@react-navigation/native';
 
-// Retrieve initial screen's width
-let screenWidth = Dimensions.get('screen').width;
-
-// Retrieve initial screen's height
-let screenHeight = Dimensions.get('screen').height;
-
-function modifyFont(screenWidth){
-  if(screenWidth < 350)
-  {
-    return 16
-  }
-  else{
-    return 19
-  }
-}
-
-function modifyShift(screenWidth){
-  if(screenWidth < 350)
-  {
-    return 8
-  }
-  else{
-    return 10
-  }
-}
-
-function modifyShiftSize(screenWidth){
-  if(screenWidth < 350)
-  {
-    return 42
-  }
-  else{
-    return 52
-  }
-}
 export const Item = ({ item,  onPress, backgroundColor, textColor }) => {
   return(  
     <TouchableOpacity 
@@ -72,8 +37,7 @@ export default function Home ( {navigation} ) {
   useEffect(async () => {  
     
     let user = await fetchUser()   
-    let discount = await fecthDiscount()    
-    console.log(discount)  
+    let discount = await fecthDiscount()     
     let clock = await fetchClock(user.id)  
     if (user instanceof Error) {
           
@@ -145,12 +109,12 @@ export default function Home ( {navigation} ) {
           flexWrap:'wrap',}}>     
             {request.shift?  
             <View style={styles.clockin}>                
-                <Text title="clocked in" style={{fontSize: modifyFont(screenWidth), color: 'white', fontWeight: 'bold'}} >
+                <Text title="clocked in" style={styles.clockText} >
                     clocked in
                 </Text>                  
             </View>:   
             <View style={styles.clockout}>              
-                <Text title="clocked out" style={{fontSize: modifyFont(screenWidth), color: 'white', fontWeight: 'bold'}}>
+                <Text title="clocked out" style={styles.clockText}>
                     clocked out
                 </Text>      
             </View>
@@ -189,7 +153,7 @@ export default function Home ( {navigation} ) {
                           
                 }} 
                 mode='dropdown'  
-                style={{color:'black', marginVertical:-4}}
+                style={styles.pickerElement}
                 
               >           
                 {request.user.organisations.map((org, index) => {                 
@@ -257,113 +221,241 @@ export default function Home ( {navigation} ) {
     )
   }
   
-
-  
 };
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,    
-    backgroundColor: '#F5F3F3',
-    marginTop: 24,
-    marginLeft: 24,
-    marginRight: 24,
-    marginBottom: 24
-  },
-  horizontal: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-    padding: 10
-  },
-  item: {
-    padding: 16,
-    marginVertical: 16,
-    
-    borderTopLeftRadius: 15,
-    borderTopRightRadius: 15,
-    borderBottomLeftRadius: 15,
-    borderBottomRightRadius: 15,
-    flexDirection:'row', 
-    flexWrap:'wrap',
-    
-  },
-  disName: {
-    fontSize: modifyFont(screenWidth),
-    width: '70%'
-  },
-  disValue: {
-    fontSize: modifyFont(screenWidth),    
-    width: '25%',
-    textAlign: 'center'
-  },
-  verticleLine: {
-    height: '100%',
-    width: 1,
-    backgroundColor: 'white',
-  },
-  scrollView: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  clockin: {
-    width: '37%',
-    height: modifyShiftSize(screenWidth),
-    padding: modifyShift(screenWidth),
-    paddingLeft: 15,
-    color: "white",
-    alignSelf:  "flex-start",
-    backgroundColor: "green",
-    borderTopLeftRadius: 15,
-    borderTopRightRadius: 15,
-    borderBottomLeftRadius: 15,
-    borderBottomRightRadius: 15,
-  },
-  clockout: {    
-    width: '37%', 
-    height: modifyShiftSize(screenWidth),
-    padding: modifyShift(screenWidth),
-    color: "white",
-    alignSelf:  "flex-start",
-    backgroundColor: "red",
-    borderTopLeftRadius: 15,
-    borderTopRightRadius: 15,
-    borderBottomLeftRadius: 15,
-    borderBottomRightRadius: 15,
-  },
-  
-  picker: {
-    borderWidth: 3,
-    borderColor: 'grey',  
-    width: '60%', 
-    height: 52,
-    
-    marginLeft:10,
-    borderTopLeftRadius: 15,
-    borderTopRightRadius: 15,
-    borderBottomLeftRadius: 15,
-    borderBottomRightRadius: 15,
-  },
-  error: {
-    fontSize:20,
-    alignItems: "center",
-    justifyContent: 'center',
-    color:'red',
-  },
-  refreshButton:{
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginLeft:20,
-    marginRight:20,
-    paddingVertical: 16,
-    borderRadius: 4,  
-    backgroundColor: '#45B8DB',
-    position:"relative",
-    top:20,
-    width: '40%'
-  },
-  buttonText:{
-    fontSize: 20, 
-    fontWeight: "bold", 
-    color: 'white'
-  }
-});
+
+// Retrieve initial screen's width
+let screenWidth = Dimensions.get('screen').width;
+
+// Retrieve initial screen's height
+let screenHeight = Dimensions.get('screen').height;
+let styles;
+
+if (screenWidth < 350) {
+  styles = StyleSheet.create({
+    container: {
+      flex: 1,    
+      backgroundColor: '#F5F3F3',
+      marginTop: 24,
+      marginLeft: 24,
+      marginRight: 24,
+      marginBottom: 24
+    },
+    horizontal: {
+      flexDirection: "row",
+      justifyContent: "space-around",
+      padding: 10
+    },
+    item: {
+      padding: 16,
+      marginVertical: 8,    
+      borderTopLeftRadius: 15,
+      borderTopRightRadius: 15,
+      borderBottomLeftRadius: 15,
+      borderBottomRightRadius: 15,
+      flexDirection:'row', 
+      flexWrap:'wrap',
+      
+    },
+    disName: {
+      fontSize: 16,
+      width: '70%'
+    },
+    disValue: {
+      fontSize: 16,    
+      width: '25%',
+      textAlign: 'center'
+    },
+    verticleLine: {
+      height: '100%',
+      width: 1,
+      backgroundColor: 'white',
+    },
+    scrollView: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    clockin: {     
+      width: '40%',
+      height: 40,    
+      justifyContent: 'center',   
+      color: "white",
+      alignSelf:  "flex-start",
+      backgroundColor: "green",
+      borderTopLeftRadius: 15,
+      borderTopRightRadius: 15,
+      borderBottomLeftRadius: 15,
+      borderBottomRightRadius: 15,
+    },
+    clockout: {    
+      width: '40%', 
+      height: 40,   
+      color: "white",     
+      justifyContent: 'center',  
+      alignSelf:  "flex-start",
+      backgroundColor: "red",
+      borderTopLeftRadius: 15,
+      borderTopRightRadius: 15,
+      borderBottomLeftRadius: 15,
+      borderBottomRightRadius: 15,
+    },
+    clockText: {
+      textAlign:'center',
+      fontSize: 16,
+      color: 'white', 
+      fontWeight: 'bold'
+    },
+    picker: {
+      borderWidth: 3,
+      borderColor: 'grey',  
+      width: '55%', 
+      height: 40,   
+      marginLeft:10,
+      borderTopLeftRadius: 15,
+      borderTopRightRadius: 15,
+      borderBottomLeftRadius: 15,
+      borderBottomRightRadius: 15,
+    },
+    pickerElement: {
+      color:'black', 
+      marginVertical:-8
+    },
+    error: {
+      fontSize:20,
+      alignItems: "center",
+      justifyContent: 'center',
+      color:'red',
+    },
+    refreshButton:{
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginLeft:20,
+      marginRight:20,
+      paddingVertical: 16,
+      borderRadius: 4,  
+      backgroundColor: '#45B8DB',
+      position:"relative",
+      top:20,
+      width: '40%'
+    },
+    buttonText:{
+      fontSize: 20, 
+      fontWeight: "bold", 
+      color: 'white'
+    }
+  });
+} else {
+  styles = StyleSheet.create({
+    container: {
+      flex: 1,    
+      backgroundColor: '#F5F3F3',
+      marginTop: 24,
+      marginLeft: 24,
+      marginRight: 24,
+      marginBottom: 24
+    },
+    horizontal: {
+      flexDirection: "row",
+      justifyContent: "space-around",
+      padding: 10
+    },
+    item: {
+      padding: 16,
+      marginVertical: 16,    
+      borderTopLeftRadius: 15,
+      borderTopRightRadius: 15,
+      borderBottomLeftRadius: 15,
+      borderBottomRightRadius: 15,
+      flexDirection:'row', 
+      flexWrap:'wrap',
+      
+    },
+    disName: {
+      fontSize: 20,
+      width: '70%'
+    },
+    disValue: {
+      fontSize: 20,    
+      width: '25%',
+      textAlign: 'center'
+    },
+    verticleLine: {
+      height: '100%',
+      width: 1,
+      backgroundColor: 'white',
+    },
+    scrollView: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    clockin: {     
+      width: '40%',
+      height: 50,    
+      justifyContent: 'center',   
+      color: "white",
+      alignSelf:  "flex-start",
+      backgroundColor: "green",
+      borderTopLeftRadius: 15,
+      borderTopRightRadius: 15,
+      borderBottomLeftRadius: 15,
+      borderBottomRightRadius: 15,
+    },
+    clockout: {    
+      width: '40%', 
+      height: 50,   
+      color: "white",     
+      justifyContent: 'center',  
+      alignSelf:  "flex-start",
+      backgroundColor: "red",
+      borderTopLeftRadius: 15,
+      borderTopRightRadius: 15,
+      borderBottomLeftRadius: 15,
+      borderBottomRightRadius: 15,
+    },
+    clockText: {
+      textAlign:'center',
+      fontSize: 20,
+      color: 'white', 
+      fontWeight: 'bold'
+    },
+    picker: {
+      borderWidth: 3,
+      borderColor: 'grey',  
+      width: '55%', 
+      height: 50,   
+      marginLeft:10,
+      borderTopLeftRadius: 15,
+      borderTopRightRadius: 15,
+      borderBottomLeftRadius: 15,
+      borderBottomRightRadius: 15,
+    },
+    pickerElement: {
+      color:'black', 
+      marginVertical:-6
+    },
+    error: {
+      fontSize:20,
+      alignItems: "center",
+      justifyContent: 'center',
+      color:'red',
+    },
+    refreshButton:{
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginLeft:20,
+      marginRight:20,
+      paddingVertical: 16,
+      borderRadius: 4,  
+      backgroundColor: '#45B8DB',
+      position:"relative",
+      top:20,
+      width: '40%'
+    },
+    buttonText:{
+      fontSize: 20, 
+      fontWeight: "bold", 
+      color: 'white'
+    }
+  });
+}

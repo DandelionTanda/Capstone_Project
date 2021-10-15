@@ -4,6 +4,7 @@ import { ActivityIndicator,  Dimensions, SafeAreaView, StyleSheet, Text, View,Ic
 import { useScrollToTop, useIsFocused } from '@react-navigation/native';
 import { fetchUser } from '../networking/Api'
 import MyButton from '../components/MyButton';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 export default function Me( { navigation } ) {
   const [user, setUser] = useState(null)
@@ -49,11 +50,6 @@ export default function Me( { navigation } ) {
         flexDirection: 'column',}}>
           <Text style={styles.error}>{error}</Text>
           <MyButton onPress={onRefresh} title={'Refresh'} buttonStyle={styles.refreshButton} textStyle={styles.buttonText}/>
-          {/*
-          <Pressable style={styles.refreshButton} onPress={onRefresh}>
-            <Text style={{color:'white', fontSize:20}}>Refresh</Text>
-          </Pressable>
-          */}
         </View>
       ) 
     } else {
@@ -61,7 +57,7 @@ export default function Me( { navigation } ) {
         <ScrollView style={{ flex: 1}}>
           {/* View for image */}
           <View style={styles.image}>
-          {user.photo!=='null'?
+          {user.photo!==null?
           <Image style={{ width: 150, height: 150, borderRadius: 130/2 }} 
           source={{
               uri: user.photo,
@@ -110,159 +106,161 @@ let height = Dimensions.get('screen').height;
 
 {/*Custom styles*/}
 let styles;
-if(width < height){
-  //small screen
-  if(width<350){
-    styles = StyleSheet.create({
-      container: {
-        flex: 1,    
-        backgroundColor: '#F5F3F3',
-        marginTop: 24,
-        marginLeft: 24,
-        marginRight: 24,
-        marginBottom: 24
-      },
-      horizontal: {
-        flexDirection: "row",
-        justifyContent: "space-around",
-        padding: 10
-      },
-      logoutButton: {
-        alignSelf:"center",
-        marginTop: 24,
-        alignItems: "center",
-        backgroundColor: "#E3310E",
-        padding: 10,   
-        flexDirection: 'row',
-        borderTopLeftRadius: 15,
-        borderTopRightRadius: 15,
-        borderBottomLeftRadius: 15,
-        borderBottomRightRadius: 15,
-        marginBottom:28
-      },
-      
-      personalInfor:{
-        marginLeft:30,
-        marginRight:30,
-        borderBottomColor: 'black',
-        borderBottomWidth: 1
-      },
-      label:{
-        marginTop:10,
-        fontSize: 20,
-        fontWeight: "bold",
-        color: '#1D87E3'
-      },
-      infor:{
-        fontSize: 16,
-        color: '#232A22',
-        lineHeight: 32
-      },
-      image:{
-        flexDirection: "row",
-        marginTop:28 ,
-        alignSelf:'center',
-      },error: {
-        fontSize:20,
-        alignItems: "center",
-        justifyContent: 'center',
-        color:'red',
-      },
-      refreshButton:{
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginLeft:20,
-        marginRight:20,
-        paddingVertical: 16,
-        borderRadius: 4,  
-        backgroundColor: '#45B8DB',
-        position:"relative",
-        top:20,
-        width: '40%'
-      },
-      buttonText:{
-        fontSize: 18, 
-        fontWeight: "bold", 
-        color: 'white',
-        marginLeft:10
-      }
-    });
-  }
-  //large screen
-  else{
-    styles = StyleSheet.create({
-      container: {
-        flex: 1,    
-        backgroundColor: '#F5F3F3',
-        marginTop: 24,
-        marginLeft: 24,
-        marginRight: 24,
-        marginBottom: 24
-      },
-      horizontal: {
-        flexDirection: "row",
-        justifyContent: "space-around",
-        padding: 10
-      },
-      logoutButton: {
-        alignSelf:"center",
-        marginTop: 30,
-        alignItems: "center",
-        backgroundColor: "#E3310E",
-        padding: 10,   
-        flexDirection: 'row',
-        borderTopLeftRadius: 15,
-        borderTopRightRadius: 15,
-        borderBottomLeftRadius: 15,
-        borderBottomRightRadius: 15,
-        marginBottom:40,
-        
-      },
-      personalInfor:{
-        marginLeft:30,
-        marginRight:30,
-        borderBottomColor: 'black',
-        borderBottomWidth: 1
-      },
-      label:{
-        marginTop:10,
-        fontSize: 22,
-        fontWeight: "bold",
-        color: '#1D87E3'
-      },
-      infor:{
-        fontSize: 18,
-        color: '#232A22',
-        lineHeight: 40
-      },
-      image:{
-        flexDirection: "row",
-        marginTop:40 ,
-        alignSelf:'center',
-      },error: {
-        fontSize:20,
-        alignItems: "center",
-        justifyContent: 'center',
-        color:'red',
-      },
-      refreshButton:{
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginLeft:20,
-        marginRight:20,
-        paddingVertical: 16,
-        borderRadius: 4,  
-        backgroundColor: '#45B8DB',
-        position:"relative",
-        top:20,
-        width: '40%'
-      },
-      buttonText:{
-        fontSize: 20, 
-        fontWeight: "bold", 
-        color: 'white',
-        marginLeft:10
-      }
-    });
-  }
+
+//small screen
+if(width<350){
+  styles = StyleSheet.create({
+    container: {
+      flex: 1,    
+      backgroundColor: '#F5F3F3',
+      marginTop: 24,
+      marginLeft: 24,
+      marginRight: 24,
+      marginBottom: 24
+    },
+    horizontal: {
+      flexDirection: "row",
+      justifyContent: "space-around",
+      padding: 10
+    },
+    logoutButton: {
+      alignSelf:"center",   
+      alignItems: "center",
+      justifyContent: 'center',
+      backgroundColor: "#E3310E",
+      padding: 10,   
+      flexDirection: 'row',
+      width: '50%',
+      borderTopLeftRadius: 15,
+      borderTopRightRadius: 15,
+      borderBottomLeftRadius: 15,
+      borderBottomRightRadius: 15,
+      marginTop: 28,
+      marginBottom:28
+    },
+    
+    personalInfor:{
+      marginLeft:30,
+      marginRight:30,
+      borderBottomColor: 'black',
+      borderBottomWidth: 1
+    },
+    label:{
+      marginTop:10,
+      fontSize: 20,
+      fontWeight: "bold",
+      color: '#1D87E3'
+    },
+    infor:{
+      fontSize: 16,
+      color: '#232A22',
+      lineHeight: 32
+    },
+    image:{
+      flexDirection: "row",
+      marginTop:28 ,
+      alignSelf:'center',
+    },error: {
+      fontSize:20,
+      alignItems: "center",
+      justifyContent: 'center',
+      color:'red',
+    },
+    refreshButton:{
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginLeft:20,
+      marginRight:20,
+      paddingVertical: 16,
+      borderRadius: 4,  
+      backgroundColor: '#45B8DB',
+      position:"relative",
+      top:20,
+      width: '40%'
+    },
+    buttonText:{
+      fontSize: 18, 
+      fontWeight: "bold", 
+      color: 'white',
+      marginLeft:10
+    }
+  });
+}
+//large screen
+else{
+  styles = StyleSheet.create({
+    container: {
+      flex: 1,    
+      backgroundColor: '#F5F3F3',
+      marginTop: 24,
+      marginLeft: 24,
+      marginRight: 24,
+      marginBottom: 24
+    },
+    horizontal: {
+      flexDirection: "row",
+      justifyContent: "space-around",
+      padding: 10
+    },
+    logoutButton: {
+      alignSelf:"center",
+      justifyContent: 'center',
+      marginTop: 30,
+      alignItems: "center",
+      backgroundColor: "#E3310E",
+      padding: 10,   
+      flexDirection: 'row',
+      borderTopLeftRadius: 15,
+      borderTopRightRadius: 15,
+      borderBottomLeftRadius: 15,
+      borderBottomRightRadius: 15,
+      marginBottom:40,
+      width: '50%'
+    },
+    personalInfor:{
+      marginLeft:30,
+      marginRight:30,
+      borderBottomColor: 'black',
+      borderBottomWidth: 1
+    },
+    label:{
+      marginTop:10,
+      fontSize: 22,
+      fontWeight: "bold",
+      color: '#1D87E3'
+    },
+    infor:{
+      fontSize: 18,
+      color: '#232A22',
+      lineHeight: 40
+    },
+    image:{
+      flexDirection: "row",
+      marginTop:40 ,
+      alignSelf:'center',
+    },error: {
+      fontSize:20,
+      alignItems: "center",
+      justifyContent: 'center',
+      color:'red',
+    },
+    refreshButton:{
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginLeft:20,
+      marginRight:20,
+      paddingVertical: 16,
+      borderRadius: 4,  
+      backgroundColor: '#45B8DB',
+      position:"relative",
+      top:20,
+      width: '40%'
+    },
+    buttonText:{
+      fontSize: 20, 
+      fontWeight: "bold", 
+      color: 'white',
+      marginLeft:10
+    }
+  });
 }

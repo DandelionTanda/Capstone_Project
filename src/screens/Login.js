@@ -4,62 +4,6 @@ import {Button, Icon, Input} from "react-native-elements";
 import { color } from 'react-native-elements/dist/helpers';
 import MyButton from '../components/MyButton';
 
-// Retrieve initial screen's width
-let screenWidth = Dimensions.get('screen').width;
-
-// Retrieve initial screen's height
-let screenHeight = Dimensions.get('screen').height;
-
-function fontSizer(screenHeight){
-  if(screenHeight > 550){
-    return 40;
-  }else { 
-    return 35;
-  }
-
-};
-
-function textSizer(screenWidth,screenHeight){
-  if(screenHeight < 550)
-  {
-    return screenWidth*0.1
-  }
-  else{
-    return screenWidth*0.15
-  }
-}
-
-function buttonSizer(screenWidth,screenHeight){
-  if(screenWidth < 350 || screenHeight <550)
-  {
-    return screenWidth*0.3
-  }
-  else{
-    return screenWidth*0.2
-  }
-}
-
-
-function buttonPadding(screenWidth, screenHeight){
-  if(screenWidth < 350 || screenHeight <550)
-  {
-    return 5
-  }
-  else{
-    return 15
-  }
-}
-
-function buttonTop(screenWidth, screenHeight){
-  if(screenWidth < 350 || screenHeight <550)
-  {
-    return screenWidth*0.48
-  }
-  else{
-    return screenWidth*0.45
-  }
-}
-
 function Login({navigation}) {
 
   const [email, setEmail] = useState('')
@@ -111,31 +55,30 @@ function Login({navigation}) {
   return (
     <View style={styles.container}>    
       <View style={styles.header}>
-      <Text style={styles.Text1}>TANDA</Text>
-      <Text style={styles.Text2}>Discount</Text>
-      <Text style={styles.Text3}>Discovery</Text>      
-      </View>
-      <View style={styles.main}>
+        <Text style={styles.Text1}>TANDA</Text>
+        <Text style={styles.Text2}>Discount</Text>
+        <Text style={styles.Text3}>Discovery</Text>      
+      </View>   
+     
+      <View style={styles.main}>   
+        {error ? <Text style={styles.error} testID='Error'>{error}</Text> : null}    
         <Input style={styles.email}
           placeholder='Email'
           placeholderTextColor="white"
-          containerStyle={{width:screenWidth, color:"white"}}
-          inputStyle={{color:"white", fontSize:16}}
+          containerStyle={{width:screenWidth*0.9, color:"white"}}
+          inputStyle={styles.inputText}
           label="Email"
-          labelStyle={{color:"white"}}
+          labelStyle={styles.inputText}
           value={email}
           onChangeText={value => setEmail(value)} 
         />
-
-        <Text></Text>
-
         <Input style={styles.password}
           placeholderTextColor="white"
           placeholder='Password'
-          containerStyle={{width:screenWidth, color:"white"}}
-          inputStyle={{color:'white', fontSize:16}}
+          containerStyle={{width:screenWidth*0.9, color:"white"}}
+          inputStyle={styles.inputText}
           label="Password"
-          labelStyle={{color:"white"}}
+          labelStyle={styles.inputText}
           value={password}
           onChangeText={value => setPassword(value)}
           secureTextEntry={true}
@@ -143,7 +86,7 @@ function Login({navigation}) {
           errorMessage=""
           errorStyle={{ color: 'red' }}
         />
-        {error ? <Text style={styles.error} testID='Error'>{error}</Text> : null}
+        
       </View>     
       <MyButton onPress={DoLogin} title={'Login'} buttonStyle={styles.loginButton} textStyle={styles.buttonText}/> 
       
@@ -151,87 +94,171 @@ function Login({navigation}) {
 
   ); 
 }
+// Retrieve initial screen's width
+let screenWidth = Dimensions.get('screen').width;
+
+// Retrieve initial screen's height
+let screenHeight = Dimensions.get('screen').height;
+let styles;
+console.log(screenWidth);
+if (screenWidth<350) {
+  styles = StyleSheet.create(
+    {  
+      container: {
+      flex: 1,
+      backgroundColor: '#45B8DB',       
+    },
+  
+    Text1:{
+      marginTop: 20,
+      fontWeight:"bold",
+      color:"royalblue",
+      left:screenWidth*0.68,
+      fontSize:24,
+      fontFamily:"FredokaOne-Regular",
+    },
+  
+    Text2:{      
+      color:"white",
+      marginTop: 16,
+      marginLeft: screenWidth*0.1,
+      fontSize: 35,
+      fontFamily:"Arial",
+      fontWeight: "bold"
+    },
+  
+    Text3:{
+      color:"white",
+      marginTop: 16,
+      marginLeft:screenWidth*0.2,
+      textAlign:"center",
+      fontSize: 35,
+      fontFamily:"Arial",
+      fontWeight: "bold"
+    },
+  
+    main:{
+      marginTop: 26,        
+      alignItems:'center',    
+    },
+  
+    email:{
+      borderBottomColor:'white',
+      borderBottomWidth: 1.5 
+    },
+  
+    password:{
+      marginTop:-5,
+      borderBottomColor:'white',
+      borderBottomWidth: 1.5 
+    },
+    inputText:{
+      color:"white", 
+      fontSize:16
+    },
+    loginButton:{
+      alignItems: 'center',
+      justifyContent: 'center',
+      width: screenWidth*0.8,
+      alignSelf:"center",
+      paddingTop: 10,    
+      paddingBottom: 10,         
+      backgroundColor: 'white',   
+      marginTop: 28 
+    },
+  
+    buttonText:{
+      fontSize:20,
+      fontWeight:'bold',
+      color:"#45B8DB"
+    },
+    error: {
+      fontSize:18,
+      marginBottom: 15,
+      color:'red',
+      justifyContent: 'center',
+      textAlign:'center'
+    }
+  });
+} else {
+  styles = StyleSheet.create(
+    {  
+      container: {
+      flex: 1,
+      backgroundColor: '#45B8DB',       
+    },
+  
+    Text1:{
+      marginTop: 30,
+      fontWeight:"bold",
+      color:"royalblue",
+      left:screenWidth*0.68,
+      fontSize:28,
+      fontFamily:"FredokaOne-Regular",
+    },
+  
+    Text2:{      
+      color:"white",
+      marginTop: 20,
+      marginLeft: screenWidth*0.1,
+      fontSize: 45,
+      fontFamily:"Arial",
+      fontWeight: "bold"
+    },
+  
+    Text3:{
+      color:"white",
+      marginTop: 20,
+      marginLeft:screenWidth*0.2,
+      textAlign:"center",
+      fontSize: 45,
+      fontFamily:"Arial",
+      fontWeight: "bold"
+    },
+  
+    main:{
+      marginTop: 75,        
+      alignItems:'center',    
+    },
+  
+    email:{
+      borderBottomColor:'white',
+      borderBottomWidth: 1.5 
+    },
+  
+    password:{
+      marginTop:-5,
+      borderBottomColor:'white',
+      borderBottomWidth: 1.5 
+    },
+    inputText:{
+      color:"white", 
+      fontSize:20
+    },
+    loginButton:{
+      alignItems: 'center',
+      justifyContent: 'center',
+      width: screenWidth*0.8,
+      alignSelf:"center",
+      paddingTop: 10,    
+      paddingBottom: 10,          
+      backgroundColor: 'white',   
+      marginTop: 55
+    },
+  
+    buttonText:{
+      fontSize:24,
+      fontWeight:'bold',
+      color:"#45B8DB"
+    },
+    error: {
+      fontSize:20,
+      marginBottom: 10,
+      color:'red',
+      justifyContent: 'center',
+      textAlign:'center'
+    }
+  });
+}
 
 export default Login;
-
-const styles = StyleSheet.create(
-  {
-  
-  container: {
-    flex: 1,
-    backgroundColor: '#45B8DB',  
-    
-  },
-
-  Text1:{
-    marginTop: textSizer(screenWidth,screenHeight),
-    fontWeight:"bold",
-    color:"royalblue",
-    left:screenWidth*0.68,
-    fontSize:27,
-    fontFamily:"FredokaOne-Regular",
-  },
-
-  Text2:{
-    
-    color:"white",
-    marginTop: textSizer(screenWidth,screenHeight),
-    marginLeft: screenWidth*0.1,
-    fontSize:fontSizer(screenHeight),
-    fontFamily:"Arial",
-    fontWeight: "bold"
-  },
-
-  Text3:{
-    color:"white",
-    marginTop: textSizer(screenWidth,screenHeight),
-    marginLeft:screenWidth*0.2,
-    textAlign:"center",
-    fontSize: fontSizer(screenHeight),
-    fontFamily:"Arial",
-    fontWeight: "bold"
-  },
-
-  main:{
-    marginTop:screenHeight*0.04,
-    marginLeft: screenWidth*0.12,
-    marginRight: screenWidth*0.1,
-    height:screenHeight*0.1,
-    alignItems:'center',
-   
-  },
-
-  email:{
-    borderBottomColor:'white',
-    borderBottomWidth: 1.5 
-  },
-
-  password:{
-    marginTop:-5,
-    borderBottomColor:'white',
-    borderBottomWidth: 1.5 
-  },
-
-  loginButton:{
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginLeft:buttonSizer(screenWidth,screenHeight),
-    marginRight:buttonSizer(screenWidth,screenHeight),
-    paddingVertical: buttonPadding(screenWidth, screenHeight),
-    borderRadius: 4,  
-    backgroundColor: 'white',
-    position:"relative",
-    top:buttonTop(screenWidth, screenHeight),
-  },
-
-  buttonText:{
-    fontSize:24,
-    fontWeight:'bold',
-    color:"#45B8DB"
-  },
-  error: {
-    fontSize:20,
-    marginTop: 10,
-    color:'red',
-  }
-});
