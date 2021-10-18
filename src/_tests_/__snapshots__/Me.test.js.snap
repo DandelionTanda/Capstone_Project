@@ -255,10 +255,12 @@ exports[`Me when successful fetch data Should render correctly 1`] = `
           "borderTopLeftRadius": 15,
           "borderTopRightRadius": 15,
           "flexDirection": "row",
+          "justifyContent": "center",
           "marginBottom": 40,
           "marginTop": 30,
           "opacity": 1,
           "padding": 10,
+          "width": "50%",
         }
       }
     >

@@ -3,7 +3,7 @@ import React from 'react'
 import Me from "../screens/Me"
 import renderer from 'react-test-renderer';
 import {fireEvent, render, waitFor} from '@testing-library/react-native'
-import {fakeUser} from './fakeData'
+import {fakeUser_single} from './fakeData'
 jest.mock('@react-navigation/native', () => {
   return {
     useIsFocused: () => true
@@ -17,7 +17,7 @@ describe('Me when successful fetch data', () => {
       Promise.resolve({
         ok: true,
         status: 200,       
-        json: () => Promise.resolve(fakeUser)
+        json: () => Promise.resolve(fakeUser_single)
       })
     )); 
         

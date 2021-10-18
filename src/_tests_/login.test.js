@@ -73,7 +73,7 @@ describe('Login setup', () => {
 })
 
 describe('Login flow', () => {
-  it('Expect to save token in localStorage & navigate to home screen on successful login', async () => {
+  it('Expect to save partner and orgnasiation token in localStorage & navigate to home screen on successful login', async () => {
     const fakeToken = {     
       access_token: "6833b9ecaa84ce420da3cafaa43124d241cb28b5287b72d131f6b38bcb64cd91",
       token_type: "bearer",

@@ -5,6 +5,7 @@ exports[`When the user clicked on first discount item Should render Discount scr
   style={
     Object {
       "flex": 1,
+      "marginBottom": 24,
     }
   }
 >
@@ -31,8 +32,8 @@ exports[`When the user clicked on first discount item Should render Discount scr
           "backgroundColor": "#45B8DB",
           "borderRadius": 50,
           "borderWidth": 2,
-          "marginBottom": 20,
-          "marginTop": 30,
+          "marginBottom": 16,
+          "marginTop": 24,
           "paddingBottom": 15,
           "width": 300,
         }

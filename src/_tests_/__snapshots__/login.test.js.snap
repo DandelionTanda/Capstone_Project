@@ -15,10 +15,10 @@ exports[`Login setup Should render correctly 1`] = `
         Object {
           "color": "royalblue",
           "fontFamily": "FredokaOne-Regular",
-          "fontSize": 27,
+          "fontSize": 28,
           "fontWeight": "bold",
           "left": 510.00000000000006,
-          "marginTop": 112.5,
+          "marginTop": 30,
         }
       }
     >
@@ -29,10 +29,10 @@ exports[`Login setup Should render correctly 1`] = `
         Object {
           "color": "white",
           "fontFamily": "Arial",
-          "fontSize": 40,
+          "fontSize": 45,
           "fontWeight": "bold",
           "marginLeft": 75,
-          "marginTop": 112.5,
+          "marginTop": 20,
         }
       }
     >
@@ -43,10 +43,10 @@ exports[`Login setup Should render correctly 1`] = `
         Object {
           "color": "white",
           "fontFamily": "Arial",
-          "fontSize": 40,
+          "fontSize": 45,
           "fontWeight": "bold",
           "marginLeft": 150,
-          "marginTop": 112.5,
+          "marginTop": 20,
           "textAlign": "center",
         }
       }
@@ -58,10 +58,7 @@ exports[`Login setup Should render correctly 1`] = `
     style={
       Object {
         "alignItems": "center",
-        "height": 133.4,
-        "marginLeft": 90,
-        "marginRight": 75,
-        "marginTop": 53.36,
+        "marginTop": 75,
       }
     }
   >
@@ -70,7 +67,7 @@ exports[`Login setup Should render correctly 1`] = `
         Object {
           "color": "white",
           "paddingHorizontal": 10,
-          "width": 750,
+          "width": 675,
         }
       }
     >
@@ -78,7 +75,7 @@ exports[`Login setup Should render correctly 1`] = `
         style={
           Object {
             "color": "white",
-            "fontSize": 16,
+            "fontSize": 20,
             "fontWeight": "bold",
           }
         }
@@ -113,7 +110,7 @@ exports[`Login setup Should render correctly 1`] = `
               "borderBottomWidth": 1.5,
               "color": "white",
               "flex": 1,
-              "fontSize": 16,
+              "fontSize": 20,
               "minHeight": 40,
             }
           }
@@ -132,13 +129,12 @@ exports[`Login setup Should render correctly 1`] = `
         }
       />
     </View>
-    <Text />
     <View
       style={
         Object {
           "color": "white",
           "paddingHorizontal": 10,
-          "width": 750,
+          "width": 675,
         }
       }
     >
@@ -146,7 +142,7 @@ exports[`Login setup Should render correctly 1`] = `
         style={
           Object {
             "color": "white",
-            "fontSize": 16,
+            "fontSize": 20,
             "fontWeight": "bold",
           }
         }
@@ -182,7 +178,7 @@ exports[`Login setup Should render correctly 1`] = `
               "borderBottomWidth": 1.5,
               "color": "white",
               "flex": 1,
-              "fontSize": 16,
+              "fontSize": 20,
               "marginTop": -5,
               "minHeight": 40,
             }
@@ -220,15 +216,14 @@ exports[`Login setup Should render correctly 1`] = `
     style={
       Object {
         "alignItems": "center",
+        "alignSelf": "center",
         "backgroundColor": "white",
-        "borderRadius": 4,
         "justifyContent": "center",
-        "marginLeft": 150,
-        "marginRight": 150,
+        "marginTop": 55,
         "opacity": 1,
-        "paddingVertical": 15,
-        "position": "relative",
-        "top": 337.5,
+        "paddingBottom": 10,
+        "paddingTop": 10,
+        "width": 600,
       }
     }
   >

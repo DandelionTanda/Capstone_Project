@@ -1,5 +1,5 @@
-import {fetchUser, fecthDiscount, fetchClock} from '../networking/Api'
-import {fakeUser, fakeDiscounts, fakeClockins_onShift, fakeClockins_offShift} from './fakeData'
+import {fetchUser, fecthDiscount, fetchClock, getOrgToken} from '../networking/Api'
+import {fakeUser_single, fakeDiscounts, fakeClockins_onShift, fakeClockins_offShift, fakeToken} from './fakeData'
 
 describe('fetch user', () => {
   it('should return user on successful fetch', async () => {
@@ -9,11 +9,11 @@ describe('fetch user', () => {
         Promise.resolve({
           ok: true,
           status: 200,       
-          json: () => Promise.resolve(fakeUser)
+          json: () => Promise.resolve(fakeUser_single)
         })
       ))
     
-    expect(await fetchUser()).toBe(fakeUser);
+    expect(await fetchUser()).toBe(fakeUser_single);
   })
   it('should return error on falied fetch', async () => {
     global.fetch = jest
@@ -90,6 +90,34 @@ describe('fetch discount', () => {
         )
       )
     const result = await fetchUser()
+    expect(typeof result).toBe(typeof new Error());
+    expect(result.message).toBe('An error has occured: 400');
+  })
+})
+
+describe('switch company', () => {
+  it('should save orgnaisation token in localStorage on successful fetch', async () => {
+    global.fetch = jest
+      .fn()
+      .mockImplementation(() => Promise.resolve(
+        Promise.resolve({
+          ok: true,
+          status: 200,       
+          json: () => Promise.resolve(fakeToken)
+        })
+      ))
+    await getOrgToken(162048)
+    expect(localStorage.setItem).toBeCalledWith('org_token', fakeToken.access_token)
+    expect(localStorage.setItem).toBeCalledWith('org_tokenType', fakeToken.token_type)
+  })
+  it('should return error on falied fetch', async () => {
+    global.fetch = jest
+      .fn()
+      .mockImplementation(() => Promise.reject(
+        new Error('An error has occured: 400')
+        )
+      )
+    const result = await getOrgToken(162048)
     expect(typeof result).toBe(typeof new Error());
     expect(result.message).toBe('An error has occured: 400');
   })

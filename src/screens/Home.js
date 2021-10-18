@@ -122,14 +122,15 @@ export default function Home ( {navigation} ) {
           {request.user.organisations.length === 1?
             null: 
             <View style={styles.picker}>  
-              <Picker         
+              <Picker   
+                testID='switch-company-drop-menu'      
                 selectedValue={selectedOrganisation}
                 onValueChange={async (itemValue, itemIndex) =>{
                   setRefreshing(true);
                   await setSelectedOrganisation(itemValue);               
                   await getOrgToken(itemValue);    
                   let user = await fetchUser()   
-                  let discount = await fecthDiscount()
+                  let discount = await fecthDiscount()                
                   let clock = await fetchClock(user.id)
                   if (user instanceof Error) {     
                     setError(user.message);
@@ -380,6 +381,7 @@ if (screenWidth < 350) {
       textAlign: 'center'
     },
     verticleLine: {
+      marginLeft: 10,
       height: '100%',
       width: 1,
       backgroundColor: 'white',

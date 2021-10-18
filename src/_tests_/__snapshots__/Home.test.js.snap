@@ -1,6 +1,330 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`When user clocked in the company having discounts and successfully fetch data should render properly 1`] = `
+exports[`When multiple-job user clocked out the authorized company having discounts and successfully fetch data should render properly 1`] = `
+<RCTSafeAreaView
+  emulateUnlessSupported={true}
+  style={
+    Object {
+      "backgroundColor": "#F5F3F3",
+      "flex": 1,
+      "marginBottom": 24,
+      "marginLeft": 24,
+      "marginRight": 24,
+      "marginTop": 24,
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "flexDirection": "row",
+        "flexWrap": "wrap",
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "alignSelf": "flex-start",
+          "backgroundColor": "red",
+          "borderBottomLeftRadius": 15,
+          "borderBottomRightRadius": 15,
+          "borderTopLeftRadius": 15,
+          "borderTopRightRadius": 15,
+          "color": "white",
+          "height": 50,
+          "justifyContent": "center",
+          "width": "40%",
+        }
+      }
+    >
+      <Text
+        style={
+          Object {
+            "color": "white",
+            "fontSize": 20,
+            "fontWeight": "bold",
+            "textAlign": "center",
+          }
+        }
+        title="clocked out"
+      >
+        clocked out
+      </Text>
+    </View>
+    <View
+      style={
+        Object {
+          "borderBottomLeftRadius": 15,
+          "borderBottomRightRadius": 15,
+          "borderColor": "grey",
+          "borderTopLeftRadius": 15,
+          "borderTopRightRadius": 15,
+          "borderWidth": 3,
+          "height": 50,
+          "marginLeft": 10,
+          "width": "55%",
+        }
+      }
+    >
+      <View
+        style={
+          Object {
+            "color": "black",
+            "marginVertical": -6,
+          }
+        }
+      >
+        <RNCPicker
+          items={
+            Array [
+              Object {
+                "label": "QUT Capstone - DEMO ACCOUNT",
+                "testID": undefined,
+                "textColor": undefined,
+                "value": 153575,
+              },
+              Object {
+                "label": "Yicong - Capstone Test - DEMO ACCOUNT",
+                "testID": undefined,
+                "textColor": undefined,
+                "value": 164285,
+              },
+              Object {
+                "label": "Multi-Job Account Org DEMO",
+                "testID": undefined,
+                "textColor": undefined,
+                "value": 162048,
+              },
+            ]
+          }
+          onChange={[Function]}
+          selectedIndex={0}
+          style={
+            Array [
+              Object {
+                "height": 216,
+              },
+              undefined,
+            ]
+          }
+          testID="switch-company-drop-menu"
+        />
+      </View>
+    </View>
+  </View>
+  <RCTScrollView
+    ListEmptyComponent={[Function]}
+    data={
+      Array [
+        Object {
+          "id": 125572990,
+          "model_id": 1104624,
+          "name": "Off-shift Discount - 1",
+          "object_name": "Discount",
+          "onshift": false,
+          "updated_at": 1629331565,
+          "uuid": "dcec8241-5e5f-4a5c-b88c-0245f11407ff",
+          "value": "35%",
+        },
+        Object {
+          "id": 124886241,
+          "model_id": 1104624,
+          "name": "Off-shift Discount - 2",
+          "object_name": "Discount",
+          "onshift": false,
+          "updated_at": 1629025638,
+          "uuid": "0c0abdd2-a0c9-4242-8515-b885db8d1efb",
+          "value": "40%",
+        },
+      ]
+    }
+    disableVirtualization={false}
+    getItem={[Function]}
+    getItemCount={[Function]}
+    horizontal={false}
+    initialNumToRender={10}
+    keyExtractor={[Function]}
+    maxToRenderPerBatch={10}
+    onContentSizeChange={[Function]}
+    onEndReachedThreshold={2}
+    onLayout={[Function]}
+    onMomentumScrollEnd={[Function]}
+    onScroll={[Function]}
+    onScrollBeginDrag={[Function]}
+    onScrollEndDrag={[Function]}
+    refreshControl={
+      <RefreshControlMock
+        onRefresh={[Function]}
+        refreshing={false}
+      />
+    }
+    removeClippedSubviews={false}
+    renderItem={[Function]}
+    scrollEventThrottle={50}
+    stickyHeaderIndices={Array []}
+    style={
+      Object {
+        "marginVertical": 10,
+      }
+    }
+    testID="discount-list"
+    updateCellsBatchingPeriod={50}
+    viewabilityConfigCallbackPairs={Array []}
+    windowSize={21}
+  >
+    <RCTRefreshControl />
+    <View>
+      <View
+        onLayout={[Function]}
+        style={null}
+      >
+        <View
+          accessible={true}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "backgroundColor": "#45B8DB",
+              "borderBottomLeftRadius": 15,
+              "borderBottomRightRadius": 15,
+              "borderTopLeftRadius": 15,
+              "borderTopRightRadius": 15,
+              "flexDirection": "row",
+              "flexWrap": "wrap",
+              "marginVertical": 16,
+              "opacity": 1,
+              "padding": 16,
+            }
+          }
+          testID="Off-shift Discount - 1"
+        >
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontSize": 20,
+                  "width": "70%",
+                },
+                Object {
+                  "color": "white",
+                },
+              ]
+            }
+          >
+            Off-shift Discount - 1
+          </Text>
+          <View
+            style={
+              Object {
+                "backgroundColor": "white",
+                "height": "100%",
+                "width": 1,
+              }
+            }
+          />
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontSize": 20,
+                  "textAlign": "center",
+                  "width": "25%",
+                },
+                Object {
+                  "color": "white",
+                },
+              ]
+            }
+          >
+            35%
+          </Text>
+        </View>
+      </View>
+      <View
+        onLayout={[Function]}
+        style={null}
+      >
+        <View
+          accessible={true}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "backgroundColor": "#45B8DB",
+              "borderBottomLeftRadius": 15,
+              "borderBottomRightRadius": 15,
+              "borderTopLeftRadius": 15,
+              "borderTopRightRadius": 15,
+              "flexDirection": "row",
+              "flexWrap": "wrap",
+              "marginVertical": 16,
+              "opacity": 1,
+              "padding": 16,
+            }
+          }
+          testID="Off-shift Discount - 2"
+        >
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontSize": 20,
+                  "width": "70%",
+                },
+                Object {
+                  "color": "white",
+                },
+              ]
+            }
+          >
+            Off-shift Discount - 2
+          </Text>
+          <View
+            style={
+              Object {
+                "backgroundColor": "white",
+                "height": "100%",
+                "width": 1,
+              }
+            }
+          />
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontSize": 20,
+                  "textAlign": "center",
+                  "width": "25%",
+                },
+                Object {
+                  "color": "white",
+                },
+              ]
+            }
+          >
+            40%
+          </Text>
+        </View>
+      </View>
+    </View>
+  </RCTScrollView>
+</RCTSafeAreaView>
+`;
+
+exports[`When single-job user clocked in the company having discounts and successfully fetch data should render properly 1`] = `
 <RCTSafeAreaView
   emulateUnlessSupported={true}
   style={
@@ -32,10 +356,9 @@ exports[`When user clocked in the company having discounts and successfully fetc
           "borderTopLeftRadius": 15,
           "borderTopRightRadius": 15,
           "color": "white",
-          "height": 52,
-          "padding": 10,
-          "paddingLeft": 15,
-          "width": "37%",
+          "height": 50,
+          "justifyContent": "center",
+          "width": "40%",
         }
       }
     >
@@ -43,8 +366,9 @@ exports[`When user clocked in the company having discounts and successfully fetc
         style={
           Object {
             "color": "white",
-            "fontSize": 19,
+            "fontSize": 20,
             "fontWeight": "bold",
+            "textAlign": "center",
           }
         }
         title="clocked in"
@@ -149,7 +473,7 @@ exports[`When user clocked in the company having discounts and successfully fetc
             style={
               Array [
                 Object {
-                  "fontSize": 19,
+                  "fontSize": 20,
                   "width": "70%",
                 },
                 Object {
@@ -173,7 +497,7 @@ exports[`When user clocked in the company having discounts and successfully fetc
             style={
               Array [
                 Object {
-                  "fontSize": 19,
+                  "fontSize": 20,
                   "textAlign": "center",
                   "width": "25%",
                 },
@@ -221,7 +545,7 @@ exports[`When user clocked in the company having discounts and successfully fetc
             style={
               Array [
                 Object {
-                  "fontSize": 19,
+                  "fontSize": 20,
                   "width": "70%",
                 },
                 Object {
@@ -245,7 +569,7 @@ exports[`When user clocked in the company having discounts and successfully fetc
             style={
               Array [
                 Object {
-                  "fontSize": 19,
+                  "fontSize": 20,
                   "textAlign": "center",
                   "width": "25%",
                 },
@@ -264,71 +588,7 @@ exports[`When user clocked in the company having discounts and successfully fetc
 </RCTSafeAreaView>
 `;
 
-exports[`When user clocked out the company having discounts and failed to fetch data should render properly 1`] = `
-<View
-  style={
-    Object {
-      "alignItems": "center",
-      "flex": 1,
-      "flexDirection": "column",
-      "justifyContent": "center",
-    }
-  }
->
-  <Text
-    style={
-      Object {
-        "alignItems": "center",
-        "color": "red",
-        "fontSize": 20,
-        "justifyContent": "center",
-      }
-    }
-  >
-    An error has occured: 400
-  </Text>
-  <View
-    accessible={true}
-    focusable={true}
-    onClick={[Function]}
-    onResponderGrant={[Function]}
-    onResponderMove={[Function]}
-    onResponderRelease={[Function]}
-    onResponderTerminate={[Function]}
-    onResponderTerminationRequest={[Function]}
-    onStartShouldSetResponder={[Function]}
-    style={
-      Object {
-        "alignItems": "center",
-        "backgroundColor": "#45B8DB",
-        "borderRadius": 4,
-        "justifyContent": "center",
-        "marginLeft": 20,
-        "marginRight": 20,
-        "opacity": 1,
-        "paddingVertical": 16,
-        "position": "relative",
-        "top": 20,
-        "width": "40%",
-      }
-    }
-  >
-    <Text
-      style={
-        Object {
-          "color": "white",
-          "fontSize": 20,
-          "fontWeight": "bold",
-        }
-      }
-    >
-      Refresh
-    </Text>
-  </View>
-</View>
-`;
-
-exports[`When user clocked out the company having discounts and successfully fetch data should render properly 1`] = `
+exports[`When single-job user clocked out the company having discounts and successfully fetch data should render properly 1`] = `
 <RCTSafeAreaView
   emulateUnlessSupported={true}
   style={
@@ -360,9 +620,9 @@ exports[`When user clocked out the company having discounts and successfully fet
           "borderTopLeftRadius": 15,
           "borderTopRightRadius": 15,
           "color": "white",
-          "height": 52,
-          "padding": 10,
-          "width": "37%",
+          "height": 50,
+          "justifyContent": "center",
+          "width": "40%",
         }
       }
     >
@@ -370,8 +630,9 @@ exports[`When user clocked out the company having discounts and successfully fet
         style={
           Object {
             "color": "white",
-            "fontSize": 19,
+            "fontSize": 20,
             "fontWeight": "bold",
+            "textAlign": "center",
           }
         }
         title="clocked out"
@@ -476,7 +737,7 @@ exports[`When user clocked out the company having discounts and successfully fet
             style={
               Array [
                 Object {
-                  "fontSize": 19,
+                  "fontSize": 20,
                   "width": "70%",
                 },
                 Object {
@@ -500,7 +761,7 @@ exports[`When user clocked out the company having discounts and successfully fet
             style={
               Array [
                 Object {
-                  "fontSize": 19,
+                  "fontSize": 20,
                   "textAlign": "center",
                   "width": "25%",
                 },
@@ -548,7 +809,7 @@ exports[`When user clocked out the company having discounts and successfully fet
             style={
               Array [
                 Object {
-                  "fontSize": 19,
+                  "fontSize": 20,
                   "width": "70%",
                 },
                 Object {
@@ -572,7 +833,7 @@ exports[`When user clocked out the company having discounts and successfully fet
             style={
               Array [
                 Object {
-                  "fontSize": 19,
+                  "fontSize": 20,
                   "textAlign": "center",
                   "width": "25%",
                 },
@@ -589,4 +850,68 @@ exports[`When user clocked out the company having discounts and successfully fet
     </View>
   </RCTScrollView>
 </RCTSafeAreaView>
+`;
+
+exports[`When user clocked out the company having discounts and failed to fetch data should render properly 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "flex": 1,
+      "flexDirection": "column",
+      "justifyContent": "center",
+    }
+  }
+>
+  <Text
+    style={
+      Object {
+        "alignItems": "center",
+        "color": "red",
+        "fontSize": 20,
+        "justifyContent": "center",
+      }
+    }
+  >
+    An error has occured: 400
+  </Text>
+  <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#45B8DB",
+        "borderRadius": 4,
+        "justifyContent": "center",
+        "marginLeft": 20,
+        "marginRight": 20,
+        "opacity": 1,
+        "paddingVertical": 16,
+        "position": "relative",
+        "top": 20,
+        "width": "40%",
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "color": "white",
+          "fontSize": 20,
+          "fontWeight": "bold",
+        }
+      }
+    >
+      Refresh
+    </Text>
+  </View>
+</View>
 `;
