@@ -100,7 +100,7 @@ let screenWidth = Dimensions.get('screen').width;
 // Retrieve initial screen's height
 let screenHeight = Dimensions.get('screen').height;
 let styles;
-console.log(screenWidth);
+
 if (screenWidth<350) {
   styles = StyleSheet.create(
     {  
@@ -115,7 +115,7 @@ if (screenWidth<350) {
       color:"royalblue",
       left:screenWidth*0.68,
       fontSize:24,
-      fontFamily:"FredokaOne-Regular",
+      fontFamily:"Arial",
     },
   
     Text2:{      
@@ -194,7 +194,7 @@ if (screenWidth<350) {
       color:"royalblue",
       left:screenWidth*0.68,
       fontSize:28,
-      fontFamily:"FredokaOne-Regular",
+      fontFamily:"Arial",
     },
   
     Text2:{      
