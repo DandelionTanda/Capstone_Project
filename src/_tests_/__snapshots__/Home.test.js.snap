@@ -225,6 +225,7 @@ exports[`When multiple-job user clocked out the authorized company having discou
               Object {
                 "backgroundColor": "white",
                 "height": "100%",
+                "marginLeft": 10,
                 "width": 1,
               }
             }
@@ -297,6 +298,7 @@ exports[`When multiple-job user clocked out the authorized company having discou
               Object {
                 "backgroundColor": "white",
                 "height": "100%",
+                "marginLeft": 10,
                 "width": 1,
               }
             }
@@ -489,6 +491,7 @@ exports[`When single-job user clocked in the company having discounts and succes
               Object {
                 "backgroundColor": "white",
                 "height": "100%",
+                "marginLeft": 10,
                 "width": 1,
               }
             }
@@ -561,6 +564,7 @@ exports[`When single-job user clocked in the company having discounts and succes
               Object {
                 "backgroundColor": "white",
                 "height": "100%",
+                "marginLeft": 10,
                 "width": 1,
               }
             }
@@ -753,6 +757,7 @@ exports[`When single-job user clocked out the company having discounts and succe
               Object {
                 "backgroundColor": "white",
                 "height": "100%",
+                "marginLeft": 10,
                 "width": 1,
               }
             }
@@ -825,6 +830,7 @@ exports[`When single-job user clocked out the company having discounts and succe
               Object {
                 "backgroundColor": "white",
                 "height": "100%",
+                "marginLeft": 10,
                 "width": 1,
               }
             }

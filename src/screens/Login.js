@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, Dimensions, PixelRatio} from 'react-native';
 import {Button, Icon, Input} from "react-native-elements";
 import { color } from 'react-native-elements/dist/helpers';
 import MyButton from '../components/MyButton';
-
+import {url} from '../networking/Api';
 function Login({navigation}) {
 
   const [email, setEmail] = useState('')
@@ -13,7 +13,7 @@ function Login({navigation}) {
   async function DoLogin(){   
     
     try {
-      const fetchResult = await fetch(`https://internal-allow-partner-organisation-to-be-switched-to.ms.tanda.co/api/oauth/token`,{
+      const fetchResult = await fetch(`${url}/api/oauth/token`,{
         method: "POST",
         headers: {
           'Content-Type': 'application/json'

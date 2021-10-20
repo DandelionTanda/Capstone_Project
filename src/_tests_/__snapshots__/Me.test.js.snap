@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Me when failed to fetch data should render properly 1`] = `
+exports[`Me screen: when failed to fetch data should render properly 1`] = `
 <View
   style={
     Object {
@@ -65,7 +65,7 @@ exports[`Me when failed to fetch data should render properly 1`] = `
 </View>
 `;
 
-exports[`Me when successful fetch data Should render correctly 1`] = `
+exports[`Me screen: when successful fetch data Should render correctly 1`] = `
 <RCTScrollView
   style={
     Object {

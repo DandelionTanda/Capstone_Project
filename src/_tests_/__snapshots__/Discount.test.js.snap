@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`When the user clicked on first discount item Should render Discount screen correctly 1`] = `
+exports[`Discount screen: when the user clicked on first discount item Should render Discount screen correctly 1`] = `
 <RCTScrollView
   style={
     Object {

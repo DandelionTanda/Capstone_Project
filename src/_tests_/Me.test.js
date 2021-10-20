@@ -9,7 +9,7 @@ jest.mock('@react-navigation/native', () => {
     useIsFocused: () => true
   };
 });
-describe('Me when successful fetch data', () => {
+describe('Me screen: when successful fetch data', () => {
   beforeEach(() => {   
     global.fetch = jest
     .fn()
@@ -70,7 +70,7 @@ describe('Me when successful fetch data', () => {
   });  
 })
 
-describe('Me when failed to fetch data', () => {
+describe('Me screen: when failed to fetch data', () => {
   beforeEach(() => {
       global.fetch = jest
       .fn()

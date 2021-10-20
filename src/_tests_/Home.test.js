@@ -299,8 +299,8 @@ it('Should make item in discount list be pressable', async () => {
     const { getByText } = render(
       <Item item={item = { name: 'Test' }} onPress={onPress} />
     );     
-    expect(getByText('Test')).toBeTruthy();
-      //expect(onPress).toHaveBeenCalled();    
+    fireEvent.press(getByText('Test' ))
+    expect(onPress.mock.calls.length).toEqual(1);
         
 })
 
@@ -388,7 +388,8 @@ describe('When multiple-job user clocked out the authorized company having disco
       expect(items[1].label).toBe(fakeUser_multiple.organisations[1].name);  
 
       expect(items[2].value).toBe(fakeUser_multiple.organisations[2].id);      
-      expect(items[2].label).toBe(fakeUser_multiple.organisations[2].name);  
+      expect(items[2].label).toBe(fakeUser_multiple.organisations[2].name); 
+      
       
     })       
   })  

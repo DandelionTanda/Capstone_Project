@@ -1,4 +1,4 @@
-import {fetchUser, fecthDiscount, fetchClock, getOrgToken} from '../networking/Api'
+import {fetchUser, fetchDiscount, fetchClock, getOrgToken} from '../networking/Api'
 import {fakeUser_single, fakeDiscounts, fakeClockins_onShift, fakeClockins_offShift, fakeToken} from './fakeData'
 
 describe('fetch user', () => {
@@ -29,7 +29,7 @@ describe('fetch user', () => {
 })
 
 describe('fetch clock', () => {
-  it('should return true on successful fetch and shift status is clocked in', async () => {
+  it('should return true on successful fetch and the last clockins’s type is not finished', async () => {
     global.fetch = jest
       .fn()
       .mockImplementation(() => Promise.resolve(
@@ -42,7 +42,7 @@ describe('fetch clock', () => {
     
     expect(await fetchClock(1748964)).toBe(true);
   })
-  it('should return false on successful fetch and shift status is clocked out', async () => {
+  it('should return false on successful fetch and and the last clockins’s type is finished.', async () => {
     global.fetch = jest
       .fn()
       .mockImplementation(() => Promise.resolve(
@@ -80,7 +80,7 @@ describe('fetch discount', () => {
         })
       ))
     
-    expect(await fetchUser()).toBe(fakeDiscounts);
+    expect(await fetchDiscount()).toBe(fakeDiscounts);
   })
   it('should return error on falied fetch', async () => {
     global.fetch = jest
@@ -89,7 +89,7 @@ describe('fetch discount', () => {
         new Error('An error has occured: 400')
         )
       )
-    const result = await fetchUser()
+    const result = await fetchDiscount()
     expect(typeof result).toBe(typeof new Error());
     expect(result.message).toBe('An error has occured: 400');
   })

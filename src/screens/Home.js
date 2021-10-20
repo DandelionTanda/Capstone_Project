@@ -3,7 +3,7 @@ import * as React from 'react';
 import { ActivityIndicator, RefreshControl, FlatList, SafeAreaView, StyleSheet, Text, TouchableOpacity,View, Image, Dimensions, PixelRatio } from "react-native";
 import { set } from "react-native-reanimated";
 import {Picker} from '@react-native-picker/picker';
-import {fetchUser, fetchClock, fecthDiscount, getOrgToken} from '../networking/Api'
+import {fetchUser, fetchClock, fetchDiscount, getOrgToken} from '../networking/Api'
 import filterDiscount from '../utilities/filterDiscount'
 import MyButton from '../components/MyButton';
 import { useScrollToTop } from '@react-navigation/native';
@@ -37,7 +37,7 @@ export default function Home ( {navigation} ) {
   useEffect(async () => {  
     
     let user = await fetchUser()   
-    let discount = await fecthDiscount()     
+    let discount = await fetchDiscount()     
     let clock = await fetchClock(user.id)  
     if (user instanceof Error) {
           
@@ -67,7 +67,7 @@ export default function Home ( {navigation} ) {
     
     await setRefreshing(true);
     let user = await fetchUser()   
-    let discount = await fecthDiscount()
+    let discount = await fetchDiscount()
     let clock = await fetchClock(user.id)
     if (user instanceof Error) {     
       setError(user.message);
@@ -126,11 +126,12 @@ export default function Home ( {navigation} ) {
                 testID='switch-company-drop-menu'      
                 selectedValue={selectedOrganisation}
                 onValueChange={async (itemValue, itemIndex) =>{
+                  
                   setRefreshing(true);
                   await setSelectedOrganisation(itemValue);               
                   await getOrgToken(itemValue);    
                   let user = await fetchUser()   
-                  let discount = await fecthDiscount()                
+                  let discount = await fetchDiscount()                
                   let clock = await fetchClock(user.id)
                   if (user instanceof Error) {     
                     setError(user.message);

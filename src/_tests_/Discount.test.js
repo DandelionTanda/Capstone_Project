@@ -6,7 +6,7 @@ import renderer from 'react-test-renderer';
 import {fireEvent, render, waitFor} from '@testing-library/react-native'
 import {fakeUser_single, fakeOnDiscounts,} from './fakeData'
 
-describe('When the user clicked on first discount item', () => {
+describe('Discount screen: when the user clicked on first discount item', () => {
   
   it('Should render Discount screen correctly', () => {
     const { toJSON } = render(
@@ -14,7 +14,7 @@ describe('When the user clicked on first discount item', () => {
     );
     expect(toJSON()).toMatchSnapshot();
   })
-  it('Should display clicked discont information', async () => {
+  it('Should display clicked discount information', async () => {
     const { queryByText } = render(
       <Discount route={{params: {discount:fakeOnDiscounts[0], user: fakeUser_single}}}/>
     );
