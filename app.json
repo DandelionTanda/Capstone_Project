@@ -7,6 +7,12 @@
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"
-    ]
+    ],
+    "android": {
+      "package": "co.tanda.co"
+    },
+    "ios": {
+      "bundleIdentifier": "co.tanda.co"
+    }
   }
 }

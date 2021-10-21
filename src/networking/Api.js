@@ -38,7 +38,7 @@ export async function fetchClock(userID){
     }
     else {
       const clock = await fetchResult.json()
-        
+      
       if (clock.length > 0) {
         const t = clock[clock.length - 1].type
         if (t !== 'finish') {

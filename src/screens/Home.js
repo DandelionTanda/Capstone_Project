@@ -69,6 +69,7 @@ export default function Home ( {navigation} ) {
     let user = await fetchUser()   
     let discount = await fetchDiscount()
     let clock = await fetchClock(user.id)
+    
     if (user instanceof Error) {     
       setError(user.message);
     }
